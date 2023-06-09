@@ -25,15 +25,25 @@ class MapSampleState extends State<MapSample> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
+  RangeValues values = RangeValues(1, 10);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: Column(
+        children: [
+          RangeSlider(values: values, onChanged: (newvalues){
+
+          }),
+          const SizedBox(height: 10,),
+          // GoogleMap(
+          //   mapType: MapType.hybrid,
+          //   initialCameraPosition: _kGooglePlex,
+          //   onMapCreated: (GoogleMapController controller) {
+          //     _controller.complete(controller);
+          //   },
+          // ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
