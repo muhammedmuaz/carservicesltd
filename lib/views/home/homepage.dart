@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/widgets/home_widget.dart';
+
+import '../../controllers/googlemap_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    MapController mapController = Get.put(MapController());
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -43,7 +47,7 @@ class HomePage extends StatelessWidget {
                             textStyle: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold)),
                         filled: true,
-                        contentPadding: EdgeInsets.only(top: 0, left: 12),
+                        contentPadding: const EdgeInsets.only(top: 0, left: 12),
                         fillColor: const Color(0xffF2F2F2),
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
@@ -78,15 +82,18 @@ class HomePage extends StatelessWidget {
                   homepageItems(
                       "CAR DEALER",
                       "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xff1B9C85)),
+                      const Color(0xff1B9C85),
+                      "cardealer"),
                   homepageItems(
                       "CAR RENTAL",
                       "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xffE4DCCF)),
+                      const Color(0xffE4DCCF),
+                      "carrental"),
                   homepageItems(
                       "CAR REAPIR",
                       "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xffE4DCCF)),
+                      const Color(0xffE4DCCF),
+                      "carrepair"),
                 ],
               ),
               Row(
@@ -96,15 +103,18 @@ class HomePage extends StatelessWidget {
                   homepageItems(
                       "CAR WASH",
                       "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xff1B9C85)),
+                      const Color(0xff1B9C85),
+                      "carwash"),
                   homepageItems(
                       "TAXI STAND",
                       "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xffE4DCCF)),
+                      const Color(0xffE4DCCF),
+                      "taxistand"),
                   homepageItems(
                       "GAS STATION",
                       "https://cdn-icons-png.flaticon.com/256/1658/1658010.png",
-                      const Color(0xffE4DCCF))
+                      const Color(0xffE4DCCF),
+                      "gasstation")
                 ],
               ),
             ],
