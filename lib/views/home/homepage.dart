@@ -81,17 +81,17 @@ class HomePage extends StatelessWidget {
                 children: [
                   homepageItems(
                       "CAR DEALER",
-                      "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xff1B9C85),
+                      "https://cdn.iconscout.com/icon/premium/png-256-thumb/car-owner-5-1133161.png",
+                      const Color(0xffE4DCCF),
                       "cardealer"),
                   homepageItems(
                       "CAR RENTAL",
-                      "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
+                      "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
                       const Color(0xffE4DCCF),
                       "carrental"),
                   homepageItems(
                       "CAR REAPIR",
-                      "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
+                      "https://tannerautorepairs.com.au/wp-content/uploads/2017/10/repair-service.png",
                       const Color(0xffE4DCCF),
                       "carrepair"),
                 ],
@@ -102,17 +102,17 @@ class HomePage extends StatelessWidget {
                 children: [
                   homepageItems(
                       "CAR WASH",
-                      "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
-                      const Color(0xff1B9C85),
+                      "https://icons.iconarchive.com/icons/atyourservice/service-categories/512/Car-Washing-icon.png",
+                      const Color(0xffE4DCCF),
                       "carwash"),
                   homepageItems(
                       "TAXI STAND",
-                      "https://cdn-icons-png.flaticon.com/128/2481/2481789.png",
+                      "https://cdn-icons-png.flaticon.com/128/3448/3448677.png",
                       const Color(0xffE4DCCF),
                       "taxistand"),
                   homepageItems(
-                      "GAS STATION",
-                      "https://cdn-icons-png.flaticon.com/256/1658/1658010.png",
+                      "FUEL STATION",
+                      "https://cdn-icons-png.flaticon.com/256/9666/9666239.png",
                       const Color(0xffE4DCCF),
                       "gasstation")
                 ],

@@ -16,12 +16,10 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
-  RangeValues values = RangeValues(0, 100);
 
+double currentValue = 0;
   @override
   Widget build(BuildContext context) {
-    MapController mapController = Get.put(MapController());
-    RangeLabels labels = RangeLabels(values.start.toString(), values.end.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -37,22 +35,21 @@ class _ServicePageState extends State<ServicePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-               RangeSlider(
-                labels: labels,
-                divisions: 20,
-                values: values, 
+              
+              Slider(
                 min: 0,
-                max: 100,
+                max: 100 ,
+                divisions: 20,
+                label: currentValue.toString(),
                 activeColor: Colors.green,
                 inactiveColor: Colors.green.shade200,
-                onChanged: (newvalue){
-                values = newvalue;
+                value: currentValue, onChanged: (newval){
                 setState(() {
-                  
+                  currentValue = newval;
                 });
-                 
-               }),
+              }),
+
+              
                 Expanded(
                   child: ListView.builder(
                       itemCount: controller.carRentalServices.length,
