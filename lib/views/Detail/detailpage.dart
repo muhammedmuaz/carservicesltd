@@ -71,7 +71,7 @@ class DetailPage extends StatelessWidget {
                                   ),
             ),
                                  Container(
-                                  margin: const EdgeInsets.only(top: 20.0,left: 20.0,right: 20.0),
+                                  margin: const EdgeInsets.only(bottom: 10.0,top: 20.0,left: 20.0,right: 20.0),
                                   
                                   child: 
                                   Column(
@@ -91,15 +91,34 @@ class DetailPage extends StatelessWidget {
                                       ),
                                       child: const Center(
                                         child: Text(
-                                          'Button' ,style: TextStyle(color: Colors.white),
-                                         
+                                          'Button' ,style: TextStyle(color: Colors.white),                                         
                                           ),
                                       ),
                                       )
                                   ],
                                     ),
                                 const SizedBox(height: 5.0,)                            ,
-                                RatingBar(rating: rating.toDouble())
+                                RatingBar(rating: rating.toDouble()),
+                                const SizedBox(height: 20.0,)     ,
+                                const Text('Description',style:  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                const SizedBox(height: 5.0,)     ,
+                                 Text(detail.toString(),style: const TextStyle(fontSize: 12,),),
+
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                                 Container(
+                                      height: 50,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Button' ,style: TextStyle(color: Colors.white),                                         
+                                          ),
+                                      ),
+                                      )
+
 
 
                                   ],),
