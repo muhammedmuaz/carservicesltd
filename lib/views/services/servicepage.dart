@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:services_app/views/Detail/detailpage.dart';
 import 'package:services_app/widgets/rating_bar.dart';
 import '../../controllers/googlemap_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
@@ -90,7 +91,9 @@ double currentValue = 0;
                                    
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(service.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                      GestureDetector(onTap:()async{
+                                        await Get.to( DetailPage(title: service.name,detail:service.vicinity,photoReference: service.photoReference,rating: service.rating,));
+                                      } ,child: Text(service.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
                                       const SizedBox(height: 10,),
                                        Text(service.vicinity),
                                        const SizedBox(height: 15,),
@@ -120,10 +123,11 @@ double currentValue = 0;
     );
   }
 
-  String buildPhotoUrl(String photoReference) {
+ 
+}
+ String buildPhotoUrl(String photoReference) {
     final maxWidth = 400;
     final maxHeight = 400;
 
     return 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=$maxWidth&maxheight=$maxHeight&photoreference=$photoReference&key=$apiKey';
   }
-}
