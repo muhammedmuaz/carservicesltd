@@ -78,7 +78,8 @@ class HomePage extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children:  [
+                 
                   homepageItems(
                       "CAR DEALER",
                       "https://cdn.iconscout.com/icon/premium/png-256-thumb/car-owner-5-1133161.png",
@@ -93,7 +94,7 @@ class HomePage extends StatelessWidget {
                       "CAR REAPIR",
                       "https://tannerautorepairs.com.au/wp-content/uploads/2017/10/repair-service.png",
                       const Color(0xffE4DCCF),
-                      "car_repair"),
+                      "carrepair"),
                 ],
               ),
               Row(
