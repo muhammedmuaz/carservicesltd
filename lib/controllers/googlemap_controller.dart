@@ -36,10 +36,10 @@ class MapController extends GetxController {
 }
 
 class CarRentalService {
-  final String name;
-  final String vicinity;
-  final double rating;
-  final String photoReference;
+  final String? name;
+  final String? vicinity;
+  final double? rating;
+  final String? photoReference;
 
   CarRentalService(this.name, this.vicinity, this.rating, this.photoReference);
 }

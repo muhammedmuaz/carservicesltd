@@ -16,8 +16,7 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
-
-double currentValue = 0;
+  double currentValue = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,93 +25,100 @@ double currentValue = 0;
         centerTitle: true,
         title: Text(
           widget.title,
-          style:const  TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
       ),
       body: GetBuilder<MapController>(builder: (controller) {
         return controller.carRentalServices.isNotEmpty
             ? Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              Slider(
-                min: 0,
-                max: 100 ,
-                divisions: 20,
-                label: currentValue.toString(),
-                activeColor: Colors.green,
-                inactiveColor: Colors.green.shade200,
-                value: currentValue, onChanged: (newval){
-                setState(() {
-                  currentValue = newval;
-                });
-              }),
-
-              
-                Expanded(
-                  child: ListView.builder(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Slider(
+                      min: 0,
+                      max: 100,
+                      divisions: 20,
+                      label: currentValue.toString(),
+                      activeColor: Colors.green,
+                      inactiveColor: Colors.green.shade200,
+                      value: currentValue,
+                      onChanged: (newval) {
+                        setState(() {
+                          currentValue = newval;
+                        });
+                      }),
+                  Expanded(
+                    child: ListView.builder(
                       itemCount: controller.carRentalServices.length,
                       itemBuilder: (context, index) {
                         final service = controller.carRentalServices[index];
                         return Padding(
-                          padding: const EdgeInsets.only(bottom :30.0,left: 20,right: 10),
+                          padding: const EdgeInsets.only(
+                              bottom: 30.0, left: 20, right: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               service.photoReference != null
-                                ? Stack(
-                                  children: [ ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                        buildPhotoUrl(service.photoReference),
-                                        width: 140,
-                                        height: 120,
-                                        fit: BoxFit.cover,
+                                  ? Stack(children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          buildPhotoUrl(
+                                              service.photoReference ?? ''),
+                                          width: 140,
+                                          height: 120,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                  ),
-                                  const Positioned(
-                                    top: 5,
-                                    right: 5,
-                                     child:    CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.white,
-                                      child:    Icon( Icons.search,color: Colors.grey,size: 15,),
-                                     )
-                                   )
-                                  ]
-                                )
-                                : const Icon(Icons.photo),
-                                const SizedBox(width: 15,),
-                                Expanded(
-                                  child: Column(
-                                   
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(service.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                      const SizedBox(height: 10,),
-                                       Text(service.vicinity),
-                                       const SizedBox(height: 15,),
-                                      //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
-                                       RatingBar(rating: service.rating)
-                                    ],
-                                  ),
-                                )
-                        
+                                      const Positioned(
+                                          top: 5,
+                                          right: 5,
+                                          child: CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.white,
+                                            child: Icon(
+                                              Icons.search,
+                                              color: Colors.grey,
+                                              size: 15,
+                                            ),
+                                          ))
+                                    ])
+                                  : const Icon(Icons.photo),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      service.name ?? '',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(service.vicinity ?? ''),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
+                                    RatingBar(rating: service.rating ?? 0.0)
+                                  ],
+                                ),
+                              )
                             ],
-                        
-                        
-                        
-                        
                           ),
                         );
-                        // 
+                        //
                       },
                     ),
-                ),
-              ],
-            )
+                  ),
+                ],
+              )
             : const Center(
                 child: CircularProgressIndicator(),
               );
