@@ -61,44 +61,56 @@ class _ServicePageState extends State<ServicePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               service.photoReference != null
-                                ? Stack(
-                                  children: [ ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                        buildPhotoUrl(service.photoReference),
-                                        width: 140,
-                                        height: 120,
-                                        fit: BoxFit.cover,
+                                  ? Stack(children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          buildPhotoUrl(
+                                              service.photoReference ?? ''),
+                                          width: 140,
+                                          height: 120,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                  ),
-                                  const Positioned(
-                                    top: 5,
-                                    right: 5,
-                                     child:    CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.white,
-                                      child:    Icon( Icons.search,color: Colors.grey,size: 15,),
-                                     )
-                                   )
-                                  ]
-                                )
-                                : const Icon(Icons.photo),
-                                const SizedBox(width: 15,),
-                                Expanded(
-                                  child: Column(
-                                   
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(service.name,style:const  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                      const SizedBox(height: 10,),
-                                       Text(service.vicinity),
-                                       const SizedBox(height: 15,),
-                                      //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
-                                       RatingBar(rating: service.rating)
-                                    ],
-                                  ),
-                                )
-                        
+                                      const Positioned(
+                                          top: 5,
+                                          right: 5,
+                                          child: CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.white,
+                                            child: Icon(
+                                              Icons.search,
+                                              color: Colors.grey,
+                                              size: 15,
+                                            ),
+                                          ))
+                                    ])
+                                  : const Icon(Icons.photo),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      service.name ?? '',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(service.vicinity ?? ''),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
+                                    RatingBar(rating: service.rating ?? 0.0)
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         );
@@ -114,12 +126,11 @@ class _ServicePageState extends State<ServicePage> {
       }),
     );
   }
-
- 
 }
- String buildPhotoUrl(String photoReference) {
-    final maxWidth = 400;
-    final maxHeight = 400;
 
-    return 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=$maxWidth&maxheight=$maxHeight&photoreference=$photoReference&key=$apiKey';
-  }
+String buildPhotoUrl(String photoReference) {
+  final maxWidth = 400;
+  final maxHeight = 400;
+
+  return 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=$maxWidth&maxheight=$maxHeight&photoreference=$photoReference&key=$apiKey';
+}

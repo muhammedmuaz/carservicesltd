@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'CarServicesLtd',
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
