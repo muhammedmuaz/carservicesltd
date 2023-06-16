@@ -17,7 +17,8 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
       ));
     },
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),

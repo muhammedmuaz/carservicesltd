@@ -81,20 +81,20 @@ class HomePage extends StatelessWidget {
                 children:  [
                  
                   homepageItems(
-                      "CAR DEALER",
+                      "Car Dealer",
                       "https://cdn.iconscout.com/icon/premium/png-256-thumb/car-owner-5-1133161.png",
                       const Color(0xffE4DCCF),
                       "car_dealer"),
                   homepageItems(
-                      "CAR RENTAL",
+                      "Car Rental",
                       "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
                       const Color(0xffE4DCCF),
                       "car_rental"),
                   homepageItems(
-                      "CAR REAPIR",
+                      "Car Repair",
                       "https://tannerautorepairs.com.au/wp-content/uploads/2017/10/repair-service.png",
                       const Color(0xffE4DCCF),
-                      "carrepair"),
+                      "car_repair"),
                 ],
               ),
               Row(
@@ -102,22 +102,66 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   homepageItems(
-                      "CAR WASH",
+                      "Car Wash",
                       "https://icons.iconarchive.com/icons/atyourservice/service-categories/512/Car-Washing-icon.png",
                       const Color(0xffE4DCCF),
                       "car_wash"),
                   homepageItems(
-                      "TAXI STAND",
+                      "Taxi Stand",
                       "https://cdn-icons-png.flaticon.com/128/3448/3448677.png",
                       const Color(0xffE4DCCF),
                       "taxi_stand"),
                   homepageItems(
-                      "FUEL STATION",
+                      "Fuel Station",
                       "https://cdn-icons-png.flaticon.com/256/9666/9666239.png",
                       const Color(0xffE4DCCF),
                       "gas_station")
                 ],
               ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  homepageItems("Car For Sale", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Car For Hire", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Car Share", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),                  
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  homepageItems("Other Services", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Chauffeur/Drivers For Hire", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Tow Services", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),                  
+                ],                
+              ),
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  homepageItems("Car/Truck Mechanics", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Car &Truck Parts", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Farm Equipment Hire", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),                  
+                ],                
+              ),
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  homepageItems("Farm Equipment Sale", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "farm_equipment_sales"),
+                  homepageItems("Commercial Vehicles Hire", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  homepageItems("Commercial Vehicle Sale", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),                  
+                ],                
+              ),
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  homepageItems("Farm Equipment Sale", "https://cdn-icons-png.flaticon.com/256/9666/9666239.png", const Color(0xffE4DCCF), "gas_station"),
+                  
+                ],                
+              )
             ],
           ),
         ),

@@ -84,8 +84,20 @@ class _ServicePageState extends State<ServicePage> {
                                               size: 15,
                                             ),
                                           ))
-                                    ])
-                                  : const Icon(Icons.photo),
+                                    ])                                  
+                                  : Container(
+                                    height: 120,
+                                    width: 140,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color:  Colors.grey                                    
+                                        
+                                      )
+                                    ),
+                                    child:const  Center(child: Text(
+                                      'No Image',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  ),
                               const SizedBox(
                                 width: 15,
                               ),
@@ -93,11 +105,16 @@ class _ServicePageState extends State<ServicePage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      service.name ?? '',
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                    GestureDetector(
+                                      onTap: ()async{
+                                        await Get.to( DetailPage(title: service.name.toString(), detail: service.vicinity.toString(), photoReference: service.photoReference.toString(), rating: service.rating ?? 0.0));
+                                      },
+                                      child: Text(
+                                        service.name ?? '',
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 10,
