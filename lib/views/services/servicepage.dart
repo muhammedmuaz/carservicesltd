@@ -89,10 +89,14 @@ class _ServicePageState extends State<ServicePage> {
                                     height: 120,
                                     width: 140,
                                     decoration: BoxDecoration(
+                                      
                                       borderRadius: BorderRadius.circular(8),
+                                      // border:Border(
+                                      //   left: BorderSide(width: 5,color: Colors.black)
+                                      // )
                                       border: Border.all(
-                                        color:  Colors.grey                                    
-                                        
+                                        color: Colors.grey,
+                                        width: 2
                                       )
                                     ),
                                     child:const  Center(child: Text(

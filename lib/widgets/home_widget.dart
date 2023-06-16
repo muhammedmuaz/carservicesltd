@@ -16,26 +16,29 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
         title: label,
       ));
     },
-    child: Column(
-
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: Container(
-              height: 50,
-              width: 50,
-              decoration:
-                  BoxDecoration(color: bgcoloor, shape: BoxShape.circle),
-              child: Center(
-                  child: Image(
-                      height: 30, width: 30, image: NetworkImage(imageName))),
-            )),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        )
-      ],
+    child:  Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+              width: 120,
+               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:  [
+                 Center(
+                   child: CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    child: Image.network(
+                      imageName,
+                      height: 30,
+                      ),
+                   ),
+                 ),
+                 const SizedBox(height: 5.0,),
+                 Center(child: Text(label,style: TextStyle(fontSize: 12.0),))
+                  
+                ],
+               ),
+             ),
     ),
+         
   );
 }
