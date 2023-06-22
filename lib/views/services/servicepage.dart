@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:services_app/lat_long.dart';
 import 'package:services_app/views/Detail/detailpage.dart';
 import 'package:services_app/widgets/rating_bar.dart';
 import '../../controllers/googlemap_controller.dart';
@@ -8,16 +9,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import '../../network/Api.dart';
 
 class ServicePage extends StatefulWidget {
-  String title;
+  String title,service;
 
-  ServicePage({super.key, required this.title});
+  ServicePage({super.key, required this.title,required this.service});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
 }
 
 class _ServicePageState extends State<ServicePage> {
-  double currentValue = 0;
+  double currentValue = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,17 +37,18 @@ class _ServicePageState extends State<ServicePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Slider(
-                      min: 0,
-                      max: 100,
-                      divisions: 20,
+                      min: 1,
+                      max: 5000,
+                      divisions: 5,
                       label: currentValue.toString(),
                       activeColor: Colors.green,
                       inactiveColor: Colors.green.shade200,
                       value: currentValue,
                       onChanged: (newval) {
-                        setState(() {
-                          currentValue = newval;
-                        });
+                      currentValue = newval;
+                      
+                      controller.fetchServices(widget.service,radius: currentValue);
+                     
                       }),
                   Expanded(
                     child: ListView.builder(

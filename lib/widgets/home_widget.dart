@@ -14,6 +14,7 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
       mapController.fetchServices(service);
       Get.to(ServicePage(
         title: label,
+        service: service,
       ));
     },
     child:  Padding(
