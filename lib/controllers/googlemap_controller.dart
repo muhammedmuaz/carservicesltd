@@ -1,20 +1,14 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:services_app/models/mapplaces_model.dart';
 import 'package:services_app/network/Api.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 
 class MapController extends GetxController {
   bool isloading = false;
-  
+
   List<CarRentalService> carRentalServices = [];
-  fetchServices(String type,{double radius  = 5000}) async {
+  fetchServices(String type, {double radius = 5000}) async {
     isloading = true;
     String url =
-        "/place/nearbysearch/json?location=51.503186,-0.126446&radius=$radius&types=$type&key=$apiKey";
+        "/place/nearbysearch/json?location=${position!.latitude},${position!.longitude}&radius=$radius&types=$type&key=$apiKey";
     var response = await Api().get(mapUrl + url);
     List<dynamic> results = response['results'];
 
@@ -26,6 +20,7 @@ class MapController extends GetxController {
 
       return CarRentalService(name, vicinity, rating, photoReference);
     }).toList();
+    isloading = false;
     update();
     // mapPlacesFromJson(response);
   }
@@ -45,9 +40,3 @@ class CarRentalService {
 
   CarRentalService(this.name, this.vicinity, this.rating, this.photoReference);
 }
-
-
-
-
-
-

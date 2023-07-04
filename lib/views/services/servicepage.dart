@@ -31,7 +31,7 @@ class _ServicePageState extends State<ServicePage> {
         ),
       ),
       body: GetBuilder<MapController>(builder: (controller) {
-        return controller.carRentalServices.isNotEmpty
+        return controller.isloading == false
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

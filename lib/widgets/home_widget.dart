@@ -17,29 +17,34 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
         service: service,
       ));
     },
-    child:  Padding(
+    child: Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
-              width: 120,
-               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
-                 Center(
-                   child: CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    child: Image.network(
-                      imageName,
-                      height: 30,
-                      ),
-                   ),
-                 ),
-                 const SizedBox(height: 5.0,),
-                 Center(child: Text(label,style: TextStyle(fontSize: 12.0),))
-                  
-                ],
-               ),
-             ),
+        width: MediaQuery.of(Get.context!).size.width * 0.25,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.grey,
+                child: Image.network(
+                  imageName,
+                  height: 30,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            Center(
+                child: Text(
+              label,
+              style: const TextStyle(fontSize: 12.0),
+              textAlign: TextAlign.center,
+            ))
+          ],
+        ),
+      ),
     ),
-         
   );
 }
