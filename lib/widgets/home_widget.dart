@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/views/services/servicepage.dart';
 
 import '../controllers/googlemap_controller.dart';
@@ -39,7 +40,8 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
             Center(
                 child: Text(
               label,
-              style: const TextStyle(fontSize: 12.0),
+              style:
+                  GoogleFonts.nunito(textStyle: const TextStyle(fontSize: 12)),
               textAlign: TextAlign.center,
             ))
           ],

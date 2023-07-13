@@ -27,7 +27,7 @@ Widget myAppContiner(final String label, final String imageName) {
             padding: const EdgeInsets.only(left: 50.0, top: 5.0),
             child: Text(
               label,
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.nunito(
                   fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
