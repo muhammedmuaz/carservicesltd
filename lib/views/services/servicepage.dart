@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:services_app/lat_long.dart';
 import 'package:services_app/views/Detail/detailpage.dart';
 import 'package:services_app/widgets/rating_bar.dart';
-import '../../controllers/googlemap_controller.dart';
+import '../../controllers/service_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 
 import '../../network/Api.dart';
@@ -30,7 +30,7 @@ class _ServicePageState extends State<ServicePage> {
           style: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
       ),
-      body: GetBuilder<MapController>(builder: (controller) {
+      body: GetBuilder<ServiceController>(builder: (controller) {
         return controller.isloading == false
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,

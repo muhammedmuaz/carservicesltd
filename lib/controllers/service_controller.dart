@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:services_app/network/Api.dart';
 
-class MapController extends GetxController {
-  bool isloading = false;
+import '../models/postserviceModel.dart';
+
+class ServiceController extends GetxController {
+  bool isloading = true;
+  bool postServiceloading = false;
 
   List<CarRentalService> carRentalServices = [];
+  List<PostServiceModel>? postServiceModel;
   fetchServices(String type, {double radius = 5000}) async {
     isloading = true;
     String url =
@@ -23,6 +29,26 @@ class MapController extends GetxController {
     isloading = false;
     update();
     // mapPlacesFromJson(response);
+  }
+
+  fetchPostService(String id) async {
+    postServiceloading = true;
+    update();
+    String url =
+        "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
+    var response = await Api().get(url);
+    // final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    try {
+      postServiceModel = response
+          .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
+          .toList();
+      postServiceloading = false;
+      update();
+
+      print("All working fine");
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
