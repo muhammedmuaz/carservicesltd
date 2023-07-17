@@ -116,18 +116,19 @@ class _LoginScreenState extends State<LoginScreen>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(height: 20.0),
-                          const Text(
-                            'Car Services Ltd',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Quicksand',
-                              letterSpacing: 2,
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 30.0),
+                          // const SizedBox(height: 10.0),
+                          Image.asset('assets/logo.png'),
+                          // const Text(
+                          //   'Car Services Ltd',
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontFamily: 'Quicksand',
+                          //     letterSpacing: 2,
+                          //     fontSize: 32,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 10.0),
                           TextFormField(
                             // controller: logic.emailController,
                             decoration: const InputDecoration(

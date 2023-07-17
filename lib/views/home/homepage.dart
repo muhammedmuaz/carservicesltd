@@ -14,6 +14,11 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
+        // appBar: AppBar(
+        //   i
+        //   centerTitle: true,
+        //   title: Image.asset('assets/logo.png'),
+        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12.0),
           child: SingleChildScrollView(
