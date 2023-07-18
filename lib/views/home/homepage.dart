@@ -6,18 +6,32 @@ import '../../controllers/service_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
+    List<ServiceModel> serviceModel = [
+      ServiceModel(
+          name: "Car For Sale",
+          image: "https://cdn-icons-png.flaticon.com/128/2155/2155790.png",
+          color: const Color(0xffE4DCCF),
+          tag: "gas_station",
+          type: 0),
+      ServiceModel(
+          name: "Car For Hire",
+          image: "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
+          color: const Color(0xffE4DCCF),
+          tag: "gas_station",
+          type: 0),
+      ServiceModel(
+          name: "Car Rental",
+          image: "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
+          color: const Color(0xffE4DCCF),
+          tag: "car_rental",
+          type: 0),
+    ];
     ServiceController mapController = Get.put(ServiceController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        // appBar: AppBar(
-        //   i
-        //   centerTitle: true,
-        //   title: Image.asset('assets/logo.png'),
-        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12.0),
           child: SingleChildScrollView(
@@ -341,4 +355,19 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class ServiceModel {
+  final String name;
+  final String image;
+  final Color color;
+  final String tag;
+  final int type;
+
+  ServiceModel(
+      {required this.name,
+      required this.image,
+      required this.color,
+      required this.tag,
+      required this.type});
 }
