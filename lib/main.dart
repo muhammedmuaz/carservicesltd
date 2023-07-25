@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:services_app/lat_long.dart';
 import 'package:services_app/network/Api.dart';
 
@@ -10,6 +14,8 @@ import 'package:services_app/views/home/homepage.dart';
 import 'package:services_app/views/login/login_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:services_app/views/services/postservicepage.dart';
+
+import 'Routes/app_pages.dart';
 
 // Requesting Permission
 Future<void> requestPermission() async {
@@ -40,8 +46,13 @@ void getLocation() async {
   print('Longitude: ${position!.longitude}');
 }
 
-void main() {
+void main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   requestPermission(); // Call this function to request permission when the app opens.
   runApp(const MyApp());
 }
@@ -53,8 +64,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'CarServicesLtd',
+      transitionDuration: const Duration(milliseconds: 200),
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomePage(),
+      getPages: AppPages.routes,
+      initialRoute: AppPages.initial,
     );
   }
 }

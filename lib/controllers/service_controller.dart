@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:services_app/network/Api.dart';
-
 import '../models/postserviceModel.dart';
 import '../models/postservicedetailModel.dart';
 
@@ -32,26 +31,31 @@ class ServiceController extends GetxController {
     // mapPlacesFromJson(response);
   }
 
-  Future<PostServiceDetailModel> fetchPostService(String id) async {
+  Future<void> fetchPostDetailService(String id) async {
     postServiceloading = true;
     update();
     String url =
         "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
     var response = await Api().get(url);
+    print(response.body);
+    postServiceloading = true;
     // final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    return response.map<PostServiceDetailModel>(
+    return jsonDecode(response.body).map<PostServiceDetailModel>(
         (item) => PostServiceDetailModel.fromJson(item));
   }
 
-  fetchPostDetailService(String id) async {
+  fetchPostService(String id) async {
+    postServiceloading = true;
     update();
-    String url = "https://carservicesltd.com/wp-json/geodir/v2/places/$id";
+    String url =
+        "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
     var response = await Api().get(url);
-    // final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     try {
-      postServiceModel = response
+      postServiceModel = parsed
           .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
           .toList();
+      postServiceloading = false;
       update();
       print("All working fine");
     } catch (e) {

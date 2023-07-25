@@ -8,9 +8,9 @@ abstract class BaseConfig {
 
 class ProductionConfig implements BaseConfig {
   @override
-  String get apiUrl => "";
+  String get apiUrl => "https://carservicesltd.com/";
   @override
-  String get baseUrl => "";
+  String get baseUrl => "https://carservicesltd.com/";
   @override
   String get googlemapapiurl => "https://maps.googleapis.com/maps/api";
 }

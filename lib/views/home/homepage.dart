@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                     Container(
                       height: 42,
                       width: MediaQuery.of(context).size.width * 0.15,
-                      color: const Color(0xff30E3DF),
+                      color: const Color(0xff264653),
                       alignment: Alignment.center,
                       child: const Icon(
                         Icons.menu,
