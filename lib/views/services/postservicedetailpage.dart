@@ -746,10 +746,7 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                       heroTag: 'facebookButton',
                       backgroundColor: const Color(0xff264653),
                       splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {
-                        // Show the popup menu when the left button is pressed
-                        showPopupMenu(context);
-                      },
+                      onPressed: () {},
                       child: const Icon(EvaIcons.facebook),
                     ),
                   )
@@ -793,21 +790,21 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                     ),
                   )
                 : Container(),
-            isshareactive
-                ? Positioned(
-                    bottom: 320.0,
-                    left: 16.0,
-                    child: FloatingActionButton(
-                      heroTag: 'worldwideButton',
-                      backgroundColor: const Color(0xff264653),
-                      splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {},
-                      child: const ImageIcon(
-                          AssetImage("assets/logoworldwideadverts.png"),
-                          color: Colors.white),
-                    ),
-                  )
-                : Container(),
+            // isshareactive
+            //     ? Positioned(
+            //         bottom: 320.0,
+            //         left: 16.0,
+            //         child: FloatingActionButton(
+            //           heroTag: 'worldwideButton',
+            //           backgroundColor: const Color(0xff264653),
+            //           splashColor: const Color(0xff2a9d8f),
+            //           onPressed: () {},
+            //           child: const ImageIcon(
+            //               AssetImage("assets/logoworldwideadverts.png"),
+            //               color: Colors.white),
+            //         ),
+            //       )
+            //     : Container(),
             Positioned(
               bottom: 16.0,
               right: 16.0,
@@ -818,8 +815,8 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                   // Add functionality for the right button here
                   print('Right button pressed!');
                 },
-                icon: Icon(Icons.add),
-                label: Text('Add Review'),
+                icon: const Icon(Icons.add),
+                label: const Text('Add Review'),
               ),
             ),
           ],
@@ -827,48 +824,6 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
-  }
-
-  void showPopupMenu(BuildContext context) {
-    final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay =
-        Overlay.of(context).context.findRenderObject() as RenderBox;
-
-    final RelativeRect position = RelativeRect.fromRect(
-      Rect.fromPoints(
-        button.localToGlobal(Offset.zero, ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero),
-            ancestor: overlay),
-      ),
-      Offset.zero & overlay.size,
-    );
-
-    // Show the popup menu with different options
-    showMenu(
-      context: context,
-      position: position,
-      items: [
-        PopupMenuItem(
-          child: Text('Option 1'),
-          value: 'Option 1',
-        ),
-        PopupMenuItem(
-          child: Text('Option 2'),
-          value: 'Option 2',
-        ),
-        PopupMenuItem(
-          child: Text('Option 3'),
-          value: 'Option 3',
-        ),
-        // Add more options as needed
-      ],
-      elevation: 8,
-    ).then((value) {
-      // Handle the selected option here if needed
-      if (value != null) {
-        print('Selected option: $value');
-      }
-    });
   }
 }
 
