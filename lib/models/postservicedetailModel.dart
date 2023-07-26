@@ -1,4 +1,4 @@
-  class PostServiceDetailModel {
+class PostServiceDetailModel {
   final String id;
   final String title;
   final String content;
@@ -6,6 +6,12 @@
   final double latitude;
   final double longitude;
   final Map<String, dynamic> featuredImage;
+  final String street;
+  final String city;
+  final String country;
+  final String date;
+
+
   // final List<dynamic> reviews;
 
   PostServiceDetailModel({
@@ -16,6 +22,10 @@
     required this.latitude,
     required this.longitude,
     required this.featuredImage,
+    required this.street,
+    required this.city,
+    required this.country,
+    required this.date,
     // required this.reviews,
   });
 
@@ -30,6 +40,10 @@
       latitude: double.parse(json['latitude']),
       longitude: double.parse(json['longitude']),
       featuredImage: json['featured_image'],
+      street: json['street'],
+      city: json['city'],
+      country: json['country'],
+      date: json['date'],
       // reviews: json['reviews'],
     );
   }

@@ -42,17 +42,26 @@ class PostServicePage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
+                            controller.fetchPostDetailService(controller
+                                .postServiceModel![index].id
+                                .toString());
                             Get.toNamed("/postservicedetail");
-                            // controller.fetchPostDetailService(controller
-                            //     .postServiceModel![index].id
-                            //     .toString());
                           },
                           child: CarSaleCard(
                             imgurl: controller.postServiceModel![index].image,
-                            title:
-                                '${controller.postServiceModel![index].title.substring(0, 15)}...',
-                            content:
-                                '${controller.postServiceModel![index].content.substring(0, 35)}...',
+                            title: controller
+                                        .postServiceModel![index].title.length >
+                                    15
+                                ? '${controller.postServiceModel![index].title.substring(0, 15)}...'
+                                : controller.postServiceModel![index].title,
+                            content: controller
+                                        .removeTags(controller
+                                            .postServiceModel![index].content)
+                                        .length >
+                                    30
+                                ? '${controller.removeTags(controller.postServiceModel![index].content).substring(0, 30)}...'
+                                : controller.removeTags(controller
+                                    .postServiceModel![index].content),
                           ),
                         );
                       },

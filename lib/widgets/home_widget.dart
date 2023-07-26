@@ -11,6 +11,9 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
   return GestureDetector(
     onTap: () {
       if (serviceType == 1) {
+        if (mapController.postServiceModel != null) {
+          mapController.postServiceModel!.clear();
+        }
         mapController.fetchPostService(service);
         Get.toNamed(
           '/postservice',
