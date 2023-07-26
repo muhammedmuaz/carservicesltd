@@ -69,9 +69,9 @@ class MyApp extends StatelessWidget {
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
       debugShowCheckedModeBanner: false,
-      home: CarDetailPage(),
-      // getPages: AppPages.routes,
-      // initialRoute: AppPages.initial,
+      // home: CarDetailPage(),
+      getPages: AppPages.routes,
+      initialRoute: AppPages.initial,
     );
   }
 }

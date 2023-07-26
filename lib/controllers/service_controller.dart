@@ -8,8 +8,11 @@ import '../models/postservicedetailModel.dart';
 class ServiceController extends GetxController {
   bool isloading = true;
   bool postServiceloading = false;
+  bool postServiceDetailloading = false;
   List<CarRentalService> carRentalServices = [];
   List<PostServiceModel>? postServiceModel;
+  RxInt selectedIndex = 0.obs;
+  PostServiceDetailModel? post;
   // List<PostServiceDetailModel>? postServicedetailModel;
   fetchServices(String type, {double radius = 5000}) async {
     isloading = true;
@@ -32,16 +35,14 @@ class ServiceController extends GetxController {
   }
 
   Future<void> fetchPostDetailService(String id) async {
-    postServiceloading = true;
+    postServiceDetailloading = true;
     update();
-    String url =
-        "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
+    String url = "https://carservicesltd.com/wp-json/geodir/v2/places/$id";
     var response = await Api().get(url);
-    print(response.body);
-    postServiceloading = true;
-    // final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    return jsonDecode(response.body).map<PostServiceDetailModel>(
-        (item) => PostServiceDetailModel.fromJson(item));
+    postServiceDetailloading = false;
+    final parsed = jsonDecode(response.body);
+    post = PostServiceDetailModel.fromJson(parsed);
+    update();
   }
 
   fetchPostService(String id) async {

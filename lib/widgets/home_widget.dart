@@ -12,9 +12,10 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
     onTap: () {
       if (serviceType == 1) {
         mapController.fetchPostService(service);
-        Get.to(PostServicePage(
-          title: label,
-        ));
+        Get.toNamed(
+          '/postservice',
+          arguments: label,
+        );
       } else {
         mapController.carRentalServices.clear();
         mapController.fetchServices(service);
