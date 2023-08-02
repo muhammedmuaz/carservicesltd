@@ -1,5 +1,5 @@
 class PostServiceDetailModel {
-  final String id;
+  final dynamic id;
   final String title;
   final String content;
   final List<dynamic> images;
@@ -10,7 +10,6 @@ class PostServiceDetailModel {
   final String city;
   final String country;
   final String date;
-
 
   // final List<dynamic> reviews;
 

@@ -41,7 +41,7 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
     },
     // Add more reviews as needed...
   ];
-
+  ServiceController serviceController = Get.put(ServiceController());
   @override
   void initState() {
     super.initState();
@@ -69,11 +69,11 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
 
   @override
   void dispose() {
+    serviceController.animationcompleted = false;
     _animationController.dispose();
     super.dispose();
   }
 
-  ServiceController serviceController = Get.put(ServiceController());
   bool isshareactive = false;
   @override
   Widget build(BuildContext context) {

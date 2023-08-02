@@ -120,13 +120,13 @@ class HomePage extends StatelessWidget {
                         "Car For Sale",
                         "https://cdn-icons-png.flaticon.com/128/2155/2155790.png",
                         const Color(0xffE4DCCF),
-                        "gas_station",
+                        "car_dealer",
                         0),
                     homepageItems(
                         "Car For Hire",
                         "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
                         const Color(0xffE4DCCF),
-                        "gas_station",
+                        "car_dealer",
                         0),
                     homepageItems(
                         "Car Rental",
@@ -145,7 +145,7 @@ class HomePage extends StatelessWidget {
                         "Chauffeur/Drivers For Hire",
                         "https://cdn.iconscout.com/icon/free/png-256/free-driver-1785014-1518720.png",
                         const Color(0xffE4DCCF),
-                        "gas_station",
+                        "subway_station",
                         0),
                     homepageItems(
                         "Taxi Stand",

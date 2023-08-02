@@ -10,7 +10,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/network/baseconfig.dart';
 import 'package:http/http.dart' as http;
 
-const String apiKey = 'AIzaSyBvAXeC5Mli1NSZgVkK1VHF35iSskYiMlE';
+const String apiKey = 'AIzaSyC8N54f56EleJZDVenZFLGSmCcOLs3UHUA';
 final String baseUrl = ProductionConfig().baseUrl;
 final String apiUrl = ProductionConfig().apiUrl;
 final String mapUrl = ProductionConfig().googlemapapiurl;

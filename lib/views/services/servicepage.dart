@@ -9,9 +9,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import '../../network/Api.dart';
 
 class ServicePage extends StatefulWidget {
-  String title,service;
+  String title, service;
 
-  ServicePage({super.key, required this.title,required this.service});
+  ServicePage({super.key, required this.title, required this.service});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
@@ -23,7 +23,7 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xff264653),
         centerTitle: true,
         title: Text(
           widget.title,
@@ -41,14 +41,14 @@ class _ServicePageState extends State<ServicePage> {
                       max: 5000,
                       divisions: 5,
                       label: currentValue.toString(),
-                      activeColor: Colors.green,
+                      activeColor: const Color(0xff264653),
                       inactiveColor: Colors.green.shade200,
                       value: currentValue,
                       onChanged: (newval) {
-                      currentValue = newval;
-                      
-                      controller.fetchServices(widget.service,radius: currentValue);
-                     
+                        currentValue = newval;
+
+                        controller.fetchServices(widget.service,
+                            radius: currentValue);
                       }),
                   Expanded(
                     child: ListView.builder(
@@ -86,24 +86,25 @@ class _ServicePageState extends State<ServicePage> {
                                               size: 15,
                                             ),
                                           ))
-                                    ])                                  
+                                    ])
                                   : Container(
-                                    height: 120,
-                                    width: 140,
-                                    decoration: BoxDecoration(
-                                      
-                                      borderRadius: BorderRadius.circular(8),
-                                      // border:Border(
-                                      //   left: BorderSide(width: 5,color: Colors.black)
-                                      // )
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 2
-                                      )
+                                      height: 120,
+                                      width: 140,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          // border:Border(
+                                          //   left: BorderSide(width: 5,color: Colors.black)
+                                          // )
+                                          border: Border.all(
+                                              color: Colors.grey, width: 2)),
+                                      child: const Center(
+                                          child: Text(
+                                        'No Image',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                     ),
-                                    child:const  Center(child: Text(
-                                      'No Image',style: TextStyle(fontWeight: FontWeight.bold),)),
-                                  ),
                               const SizedBox(
                                 width: 15,
                               ),
@@ -112,8 +113,14 @@ class _ServicePageState extends State<ServicePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     GestureDetector(
-                                      onTap: ()async{
-                                        await Get.to( DetailPage(title: service.name.toString(), detail: service.vicinity.toString(), photoReference: service.photoReference.toString(), rating: service.rating ?? 0.0));
+                                      onTap: () async {
+                                        await Get.to(DetailPage(
+                                            title: service.name.toString(),
+                                            detail: service.vicinity.toString(),
+                                            photoReference: service
+                                                .photoReference
+                                                .toString(),
+                                            rating: service.rating ?? 0.0));
                                       },
                                       child: Text(
                                         service.name ?? '',

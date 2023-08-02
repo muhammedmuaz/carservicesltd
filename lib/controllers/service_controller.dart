@@ -23,14 +23,16 @@ class ServiceController extends GetxController {
     String url =
         "/place/nearbysearch/json?location=${position!.latitude},${position!.longitude}&radius=$radius&types=$type&key=$apiKey";
     var response = await Api().get(mapUrl + url);
-    List<dynamic> results = response['results'];
+    print("This is response");
+    print(mapUrl + url);
+    print(response);
+    List<dynamic> results = json.decode(response.body)['results'];
 
     carRentalServices = results.map((result) {
       final name = result['name'] ?? 'hello';
       final vicinity = result['vicinity'] ?? 'hello';
       final rating = result['rating']?.toDouble() ?? 0.0;
       final photoReference = result['photos']?[0]['photo_reference'];
-
       return CarRentalService(name, vicinity, rating, photoReference);
     }).toList();
     isloading = false;
