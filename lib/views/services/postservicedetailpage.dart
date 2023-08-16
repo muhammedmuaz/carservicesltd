@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:services_app/controllers/service_controller.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../colors/colors.dart';
@@ -39,33 +40,8 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
       'review':
           'Not satisfied with the service. Product quality needs improvement.',
     },
-    // Add more reviews as needed...
   ];
   ServiceController serviceController = Get.put(ServiceController());
-  @override
-  void initState() {
-    super.initState();
-    // _animationController = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 500),
-    // );
-
-    // _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-    //   CurvedAnimation(
-    //     parent: _animationController,
-    //     curve: const Interval(0.0, 0.6, curve: Curves.easeInOut),
-    //   ),
-    // );
-
-    // _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
-    //   CurvedAnimation(
-    //     parent: _animationController,
-    //     curve: const Interval(0.0, 0.8, curve: Curves.elasticOut),
-    //   ),
-    // );
-
-    // _animationController.forward();
-  }
 
   @override
   void dispose() {
@@ -152,7 +128,8 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                                         ],
                                       ),
                                     ),
-                                    child: Stack(children: [
+                                    child: Stack(
+                                      children: [
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: Padding(
@@ -730,66 +707,66 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                 backgroundColor: const Color(0xff264653),
                 splashColor: const Color(0xff2a9d8f),
                 onPressed: () {
-                  setState(() {
-                    isshareactive = !isshareactive;
-                  });
+                  Share.share(
+                      'check out Car Services LTD ${serviceController.post!.link}',
+                      subject: 'Car Services LTD');
                 },
                 heroTag: 'shareButton',
-                child: Icon(isshareactive ? Icons.close : Icons.share),
+                child: const Icon(Icons.share),
               ),
             ),
-            isshareactive
-                ? Positioned(
-                    bottom: 80.0,
-                    left: 16.0,
-                    child: FloatingActionButton(
-                      heroTag: 'facebookButton',
-                      backgroundColor: const Color(0xff264653),
-                      splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {},
-                      child: const Icon(EvaIcons.facebook),
-                    ),
-                  )
-                : Container(),
-            isshareactive
-                ? Positioned(
-                    bottom: 160.0,
-                    left: 16.0,
-                    child: FloatingActionButton(
-                      heroTag: 'linkedinButton',
-                      backgroundColor: const Color(0xff264653),
-                      splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {},
-                      child: const Icon(EvaIcons.linkedin),
-                    ),
-                  )
-                : Container(),
-            isshareactive
-                ? Positioned(
-                    bottom: 240.0,
-                    left: 16.0,
-                    child: FloatingActionButton(
-                      heroTag: 'twitterButton',
-                      backgroundColor: const Color(0xff264653),
-                      splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {},
-                      child: const Icon(EvaIcons.twitter),
-                    ),
-                  )
-                : Container(),
-            isshareactive
-                ? Positioned(
-                    bottom: 320.0,
-                    left: 16.0,
-                    child: FloatingActionButton(
-                      heroTag: 'tiktokButton',
-                      backgroundColor: const Color(0xff264653),
-                      splashColor: const Color(0xff2a9d8f),
-                      onPressed: () {},
-                      child: const Icon(Icons.tiktok),
-                    ),
-                  )
-                : Container(),
+            // isshareactive
+            //     ? Positioned(
+            //         bottom: 80.0,
+            //         left: 16.0,
+            //         child: FloatingActionButton(
+            //           heroTag: 'facebookButton',
+            //           backgroundColor: const Color(0xff264653),
+            //           splashColor: const Color(0xff2a9d8f),
+            //           onPressed: () {},
+            //           child: const Icon(EvaIcons.facebook),
+            //         ),
+            //       )
+            //     : Container(),
+            // isshareactive
+            //     ? Positioned(
+            //         bottom: 160.0,
+            //         left: 16.0,
+            //         child: FloatingActionButton(
+            //           heroTag: 'linkedinButton',
+            //           backgroundColor: const Color(0xff264653),
+            //           splashColor: const Color(0xff2a9d8f),
+            //           onPressed: () {},
+            //           child: const Icon(EvaIcons.linkedin),
+            //         ),
+            //       )
+            //     : Container(),
+            // isshareactive
+            //     ? Positioned(
+            //         bottom: 240.0,
+            //         left: 16.0,
+            //         child: FloatingActionButton(
+            //           heroTag: 'twitterButton',
+            //           backgroundColor: const Color(0xff264653),
+            //           splashColor: const Color(0xff2a9d8f),
+            //           onPressed: () {},
+            //           child: const Icon(EvaIcons.twitter),
+            //         ),
+            //       )
+            //     : Container(),
+            // isshareactive
+            //     ? Positioned(
+            //         bottom: 320.0,
+            //         left: 16.0,
+            //         child: FloatingActionButton(
+            //           heroTag: 'tiktokButton',
+            //           backgroundColor: const Color(0xff264653),
+            //           splashColor: const Color(0xff2a9d8f),
+            //           onPressed: () {},
+            //           child: const Icon(Icons.tiktok),
+            //         ),
+            //       )
+            //     : Container(),
             // isshareactive
             //     ? Positioned(
             //         bottom: 320.0,

@@ -9,6 +9,7 @@ class PostServiceDetailModel {
   final String street;
   final String city;
   final String country;
+  final String link;
   final String date;
 
   // final List<dynamic> reviews;
@@ -25,6 +26,7 @@ class PostServiceDetailModel {
     required this.city,
     required this.country,
     required this.date,
+    required this.link
     // required this.reviews,
   });
 
@@ -36,6 +38,7 @@ class PostServiceDetailModel {
       content: json['content']
           ['rendered'], // Access the 'raw' property inside the 'content' map
       images: json['images'],
+      link: json['link'],
       latitude: double.parse(json['latitude']),
       longitude: double.parse(json['longitude']),
       featuredImage: json['featured_image'],

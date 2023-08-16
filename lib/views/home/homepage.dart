@@ -136,7 +136,6 @@ class HomePage extends StatelessWidget {
                         0),
                   ],
                 ),
-
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

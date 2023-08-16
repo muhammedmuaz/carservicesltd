@@ -46,6 +46,8 @@ class ServiceController extends GetxController {
     String url = "https://carservicesltd.com/wp-json/geodir/v2/places/$id";
     var response = await Api().get(url);
     postServiceDetailloading = false;
+    print(url);
+    print(response.body);
     final parsed = jsonDecode(response.body);
     post = PostServiceDetailModel.fromJson(parsed);
     update();
