@@ -9,6 +9,7 @@ import '../models/postservicedetailModel.dart';
 
 class ServiceController extends GetxController {
   bool isloading = true;
+  bool isfetchingservice = false;
   bool postServiceloading = false;
   bool animationcompleted = false;
   bool postServiceDetailloading = false;
@@ -18,14 +19,14 @@ class ServiceController extends GetxController {
   PostServiceDetailModel? post;
 
   // List<PostServiceDetailModel>? postServicedetailModel;
-  fetchServices(String type, {double radius = 5000}) async {
+  Future<void> fetchServices(String type, {double radius = 1000}) async {
     isloading = true;
     String url =
         "/place/nearbysearch/json?location=${position!.latitude},${position!.longitude}&radius=$radius&types=$type&key=$apiKey";
     var response = await Api().get(mapUrl + url);
-    print("This is response");
-    print(mapUrl + url);
-    print(response);
+    // print("This is response");
+    // print(mapUrl + url);
+    // print(response);
     List<dynamic> results = json.decode(response.body)['results'];
 
     carRentalServices = results.map((result) {
@@ -58,6 +59,7 @@ class ServiceController extends GetxController {
     update();
     String url =
         "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
+    print(url);
     var response = await Api().get(url);
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     try {

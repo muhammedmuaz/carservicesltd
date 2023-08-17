@@ -176,28 +176,28 @@ class _DetailPageState extends State<DetailPage>
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
-                                                    FittedBox(
-                                                      fit: BoxFit.contain,
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.7,
-                                                        child: Text(
-                                                            'ddodwkdwdw',
-                                                            style: GoogleFonts.nunito(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5.0,
-                                                    ),
+                                                    // FittedBox(
+                                                    //   fit: BoxFit.contain,
+                                                    //   child: SizedBox(
+                                                    //     width: MediaQuery.of(
+                                                    //                 context)
+                                                    //             .size
+                                                    //             .width *
+                                                    //         0.7,
+                                                    //     child: Text(
+                                                    //         'ddodwkdwdw',
+                                                    //         style: GoogleFonts.nunito(
+                                                    //             color: Colors
+                                                    //                 .white,
+                                                    //             fontSize: 14.0,
+                                                    //             fontWeight:
+                                                    //                 FontWeight
+                                                    //                     .w400)),
+                                                    //   ),
+                                                    // ),
+                                                    // const SizedBox(
+                                                    //   height: 5.0,
+                                                    // ),
                                                     FittedBox(
                                                       fit: BoxFit.contain,
                                                       child: SizedBox(
@@ -220,24 +220,24 @@ class _DetailPageState extends State<DetailPage>
                                                     ),
                                                   ],
                                                 ),
-                                                Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  alignment: Alignment.center,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.white,
-                                                          shape:
-                                                              BoxShape.circle),
-                                                  child: IconButton(
-                                                    onPressed: () {},
-                                                    icon: const Icon(
-                                                      EvaIcons.heart,
-                                                      color: Colors.red,
-                                                      size: 30,
-                                                    ),
-                                                  ),
-                                                ),
+                                                // Container(
+                                                //   height: 50,
+                                                //   width: 50,
+                                                //   alignment: Alignment.center,
+                                                //   decoration:
+                                                //       const BoxDecoration(
+                                                //           color: Colors.white,
+                                                //           shape:
+                                                //               BoxShape.circle),
+                                                //   child: IconButton(
+                                                //     onPressed: () {},
+                                                //     icon: const Icon(
+                                                //       EvaIcons.heart,
+                                                //       color: Colors.red,
+                                                //       size: 30,
+                                                //     ),
+                                                //   ),
+                                                // ),
                                               ],
                                             ))),
                                   ),
@@ -439,6 +439,43 @@ class _DetailPageState extends State<DetailPage>
                                   serviceController.selectedIndex.value == 0
                                       ? ProfileSection(
                                           controller.removeTags(widget.detail))
+                                      : const SizedBox(),
+                                  serviceController.selectedIndex.value == 1
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0),
+                                          child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: List.generate(
+                                                1,
+                                                (index) => PhotosSection(
+                                                    buildPhotoUrl(widget
+                                                        .photoReference
+                                                        .toString()),
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.42),
+                                              )
+
+                                              // PhotosSection(
+                                              //     "https://images.unsplash.com/photo-1646029642262-022158ff5794?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                                              //     MediaQuery.of(context)
+                                              //             .size
+                                              //             .width *
+                                              //         0.42),
+                                              // PhotosSection(
+                                              //     "https://images.unsplash.com/photo-1646029642262-022158ff5794?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                                              //     MediaQuery.of(context)
+                                              //             .size
+                                              //             .width *
+                                              //         0.42),
+                                              // ],
+                                              ),
+                                        )
                                       : const SizedBox(),
                                 ],
                               );

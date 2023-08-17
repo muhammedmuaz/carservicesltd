@@ -37,7 +37,7 @@ class _ServicePageState extends State<ServicePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Slider(
-                      min: 1,
+                      min: 1000,
                       max: 5000,
                       divisions: 5,
                       label: currentValue.toString(),
@@ -46,107 +46,119 @@ class _ServicePageState extends State<ServicePage> {
                       value: currentValue,
                       onChanged: (newval) {
                         currentValue = newval;
-
-                        controller.fetchServices(widget.service,
-                            radius: currentValue);
+                        controller.update();
+                        Future.delayed(const Duration(seconds: 1), () {
+                          controller.fetchServices(widget.service,
+                              radius: currentValue);
+                        });
                       }),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: controller.carRentalServices.length,
-                      itemBuilder: (context, index) {
-                        final service = controller.carRentalServices[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 30.0, left: 20, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              service.photoReference != null
-                                  ? Stack(children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          buildPhotoUrl(
-                                              service.photoReference ?? ''),
-                                          width: 140,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      const Positioned(
-                                          top: 5,
-                                          right: 5,
-                                          child: CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.search,
-                                              color: Colors.grey,
-                                              size: 15,
-                                            ),
-                                          ))
-                                    ])
-                                  : Container(
-                                      height: 120,
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          // border:Border(
-                                          //   left: BorderSide(width: 5,color: Colors.black)
-                                          // )
-                                          border: Border.all(
-                                              color: Colors.grey, width: 2)),
-                                      child: const Center(
-                                          child: Text(
-                                        'No Image',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                    ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Expanded(
-                                child: Column(
+                    child: controller.carRentalServices.isEmpty
+                        ? const Center(
+                            child: Text('No Services Found'),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.carRentalServices.length,
+                            itemBuilder: (context, index) {
+                              final service =
+                                  controller.carRentalServices[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 30.0, left: 20, right: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        await Get.to(DetailPage(
-                                            title: service.name.toString(),
-                                            detail: service.vicinity.toString(),
-                                            photoReference: service
-                                                .photoReference
-                                                .toString(),
-                                            rating: service.rating ?? 0.0));
-                                      },
-                                      child: Text(
-                                        service.name ?? '',
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                    service.photoReference != null
+                                        ? Stack(children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.network(
+                                                buildPhotoUrl(
+                                                    service.photoReference ??
+                                                        ''),
+                                                width: 140,
+                                                height: 120,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            const Positioned(
+                                                top: 5,
+                                                right: 5,
+                                                child: CircleAvatar(
+                                                  radius: 15,
+                                                  backgroundColor: Colors.white,
+                                                  child: Icon(
+                                                    Icons.search,
+                                                    color: Colors.grey,
+                                                    size: 15,
+                                                  ),
+                                                ))
+                                          ])
+                                        : Container(
+                                            height: 120,
+                                            width: 140,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 2)),
+                                            child: const Center(
+                                                child: Text(
+                                              'No Image',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                          ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await Get.to(DetailPage(
+                                                  title:
+                                                      service.name.toString(),
+                                                  detail: service.vicinity
+                                                      .toString(),
+                                                  photoReference: service
+                                                      .photoReference
+                                                      .toString(),
+                                                  rating:
+                                                      service.rating ?? 0.0));
+                                            },
+                                            child: Text(
+                                              service.name ?? '',
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(service.vicinity ?? ''),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
+                                          RatingBar(
+                                              rating: service.rating ?? 0.0)
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(service.vicinity ?? ''),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    //  Text('Rating: ${service.rating.toStringAsFixed(1)}'),
-                                    RatingBar(rating: service.rating ?? 0.0)
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
+                              );
+                              //
+                            },
                           ),
-                        );
-                        //
-                      },
-                    ),
                   ),
                 ],
               )

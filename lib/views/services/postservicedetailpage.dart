@@ -128,8 +128,7 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                                         ],
                                       ),
                                     ),
-                                    child: Stack(
-                                      children: [
+                                    child: Stack(children: [
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: Padding(
@@ -452,7 +451,11 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
 
                                       serviceController.selectedIndex.value == 2
                                           ? locateMap(
-                                              randomLatLng,
+                                              LatLng(
+                                                  serviceController
+                                                      .post!.latitude,
+                                                  serviceController
+                                                      .post!.longitude),
                                               MediaQuery.of(context)
                                                       .size
                                                       .height *
