@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                         0),
                     homepageItems(
                         "Car For Hire",
-                        "https://cdn-icons-png.flaticon.com/128/3393/3393345.png",
+                        "https://cdn-icons-png.flaticon.com/512/4635/4635348.png",
                         const Color(0xffE4DCCF),
                         "car_dealer",
                         0),
@@ -160,11 +160,36 @@ class HomePage extends StatelessWidget {
                         0),
                   ],
                 ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    homepageItems(
+                        "Car Wash",
+                        "https://icons.iconarchive.com/icons/atyourservice/service-categories/512/Car-Washing-icon.png",
+                        const Color(0xffE4DCCF),
+                        "car_wash",
+                        0),
+                    homepageItems(
+                        "Car Repair",
+                        "https://cdn-icons-png.flaticon.com/512/5361/5361512.png",
+                        const Color(0xffE4DCCF),
+                        "car_repair",
+                        0),
+                    homepageItems(
+                        "Car Park",
+                        "https://cdn-icons-png.flaticon.com/512/2343/2343894.png",
+                        const Color(0xffE4DCCF),
+                        "parking",
+                        0),
+                  ],
+                ),
+
                 homepageItems(
-                    "Car Wash",
-                    "https://icons.iconarchive.com/icons/atyourservice/service-categories/512/Car-Washing-icon.png",
+                    "Parking Spaces",
+                    "https://cdn-icons-png.flaticon.com/512/1788/1788637.png",
                     const Color(0xffE4DCCF),
-                    "car_wash",
+                    "rv_park",
                     0),
                 SizedBox(
                   height: MediaQuery.of(Get.context!).size.height * 0.03,
