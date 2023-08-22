@@ -185,12 +185,12 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
 
-                homepageItems(
-                    "Parking Spaces",
-                    "https://cdn-icons-png.flaticon.com/512/1788/1788637.png",
-                    const Color(0xffE4DCCF),
-                    "rv_park",
-                    0),
+                // homepageItems(
+                //     "Parking Spaces",
+                //     "https://cdn-icons-png.flaticon.com/512/1788/1788637.png",
+                //     const Color(0xffE4DCCF),
+                //     "rv_park",
+                //     0),
                 SizedBox(
                   height: MediaQuery.of(Get.context!).size.height * 0.03,
                 ),
