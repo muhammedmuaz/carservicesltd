@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
 import 'package:services_app/network/Api.dart';
+import 'package:location/location.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models/postserviceModel.dart';
 import '../models/postservicedetailModel.dart';
 
@@ -17,6 +20,45 @@ class ServiceController extends GetxController {
   List<PostServiceModel>? postServiceModel;
   RxInt selectedIndex = 0.obs;
   PostServiceDetailModel? post;
+
+  RxString locationText = ''.obs;
+
+  Map<String, Locale> languages = {
+    "Hindi": const Locale('hi', 'IN'),
+    "Espanol": const Locale('en', 'US')
+  };
+
+  void getLocation() async {
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    // Check if location services are enabled
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    // Check if location permissions are granted
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    // Get the current location
+    _locationData = await location.getLocation();
+    locationText(
+        'Latitude: ${_locationData.latitude}, Longitude: ${_locationData.longitude}');
+    Share.share(locationText.value);
+  }
 
   // List<PostServiceDetailModel>? postServicedetailModel;
   Future<void> fetchServices(String type, {double radius = 1000}) async {

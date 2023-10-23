@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:services_app/main.dart';
+import 'package:services_app/views/webview/UserProfile.dart';
+import 'package:services_app/views/webview/postandAdd.dart';
 import 'package:services_app/widgets/home_widget.dart';
 import '../../controllers/service_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<String> bottomitems = [
+    'About',
+    'Contact',
+    'Careers',
+    'Affiliate',
+    'Forum',
+    'Blog',
+    'Terms Of Use',
+    'Privacy Policy',
+    'Disclaimer',
+    'Cookie Policy',
+    'Data Protection',
+  ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // saveFingerprint();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<ServiceModel> serviceModel = [
@@ -29,6 +59,8 @@ class HomePage extends StatelessWidget {
           type: 0),
     ];
     ServiceController mapController = Get.put(ServiceController());
+    final Uri _url = Uri.parse(
+        'https://carservicesltd.com/index.php/add-listing/?listing_type=gd_place');
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -85,16 +117,313 @@ class HomePage extends StatelessWidget {
                     const SizedBox(
                       width: 12,
                     ),
-                    Container(
-                      height: 42,
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      color: const Color(0xff264653),
-                      alignment: Alignment.center,
-                      child: const Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                      ),
-                    ),
+
+                    PopupMenuButton(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                      icon: Icon(Icons.menu, color: Colors.black),
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem(
+                            onTap: () => Get.to(const UserProfile()),
+                            child: const Text("My Account"),
+                          ),
+                          PopupMenuItem(
+                            onTap: () {
+                              mapController.getLocation();
+                            },
+                            child: const Text("Share my location"),
+                          ),
+                          PopupMenuItem(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Select any language'),
+                                    content: SingleChildScrollView(
+                                        child: Column(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  // const Locale('es', 'ES');
+                                                  // launchUrlfunc(_url);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Card(
+                                                      elevation: 5,
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 50,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          'Hindi',
+                                                          style: GoogleFonts.nunito(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16)),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets
+                                                    //           .symmetric(
+                                                    //           horizontal:
+                                                    //               10.0),
+                                                    //   child: Divider(
+                                                    //     thickness: 0.5,
+                                                    //     color:
+                                                    //         Colors.grey[600],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  // const Locale('es', 'ES');
+                                                  // launchUrlfunc(_url);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Card(
+                                                      elevation: 5,
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 50,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          'English',
+                                                          style: GoogleFonts.nunito(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16)),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets
+                                                    //           .symmetric(
+                                                    //           horizontal:
+                                                    //               10.0),
+                                                    //   child: Divider(
+                                                    //     thickness: 0.5,
+                                                    //     color:
+                                                    //         Colors.grey[600],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  // const Locale('es', 'ES');
+                                                  // launchUrlfunc(_url);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Card(
+                                                      elevation: 5,
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 50,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          'Spanish',
+                                                          style: GoogleFonts.nunito(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16)),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets
+                                                    //           .symmetric(
+                                                    //           horizontal:
+                                                    //               10.0),
+                                                    //   child: Divider(
+                                                    //     thickness: 0.5,
+                                                    //     color:
+                                                    //         Colors.grey[600],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  // const Locale('es', 'ES');
+                                                  // launchUrlfunc(_url);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Card(
+                                                      elevation: 5,
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 50,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          'German',
+                                                          style: GoogleFonts.nunito(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16)),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets
+                                                    //           .symmetric(
+                                                    //           horizontal:
+                                                    //               10.0),
+                                                    //   child: Divider(
+                                                    //     thickness: 0.5,
+                                                    //     color:
+                                                    //         Colors.grey[600],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  // const Locale('es', 'ES');
+                                                  // launchUrlfunc(_url);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Card(
+                                                      elevation: 5,
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 50,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: Colors
+                                                                    .grey)),
+                                                        child: Text(
+                                                          'Italian',
+                                                          style: GoogleFonts.nunito(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16)),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //       const EdgeInsets
+                                                    //           .symmetric(
+                                                    //           horizontal:
+                                                    //               10.0),
+                                                    //   child: Divider(
+                                                    //     thickness: 0.5,
+                                                    //     color:
+                                                    //         Colors.grey[600],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                      ],
+                                    )),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Close'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text("Translate into other language"),
+                          ),
+                          PopupMenuItem(
+                            onTap: () => Get.to(const PostAnAdd()),
+                            child: const Text("Post an Add"),
+                          ),
+                          // Add more menu items as needed
+                        ];
+                      },
+                    )
+                    // Container(
+                    //   height: 42,
+                    //   width: MediaQuery.of(context).size.width * 0.15,
+                    //   color: const Color(0xff264653),
+                    //   alignment: Alignment.center,
+                    //   child: const Icon(
+                    //     Icons.menu,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(
@@ -373,6 +702,49 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                Card(
+                  elevation: 5,
+                  child: Column(children: [
+                    ListView(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(8.0),
+                      children: bottomitems.map((item) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  launchUrlfunc(_url);
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 30,
+                                  width: double.infinity,
+                                  child: Text(
+                                    item.tr,
+                                    style: GoogleFonts.nunito(
+                                        textStyle:
+                                            const TextStyle(fontSize: 16)),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Divider(
+                                thickness: 0.5,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    )
+                  ]),
+                )
               ],
             ),
           ),

@@ -34,7 +34,7 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
             height: 30,
             width: double.infinity,
             child: Text(
-              label,
+              label.tr,
               style:
                   GoogleFonts.nunito(textStyle: const TextStyle(fontSize: 16)),
               textAlign: TextAlign.center,
@@ -61,7 +61,7 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
                   ),
                   Center(
                       child: Text(
-                    label,
+                    label.tr,
                     style: GoogleFonts.nunito(
                         textStyle: const TextStyle(fontSize: 12)),
                     textAlign: TextAlign.center,

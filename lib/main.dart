@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:services_app/lat_long.dart';
+import 'package:services_app/localeString.dart';
 import 'package:services_app/network/Api.dart';
 
 import 'package:services_app/views/carrental/carrental_page.dart';
@@ -15,6 +17,7 @@ import 'package:services_app/views/login/login_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:services_app/views/services/postservicedetailpage.dart';
 import 'package:services_app/views/services/postservicepage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'Routes/app_pages.dart';
 
@@ -28,6 +31,33 @@ Future<void> requestPermission() async {
     getLocation();
   } else {
     // Permission denied, handle accordingly (e.g., show an error message)
+  }
+}
+
+final LocalAuthentication localAuth = LocalAuthentication();
+
+Future<void> saveFingerprint() async {
+  final LocalAuthentication localAuth = LocalAuthentication();
+  bool canCheckBiometrics = await localAuth.canCheckBiometrics;
+  if (canCheckBiometrics) {
+    List<BiometricType> availableBiometrics =
+        await localAuth.getAvailableBiometrics();
+    if (availableBiometrics.contains(BiometricType.fingerprint)) {
+      // Prompt the user to save their fingerprint
+      bool didAuthenticate = await localAuth.authenticate(
+        localizedReason: 'Save your fingerprint to secure the app',
+      );
+      if (didAuthenticate) {
+        // Fingerprint saved successfully
+        // You can store this information securely for future use
+      }
+    }
+  }
+}
+
+Future<void> launchUrlfunc(Uri url) async {
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
   }
 }
 
@@ -64,6 +94,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // translations: localString(),
+      // localeResolutionCallback: (deviceLocale, supportedLocales) {
+      //   for (var locale in supportedLocales) {
+      //     if (locale.languageCode == deviceLocale!.languageCode &&
+      //         locale.countryCode == deviceLocale.countryCode) {
+      //       return deviceLocale;
+      //     }
+      //   }
+      //   return supportedLocales.first;
+      // },
+      // localizationsDelegates: [
+      //   AppLocalizations.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   // Additional delegates as needed.
+      // ],
+      // supportedLocales: [
+      //   Locale('hi', 'IN'),
+      //   Locale('es', 'ES'),
+      //   Locale('de', 'DE'),
+      //   Locale('fr', 'FR'),
+      // ],
+      // locale: const Locale('hi', 'IN'),
       title: 'CarServicesLtd',
       transitionDuration: const Duration(milliseconds: 200),
       builder: BotToastInit(),

@@ -11,7 +11,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
   static var initial =
-      Api().sp.read('islogin') != null ? Routes.home : Routes.login;
+      Api().sp.read('islogin') != null ? Routes.home : Routes.home;
 
   static final routes = [
     GetPage(
