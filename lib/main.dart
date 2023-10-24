@@ -36,17 +36,38 @@ Future<void> requestPermission() async {
 
 final LocalAuthentication localAuth = LocalAuthentication();
 
+Future<void> checkBiometric() async {
+  bool canCheckBiometric = false;
+
+  try {
+    canCheckBiometric = await localAuth.canCheckBiometrics;
+  } on PlatformException catch (e) {
+    print(e);
+  }
+  if (canCheckBiometric) {
+    BotToast.showText(text: "Biometric is available in this phone");
+  }
+}
+
 Future<void> saveFingerprint() async {
+  print('doing');
   final LocalAuthentication localAuth = LocalAuthentication();
-  bool canCheckBiometrics = await localAuth.canCheckBiometrics;
+  bool canCheckBiometrics =
+      await localAuth.canCheckBiometrics || await localAuth.isDeviceSupported();
+  print('doing2');
   if (canCheckBiometrics) {
-    List<BiometricType> availableBiometrics = await localAuth.getAvailableBiometrics();
+    print('doing3');
+    List<BiometricType> availableBiometrics =
+        await localAuth.getAvailableBiometrics();
+    print(availableBiometrics.length);
     if (availableBiometrics.contains(BiometricType.fingerprint)) {
+      print("save it");
       // Prompt the user to save their fingerprint
       bool didAuthenticate = await localAuth.authenticate(
         localizedReason: 'Save your fingerprint to secure the app',
       );
       if (didAuthenticate) {
+        BotToast.showText(text: "Saved Text");
         // Fingerprint saved successfully
         // You can store this information securely for future use
       }
@@ -59,7 +80,6 @@ Future<void> launchUrlfunc(Uri url) async {
     throw Exception('Could not launch $url');
   }
 }
-
 
 void getLocation() async {
   try {
@@ -94,11 +114,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      translations: localString(),
-      locale: const Locale('hi','IN'),
+      // translations: localString(),
+      // localeResolutionCallback: (deviceLocale, supportedLocales) {
+      //   for (var locale in supportedLocales) {
+      //     if (locale.languageCode == deviceLocale!.languageCode &&
+      //         locale.countryCode == deviceLocale.countryCode) {
+      //       return deviceLocale;
+      //     }
+      //   }
+      //   return supportedLocales.first;
+      // },
+      // localizationsDelegates: [
+      //   AppLocalizations.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   // Additional delegates as needed.
+      // ],
+      // supportedLocales: [
+      //   Locale('hi', 'IN'),
+      //   Locale('es', 'ES'),
+      //   Locale('de', 'DE'),
+      //   Locale('fr', 'FR'),
+      // ],
+      // locale: const Locale('hi', 'IN'),
       title: 'CarServicesLtd',
+      fallbackLocale: const Locale('en', 'EN'),
       transitionDuration: const Duration(milliseconds: 200),
       builder: BotToastInit(),
+      translations: localString(),
       navigatorObservers: [BotToastNavigatorObserver()],
       debugShowCheckedModeBanner: false,
       // home: CarDetailPage(),

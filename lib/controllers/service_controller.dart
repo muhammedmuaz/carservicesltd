@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
@@ -19,8 +20,17 @@ class ServiceController extends GetxController {
   List<PostServiceModel>? postServiceModel;
   RxInt selectedIndex = 0.obs;
   PostServiceDetailModel? post;
-
+  RxBool isSidebarOpen = false.obs;
   RxString locationText = ''.obs;
+
+  void toggleSidebar() {
+    isSidebarOpen.value = !isSidebarOpen.value;
+  }
+
+  Map<String, Locale> languages = {
+    "Hindi": const Locale('hi', 'IN'),
+    "Espanol": const Locale('en', 'US')
+  };
 
   void getLocation() async {
     Location location = new Location();

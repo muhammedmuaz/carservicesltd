@@ -208,7 +208,8 @@ class _DetailPageState extends State<DetailPage>
                                                             0.7,
                                                         child: Text(
                                                             widget.title
-                                                                .toString(),
+                                                                .toString()
+                                                                .tr,
                                                             style: GoogleFonts.nunito(
                                                                 color: Colors
                                                                     .white,

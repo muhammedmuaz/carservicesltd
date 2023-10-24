@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/main.dart';
+import 'package:services_app/network/Api.dart';
+import 'package:services_app/views/login/login_page.dart';
+import 'package:services_app/views/webview/UserProfile.dart';
 import 'package:services_app/views/webview/postandAdd.dart';
 import 'package:services_app/widgets/home_widget.dart';
 import '../../controllers/service_controller.dart';
+import '../../widgets/drawer.dart';
+import '../../widgets/side_footer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,8 +38,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // saveFingerprint();
+    checkBiometric();
+    saveFingerprint();
   }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<DrawerControllerState> _drawerKey =
+      GlobalKey<DrawerControllerState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +73,10 @@ class _HomePageState extends State<HomePage> {
         'https://carservicesltd.com/index.php/add-listing/?listing_type=gd_place');
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: AppDrawer(
+          key2: _drawerKey,
+        ),
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12.0),
@@ -78,17 +93,22 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: const BoxDecoration(
-                          color: Color(0xff1B9C85), shape: BoxShape.circle),
-                      child: const Center(
-                          child: Image(
-                              height: 20,
-                              width: 20,
-                              image: NetworkImage(
-                                  "https://cdn-icons-png.flaticon.com/128/2481/2481789.png"))),
+                    GestureDetector(
+                      onTap: () {
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: const BoxDecoration(
+                            color: Color(0xff1B9C85), shape: BoxShape.circle),
+                        child: const Center(
+                            child: Image(
+                                height: 20,
+                                width: 20,
+                                image: NetworkImage(
+                                    "https://cdn-icons-png.flaticon.com/128/2481/2481789.png"))),
+                      ),
                     ),
                     Expanded(
                       child: Container(
@@ -124,90 +144,20 @@ class _HomePageState extends State<HomePage> {
                       icon: Icon(Icons.menu, color: Colors.black),
                       itemBuilder: (BuildContext context) {
                         return [
-                          const PopupMenuItem(
-                            child: Text("My Account"),
+                          PopupMenuItem(
+                            onTap: () => Get.to(const UserProfile()),
+                            child: const Text("My Account"),
+                          ),
+                          PopupMenuItem(
+                            onTap: () {},
+                            child: const Text("Messages"),
                           ),
                           PopupMenuItem(
                             onTap: () {
-                              mapController.getLocation();
+                              Api().sp.erase();
+                              Get.offAll(LoginScreen());
                             },
-                            child: const Text("Share my location"),
-                          ),
-                          PopupMenuItem(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Select any language'),
-                                    content: SingleChildScrollView(
-                                        child: Column(
-                                      children: [
-                                        for (int i = 0; i < 10; i++)
-                                          Column(
-                                            children: [
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    // launchUrlfunc(_url);
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Card(
-                                                        elevation: 5,
-                                                        child: Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          height: 50,
-                                                          width:
-                                                              double.infinity,
-                                                          decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  width: 1,
-                                                                  color: Colors
-                                                                      .grey)),
-                                                          child: Text(
-                                                            'Hindi',
-                                                            style: GoogleFonts.nunito(
-                                                                textStyle:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            16)),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      // Padding(
-                                                      //   padding:
-                                                      //       const EdgeInsets
-                                                      //           .symmetric(
-                                                      //           horizontal:
-                                                      //               10.0),
-                                                      //   child: Divider(
-                                                      //     thickness: 0.5,
-                                                      //     color:
-                                                      //         Colors.grey[600],
-                                                      //   ),
-                                                      // ),
-                                                    ],
-                                                  )),
-                                            ],
-                                          ),
-                                      ],
-                                    )),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('Close'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: Text("Translate into other language"),
+                            child: const Text("Sign in/sign up"),
                           ),
                           PopupMenuItem(
                             onTap: () => Get.to(const PostAnAdd()),
@@ -508,46 +458,46 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20.0,
                 ),
-
-                Card(
-                  elevation: 5,
-                  child: Column(children: [
-                    ListView(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(8.0),
-                      children: bottomitems.map((item) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  launchUrlfunc(_url);
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 30,
-                                  width: double.infinity,
-                                  child: Text(
-                                    item,
-                                    style: GoogleFonts.nunito(
-                                        textStyle:
-                                            const TextStyle(fontSize: 16)),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                )),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Divider(
-                                thickness: 0.5,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
-                    )
-                  ]),
-                )
+                SiteFooter()
+                // Card(
+                //   elevation: 5,
+                //   child: Column(children: [
+                //     ListView(
+                //       shrinkWrap: true,
+                //       padding: const EdgeInsets.all(8.0),
+                //       children: bottomitems.map((item) {
+                //         return Column(
+                //           children: [
+                //             GestureDetector(
+                //                 onTap: () {
+                //                   launchUrlfunc(_url);
+                //                 },
+                //                 child: Container(
+                //                   alignment: Alignment.center,
+                //                   height: 30,
+                //                   width: double.infinity,
+                //                   child: Text(
+                //                     item.tr,
+                //                     style: GoogleFonts.nunito(
+                //                         textStyle:
+                //                             const TextStyle(fontSize: 16)),
+                //                     textAlign: TextAlign.center,
+                //                   ),
+                //                 )),
+                //             Padding(
+                //               padding:
+                //                   const EdgeInsets.symmetric(horizontal: 10.0),
+                //               child: Divider(
+                //                 thickness: 0.5,
+                //                 color: Colors.grey[600],
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       }).toList(),
+                //     )
+                //   ]),
+                // )
               ],
             ),
           ),
