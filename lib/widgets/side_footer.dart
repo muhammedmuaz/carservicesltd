@@ -45,8 +45,15 @@ class SiteFooter extends StatelessWidget {
                 ],
               ),
             ),
-            buildFooterLink(
-                "Blog", "https://carservicesltd.com/index.php/blog/"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildFooterLink(
+                    "Blog", "https://carservicesltd.com/index.php/blog/"),
+                buildFooterLink("User Guide",
+                    "https://carservicesltd.com/index.php/user-guide/"),
+              ],
+            ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

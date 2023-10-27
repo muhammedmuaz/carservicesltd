@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:location/location.dart';
 import 'package:share_plus/share_plus.dart';
+import '../Authentication/authenticate.dart';
 import '../models/postserviceModel.dart';
 import '../models/postservicedetailModel.dart';
 
@@ -146,9 +148,20 @@ class ServiceController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     // fetchServices();
     super.onInit();
+    var sec = await Api().sp.read('secure');
+    if (sec != null) {
+      try {
+        bool auth = await Authentication.authentication();
+        if (!auth) {
+          SystemNavigator.pop();
+        }
+      } catch (e) {
+        SystemNavigator.pop();
+      }
+    }
   }
 }
 

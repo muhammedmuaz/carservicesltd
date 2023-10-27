@@ -81,6 +81,62 @@ class AppDrawer extends StatelessWidget {
                   Get.updateLocale(const Locale('fr', 'FR'));
                 },
               ),
+              ListTile(
+                title: Text('Russian', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('ru', 'RU'));
+                },
+              ),
+              ListTile(
+                title: Text('Dutch', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('du', 'DU'));
+                },
+              ),
+              ListTile(
+                title: Text('Turkish', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('tr', 'TR'));
+                },
+              ),
+              ListTile(
+                title: Text('Polish', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('pl', 'PL'));
+                },
+              ),
+              ListTile(
+                title: Text('Romanian', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('ro', 'RO'));
+                },
+              ),
+              ListTile(
+                title: Text('Czech', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('cs', 'CZ'));
+                },
+              ),
+              ListTile(
+                title: Text('Icelandic', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('is', 'IS'));
+                },
+              ),
+              ListTile(
+                title: Text('Ukranian', style: GoogleFonts.nunito()),
+                onTap: () {
+                  // Handle language 2
+                  Get.updateLocale(const Locale('uk', 'UA'));
+                },
+              ),
             ],
           ),
           ListTile(
@@ -90,12 +146,12 @@ class AppDrawer extends StatelessWidget {
               // Handle sharing location
             },
           ),
-          ListTile(
-            title: Text('Favourites', style: GoogleFonts.nunito()),
-            onTap: () {
-              // Handle favorites
-            },
-          ),
+          // ListTile(
+          //   title: Text('Favourites', style: GoogleFonts.nunito()),
+          //   onTap: () {
+          //     // Handle favorites
+          //   },
+          // ),
         ],
       ),
     );

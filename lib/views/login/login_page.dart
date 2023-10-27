@@ -1,9 +1,13 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
+import 'package:services_app/network/Api.dart';
 
 import 'package:services_app/views/home/homepage.dart';
+
+import '../../Authentication/authenticate.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -207,6 +211,41 @@ class _LoginScreenState extends State<LoginScreen>
                                       color: Color(0xff00DFA2),
                                       fontWeight: FontWeight.bold,
                                     ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () async {
+                                    bool auth =
+                                        await Authentication.authentication();
+                                    if (auth) {
+                                      await Api().sp.write('secure', '1');
+                                      BotToast.showText(
+                                          text: 'Fingerprint Added');
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.fingerprint,
+                                    size: 40, // Adjust the size as needed
+                                    color: Colors
+                                        .black, // Adjust the color as needed
+                                  ),
+                                ),
+                                SizedBox(
+                                    width:
+                                        10.0), // Add some spacing between the icon and text
+                                Text(
+                                  'Secure App using Fingerprint',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        16, // Adjust the font size as needed
                                   ),
                                 ),
                               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:services_app/Authentication/authenticate.dart';
 import 'package:services_app/main.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/views/login/login_page.dart';
@@ -38,8 +39,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkBiometric();
-    saveFingerprint();
+    // checkBiometric();
+    // saveFingerprint();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -137,35 +138,65 @@ class _HomePageState extends State<HomePage> {
                       width: 12,
                     ),
 
-                    PopupMenuButton(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                      icon: Icon(Icons.menu, color: Colors.black),
-                      itemBuilder: (BuildContext context) {
-                        return [
-                          PopupMenuItem(
-                            onTap: () => Get.to(const UserProfile()),
-                            child: const Text("My Account"),
-                          ),
-                          PopupMenuItem(
-                            onTap: () {},
-                            child: const Text("Messages"),
-                          ),
-                          PopupMenuItem(
-                            onTap: () {
-                              Api().sp.erase();
-                              Get.offAll(LoginScreen());
-                            },
-                            child: const Text("Sign in/sign up"),
-                          ),
-                          PopupMenuItem(
-                            onTap: () => Get.to(const PostAnAdd()),
-                            child: const Text("Post an Add"),
-                          ),
-                          // Add more menu items as needed
-                        ];
-                      },
+                    Container(
+                      height: 40,
+                      width: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Color(0xff1B9C85),
+                      ),
+                      child: PopupMenuButton(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0))),
+                        icon: Icon(Icons.menu, color: Colors.black),
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            PopupMenuItem(
+                              onTap: () => Get.to(const UserProfile()),
+                              child: const Text("My Account"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("Contact"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("About Us"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("Featured Post"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("Promoted Post"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("Favourite Post"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const Text("Messages"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {
+                                Api().sp.erase();
+                                Get.offAll(LoginScreen());
+                              },
+                              child: const Text("Sign in/sign up"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () => Get.to(const PostAnAdd()),
+                              child: const Text("Post Service / Product"),
+                            ),
+                            // Add more menu items as needed
+                          ];
+                        },
+                      ),
                     )
                     // Container(
                     //   height: 42,
@@ -395,7 +426,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       homepageItems(
-                          "Farm Equipment Hire",
+                          "Farm Equipment Sale",
                           "https://cdn.iconscout.com/icon/premium/png-256-thumb/tractor-1977875-1667690.png?f=webp",
                           const Color(0xffE4DCCF),
                           "24",
@@ -502,6 +533,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(onPressed: () async {
+          bool auth = await Authentication.authentication();
+          print("can authenticate: $auth");
+        }),
       ),
     );
   }
