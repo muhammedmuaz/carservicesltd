@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -35,11 +36,13 @@ class _HomePageState extends State<HomePage> {
     'Data Protection',
   ];
 
+  ServiceController mapController = Get.put(ServiceController());
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // checkBiometric();
+    mapController.authorizeuser();
     // saveFingerprint();
   }
 
@@ -69,7 +72,6 @@ class _HomePageState extends State<HomePage> {
           tag: "car_rental",
           type: 0),
     ];
-    ServiceController mapController = Get.put(ServiceController());
     final Uri _url = Uri.parse(
         'https://carservicesltd.com/index.php/add-listing/?listing_type=gd_place');
     return SafeArea(
@@ -148,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: PopupMenuButton(
                         elevation: 5,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0))),
                         icon: Icon(Icons.menu, color: Colors.black),
@@ -181,6 +183,17 @@ class _HomePageState extends State<HomePage> {
                             PopupMenuItem(
                               onTap: () {},
                               child: const Text("Messages"),
+                            ),
+                            PopupMenuItem(
+                              onTap: () async {
+                                bool auth =
+                                    await Authentication.authentication();
+                                if (auth) {
+                                  await Api().sp.write('secure', '1');
+                                  BotToast.showText(text: 'Fingerprint Added');
+                                }
+                              },
+                              child: const Text("Add a Fingerprint"),
                             ),
                             PopupMenuItem(
                               onTap: () {
@@ -533,10 +546,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () async {
-          bool auth = await Authentication.authentication();
-          print("can authenticate: $auth");
-        }),
       ),
     );
   }

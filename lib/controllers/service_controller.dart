@@ -151,6 +151,9 @@ class ServiceController extends GetxController {
   void onInit() async {
     // fetchServices();
     super.onInit();
+  }
+
+  Future<void> authorizeuser() async {
     var sec = await Api().sp.read('secure');
     if (sec != null) {
       try {
