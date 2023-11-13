@@ -7,6 +7,7 @@ abstract class Routes {
   static const home = _Paths.home;
   static const postservice = _Paths.postservice;
   static const postservicedetail = _Paths.postservicedetail;
+  static const createanAdd = _Paths.createanAdd;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const home = '/home';
   static const postservice = '/postservice';
   static const postservicedetail = '/postservicedetail';
+  static const createanAdd = '/createanAdd';
 }

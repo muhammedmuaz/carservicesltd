@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
 import 'package:services_app/network/Api.dart';
-
 import 'package:services_app/views/home/homepage.dart';
-
 import '../../Authentication/authenticate.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -229,17 +227,17 @@ class _LoginScreenState extends State<LoginScreen>
                                           text: 'Fingerprint Added');
                                     }
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.fingerprint,
                                     size: 40, // Adjust the size as needed
                                     color: Colors
                                         .black, // Adjust the color as needed
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                     width:
                                         10.0), // Add some spacing between the icon and text
-                                Text(
+                                const Text(
                                   'Secure App using Fingerprint',
                                   style: TextStyle(
                                     color: Colors.black,
