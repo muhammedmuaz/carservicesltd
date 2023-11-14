@@ -67,10 +67,10 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   // Place Description
                   TextFormField(
                     decoration:
-                        InputDecoration(labelText: 'Place Description *'),
+                        const InputDecoration(labelText: 'Place Description *'),
                   ),
-                  SizedBox(height: 16.0),
-                  SingleChildScrollView(
+                  const SizedBox(height: 16.0),
+                  const SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [],
@@ -90,7 +90,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   // Category
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(labelText: 'Category *'),
-                    items: [
+                    items: const [
                       DropdownMenuItem(
                           value: 'Car & Truck Parts',
                           child: Text('Car & Truck Parts')),
