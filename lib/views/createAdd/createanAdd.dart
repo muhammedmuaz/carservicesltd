@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:services_app/constants.dart';
+import 'package:services_app/controllers/service_controller.dart';
 
 class CreateAnAdd extends StatefulWidget {
   const CreateAnAdd({super.key});
@@ -26,7 +28,24 @@ class _CreateAnAddState extends State<CreateAnAdd> {
   final formKey = GlobalKey<FormState>();
   TextEditingController titleControler = TextEditingController();
   TextEditingController placedescription = TextEditingController();
+  TextEditingController tagscontroller = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+  TextEditingController regioncontroller = TextEditingController();
+  TextEditingController citycontroller = TextEditingController();
+  TextEditingController postcodecontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController websitecontroller = TextEditingController();
+
+  final imgcontroller = MultiImagePickerController(
+    maxImages: 15,
+    allowedImageTypes: ['png', 'jpg', 'jpeg'],
+    withData: true,
+    withReadStream: true,
+  );
+
   Widget build(BuildContext context) {
+    ServiceController controller = Get.put(ServiceController());
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -59,33 +78,82 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   ),
                   // Place Title
                   TextFormField(
-                    decoration:
-                        const InputDecoration(labelText: 'Place Title *'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Title';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(labelText: 'Title *'),
                   ),
                   const SizedBox(height: 16.0),
 
                   // Place Description
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Description';
+                      }
+                      return null;
+                    },
                     decoration:
-                        const InputDecoration(labelText: 'Place Description *'),
+                        const InputDecoration(labelText: 'Description *'),
                   ),
+                  selectedTags.isNotEmpty
+                      ? const SizedBox(height: 16.0)
+                      : const SizedBox(),
                   const SizedBox(height: 16.0),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [],
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
+                  selectedTags.isNotEmpty
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                                selectedTags.length,
+                                (index) => Container(
+                                      height: Get.height * 0.045,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      width: Get.width * 0.22,
+                                      decoration: BoxDecoration(
+                                          color: lightgreencolor,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                      child: Stack(
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.topRight,
+                                            child: Icon(Icons.close),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              '#${selectedTags[index]}',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 18.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                          ),
+                        )
+                      : const SizedBox(),
+                  // const SizedBox(height: 16.0),
 
                   // Tags
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Tags'),
+                    controller: tagscontroller,
+                    decoration: const InputDecoration(labelText: 'Tags'),
                     onFieldSubmitted: (value) => setState(() {
                       selectedTags.add(value);
+                      tagscontroller.clear();
+                      for (var i = 0; i < selectedTags.length; i++) {
+                        print(selectedTags[i]);
+                      }
                     }),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
+
+// Category Side  required///////////////////////////////////
 
                   // Category
                   DropdownButtonFormField<String>(
@@ -98,98 +166,148 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                       DropdownMenuItem(
                           value: 'Car For Sale', child: Text('Car For Sale')),
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Car For Hire')),
+                          value: 'Car For Hire', child: Text('Car For Hire')),
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Car Share')),
+                          value: 'Car Share', child: Text('Car Share')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Chauffeur/Drivers For Hire',
                           child: Text('Chauffeur/Drivers For Hire')),
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Tow Services')),
+                          value: 'Tow Services', child: Text('Tow Services')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Car/Truck Mechanics',
                           child: Text('Car/Truck Mechanics')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Farm Equipment Hire',
                           child: Text('Farm Equipment Hire')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Farm Equipment Sale',
                           child: Text('Farm Equipment Sale')),
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Car Pooling')),
+                          value: 'Car Pooling', child: Text('Car Pooling')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Commercial Vehicles Hire',
                           child: Text('Commercial Vehicles Hire')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Commercial Vehicle Sale',
                           child: Text('Commercial Vehicle Sale')),
                       DropdownMenuItem(
-                          value: 'Car For Sale',
+                          value: 'Plant Equipment',
                           child: Text('Plant Equipment')),
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Uncategorized')),
+                          value: 'Uncategorized', child: Text('Uncategorized')),
                     ],
                     onChanged: (value) {},
                   ),
-                  SizedBox(height: 16.0),
+
+///////////////////////////////////////////////////////////////////
+                  const SizedBox(height: 16.0),
 
                   // Address
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Address *'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Address';
+                      }
+                      return null;
+                    },
+                    controller: addresscontroller,
+                    decoration: const InputDecoration(labelText: 'Address *'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Country
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Country *'),
+
+                  DropdownButtonFormField<String>(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Country';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(labelText: 'Country *'),
+                    items: countries.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {},
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Region
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Region *'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Region';
+                      }
+                      return null;
+                    },
+                    controller: regioncontroller,
+                    decoration: const InputDecoration(labelText: 'Region *'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // City
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'City *'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter City';
+                      }
+                      return null;
+                    },
+                    controller: citycontroller,
+                    decoration: const InputDecoration(labelText: 'City *'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Postcode
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Postcode'),
+                    controller: postcodecontroller,
+                    decoration: const InputDecoration(labelText: 'Postcode'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Images
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: lightgreencolor,
                     ),
-                    onPressed: () {},
-                    child: Text('Upload Images'),
+                    onPressed: () => imgcontroller.pickImages(),
+                    child: const Text('Upload Images'),
                   ),
-                  SizedBox(height: 16.0),
+                  MultiImagePickerView(
+                    controller: imgcontroller,
+                    padding: const EdgeInsets.all(10),
+                    onChange: (p0) => controller
+                        .ispressedcpicon(!controller.ispressedcpicon.value),
+                    initialContainerBuilder: (context, pickerCallback) {
+                      return Container();
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
 
                   // Phone
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Phone'),
+                    controller: phonecontroller,
+                    decoration: const InputDecoration(labelText: 'Phone'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Email
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Email'),
+                    controller: emailcontroller,
+                    decoration: const InputDecoration(labelText: 'Email'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Website
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Website'),
+                    controller: websitecontroller,
+                    decoration: const InputDecoration(labelText: 'Website'),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
 
                   // Submit Button
                   ElevatedButton(
@@ -197,7 +315,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                     style: ElevatedButton.styleFrom(
                       primary: lightgreencolor,
                     ),
-                    child: Text('Spread the love'),
+                    child: const Text('Spread the love'),
                   ),
                 ],
               ),

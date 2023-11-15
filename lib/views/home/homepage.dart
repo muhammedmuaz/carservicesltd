@@ -1,10 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/Authentication/authenticate.dart';
-import 'package:services_app/main.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/views/login/login_page.dart';
 import 'package:services_app/views/webview/UserProfile.dart';

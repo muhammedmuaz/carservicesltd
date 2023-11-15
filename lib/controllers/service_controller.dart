@@ -24,6 +24,10 @@ class ServiceController extends GetxController {
   PostServiceDetailModel? post;
   RxBool isSidebarOpen = false.obs;
   RxString locationText = ''.obs;
+  RxBool ispressedcpicon = false.obs;
+
+  // Createpost Condition
+  presscpicon() => ispressedcpicon(!ispressedcpicon.value);
 
   void toggleSidebar() {
     isSidebarOpen.value = !isSidebarOpen.value;
