@@ -126,6 +126,16 @@ class ServiceController extends GetxController {
     }
   }
 
+  Future<void> getnoncefordetailspost(String id) async {
+    postServiceDetailloading = true;
+    update();
+    String url = "https://carservicesltd.com/wp-json/geodir/v2/places/$id";
+    var response = await Api().get(url);
+    final parsed = jsonDecode(response.body);
+    post = PostServiceDetailModel.fromJson(parsed);
+    update();
+  }
+
   String formatLastUpdatedDate(String dateString) {
     DateTime originalDateTime = DateTime.parse(dateString);
     DateTime now = DateTime.now();
