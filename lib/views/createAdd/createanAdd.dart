@@ -311,7 +311,9 @@ class _CreateAnAddState extends State<CreateAnAdd> {
 
                   // Submit Button
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.postaplace('title', 'description', 1);
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: lightgreencolor,
                     ),

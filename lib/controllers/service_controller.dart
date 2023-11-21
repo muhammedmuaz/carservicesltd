@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:location/location.dart';
 import 'package:share_plus/share_plus.dart';
@@ -134,6 +136,53 @@ class ServiceController extends GetxController {
     final parsed = jsonDecode(response.body);
     post = PostServiceDetailModel.fromJson(parsed);
     update();
+  }
+
+  Future<void> postaplace(
+      String title, String description, int postcategory) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic bWFhejphU3NsIE5JdTQgVnQ0NiBGWXRZIFUxeFbCoDlRZ0s='
+    };
+    var request = http.Request('POST',
+        Uri.parse('https://carservicesltd.com/wp-json/geodir/v2/places'));
+    request.body = json.encode({
+      "title": title,
+      "slug": "test slug",
+      "status": "publish",
+      "type": "gd_place",
+      "content": "<!-- wp:paragraph --> $description <!-- /wp:paragraph -->",
+      "post_category": [postcategory],
+      "post_tags": "test Tag",
+      "street": "test street",
+      "country": "PK",
+      "region": "KHI",
+      "city": "test city",
+      "zip": "560067",
+      "latitude": "12.9767936",
+      "longitude": "77.590082",
+      "mapview": null,
+      "mapzoom": "",
+      "phone": "9848622431",
+      "email": "khalid.shaikh82@gmail.com",
+      "website": "",
+      "featured": false
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('done');
+      print('created');
+      print(await response.stream.bytesToString());
+    } else {
+      print("not created");
+      final response2 = await http.Response.fromStream(response);
+      print(response2.body);
+      print(response.request!.url.data);
+      print(response.reasonPhrase);
+    }
   }
 
   String formatLastUpdatedDate(String dateString) {

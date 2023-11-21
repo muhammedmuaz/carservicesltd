@@ -36,17 +36,38 @@ class Api {
 
   Future<dynamic> post(formdata, url,
       {fullurl, required RoundedLoadingButtonController postButton}) async {
+    String username = 'maaz';
+    String password = 'aSsl NIu4 Vt46 FYtY U1xV 9QgK';
+    // Set the Authorization header with Basic Authentication
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
     try {
-      final response =
-          await http.post(Uri.parse(fullurl ?? apiUrl + url), body: formdata);
+      final response = await http.post(
+        Uri.parse(fullurl ?? apiUrl + url),
+        body: formdata,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'Basic bWFhejphU3NsIE5JdTQgVnQ0NiBGWXRZIFUxeFbCoDlRZ0s='
+        },
+      );
       print("These are details");
       print(url);
       print(response.statusCode);
       if (response.statusCode == 200) {
         return response.body;
+      } else {
+        print(response.body);
+        print(response.statusCode);
       }
     } on SocketException {
       BotToast.showText(text: 'No Internet Connection');
+    } on HttpException catch (e) {
+      print(e);
+      print(e.message);
+      print(e.uri);
+    } catch (e) {
+      print(e);
     }
     return null;
   }
