@@ -25,6 +25,8 @@ class _CreateAnAddState extends State<CreateAnAdd> {
     'Tags',
   ];
   List<String> selectedTags = [];
+  String selectedid = '';
+  String selectedcountry = '';
   final formKey = GlobalKey<FormState>();
   TextEditingController titleControler = TextEditingController();
   TextEditingController placedescription = TextEditingController();
@@ -36,6 +38,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController websitecontroller = TextEditingController();
+  ServiceController controller = Get.put(ServiceController());
 
   final imgcontroller = MultiImagePickerController(
     maxImages: 15,
@@ -45,7 +48,6 @@ class _CreateAnAddState extends State<CreateAnAdd> {
   );
 
   Widget build(BuildContext context) {
-    ServiceController controller = Get.put(ServiceController());
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -78,6 +80,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   ),
                   // Place Title
                   TextFormField(
+                    controller: titleControler,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter Title';
@@ -90,6 +93,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
 
                   // Place Description
                   TextFormField(
+                    controller: placedescription,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter Description';
@@ -110,25 +114,34 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                             children: List.generate(
                                 selectedTags.length,
                                 (index) => Container(
-                                      height: Get.height * 0.045,
+                                      // height: Get.height * 0.045,
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
-                                      width: Get.width * 0.22,
+                                      // width: Get.width * 0.22,
                                       decoration: BoxDecoration(
                                           color: lightgreencolor,
                                           borderRadius:
                                               BorderRadius.circular(16.0)),
                                       child: Stack(
                                         children: [
-                                          const Align(
+                                          Align(
                                             alignment: Alignment.topRight,
-                                            child: Icon(Icons.close),
+                                            child: GestureDetector(
+                                                onTap: () => setState(() =>
+                                                    selectedTags
+                                                        .removeAt(index)),
+                                                child: const Icon(Icons.close)),
                                           ),
-                                          Center(
-                                            child: Text(
-                                              '#${selectedTags[index]}',
-                                              style: GoogleFonts.nunito(
-                                                  fontSize: 18.0),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10.0,
+                                                horizontal: 16.0),
+                                            child: Center(
+                                              child: Text(
+                                                '#${selectedTags[index]}',
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: 18.0),
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -160,44 +173,38 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                     decoration: const InputDecoration(labelText: 'Category *'),
                     items: const [
                       DropdownMenuItem(
-                          value: 'Car & Truck Parts',
-                          child: Text('Car & Truck Parts')),
+                          value: '30', child: Text('Car & Truck Parts')),
                       // Add other category items here
                       DropdownMenuItem(
-                          value: 'Car For Sale', child: Text('Car For Sale')),
+                          value: '10', child: Text('Car For Sale')),
                       DropdownMenuItem(
-                          value: 'Car For Hire', child: Text('Car For Hire')),
+                          value: '11', child: Text('Car For Hire')),
+                      DropdownMenuItem(value: '12', child: Text('Car Share')),
                       DropdownMenuItem(
-                          value: 'Car Share', child: Text('Car Share')),
-                      DropdownMenuItem(
-                          value: 'Chauffeur/Drivers For Hire',
+                          value: '13',
                           child: Text('Chauffeur/Drivers For Hire')),
                       DropdownMenuItem(
-                          value: 'Tow Services', child: Text('Tow Services')),
+                          value: '28', child: Text('Tow Services')),
                       DropdownMenuItem(
-                          value: 'Car/Truck Mechanics',
-                          child: Text('Car/Truck Mechanics')),
+                          value: '29', child: Text('Car/Truck Mechanics')),
                       DropdownMenuItem(
-                          value: 'Farm Equipment Hire',
-                          child: Text('Farm Equipment Hire')),
+                          value: '23', child: Text('Farm Equipment Hire')),
                       DropdownMenuItem(
-                          value: 'Farm Equipment Sale',
-                          child: Text('Farm Equipment Sale')),
+                          value: '24', child: Text('Farm Equipment Sale')),
                       DropdownMenuItem(
                           value: 'Car Pooling', child: Text('Car Pooling')),
                       DropdownMenuItem(
-                          value: 'Commercial Vehicles Hire',
-                          child: Text('Commercial Vehicles Hire')),
+                          value: '25', child: Text('Commercial Vehicles Hire')),
                       DropdownMenuItem(
-                          value: 'Commercial Vehicle Sale',
-                          child: Text('Commercial Vehicle Sale')),
+                          value: '20', child: Text('Commercial Vehicle Sale')),
                       DropdownMenuItem(
-                          value: 'Plant Equipment',
-                          child: Text('Plant Equipment')),
+                          value: '21', child: Text('Plant Equipment')),
                       DropdownMenuItem(
-                          value: 'Uncategorized', child: Text('Uncategorized')),
+                          value: '22', child: Text('Uncategorized')),
                     ],
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      selectedid = value!;
+                    },
                   ),
 
 ///////////////////////////////////////////////////////////////////
@@ -219,12 +226,12 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   // Country
 
                   DropdownButtonFormField<String>(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter Country';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter Country';
+                    //   }
+                    //   return null;
+                    // },
                     decoration: const InputDecoration(labelText: 'Country *'),
                     items: countries.map((String value) {
                       return DropdownMenuItem<String>(
@@ -232,7 +239,9 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                         child: Text(value),
                       );
                     }).toList(),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      selectedcountry = value!;
+                    },
                   ),
                   const SizedBox(height: 16.0),
 
@@ -247,6 +256,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                     controller: regioncontroller,
                     decoration: const InputDecoration(labelText: 'Region *'),
                   ),
+
                   const SizedBox(height: 16.0),
 
                   // City
@@ -265,6 +275,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   // Postcode
                   TextFormField(
                     controller: postcodecontroller,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Postcode'),
                   ),
                   const SizedBox(height: 16.0),
@@ -290,6 +301,7 @@ class _CreateAnAddState extends State<CreateAnAdd> {
 
                   // Phone
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: phonecontroller,
                     decoration: const InputDecoration(labelText: 'Phone'),
                   ),
@@ -297,6 +309,12 @@ class _CreateAnAddState extends State<CreateAnAdd> {
 
                   // Email
                   TextFormField(
+                    validator: (value) {
+                      if (!value!.contains('@') || !value.contains('.')) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
                     controller: emailcontroller,
                     decoration: const InputDecoration(labelText: 'Email'),
                   ),
@@ -304,6 +322,12 @@ class _CreateAnAddState extends State<CreateAnAdd> {
 
                   // Website
                   TextFormField(
+                    validator: (value) {
+                      if (!value!.contains('.')) {
+                        return 'Please enter a valid website url';
+                      }
+                      return null;
+                    },
                     controller: websitecontroller,
                     decoration: const InputDecoration(labelText: 'Website'),
                   ),
@@ -312,7 +336,20 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                   // Submit Button
                   ElevatedButton(
                     onPressed: () {
-                      controller.postaplace('title', 'description', 1);
+                      if (formKey.currentState!.validate()) {
+                        controller.postaplace(
+                            titleControler.text,
+                            placedescription.text,
+                            int.parse(selectedid),
+                            selectedcountry,
+                            addresscontroller.text,
+                            regioncontroller.text,
+                            citycontroller.text,
+                            postcodecontroller.text,
+                            phonecontroller.text,
+                            emailcontroller.text,
+                            websitecontroller.text);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: lightgreencolor,

@@ -139,7 +139,17 @@ class ServiceController extends GetxController {
   }
 
   Future<void> postaplace(
-      String title, String description, int postcategory) async {
+      String title,
+      String description,
+      int postcategory,
+      String country,
+      String street,
+      String region,
+      String city,
+      String zip,
+      String phone,
+      String email,
+      String website) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Basic bWFhejphU3NsIE5JdTQgVnQ0NiBGWXRZIFUxeFbCoDlRZ0s='
@@ -154,18 +164,18 @@ class ServiceController extends GetxController {
       "content": "<!-- wp:paragraph --> $description <!-- /wp:paragraph -->",
       "post_category": [postcategory],
       "post_tags": "test Tag",
-      "street": "test street",
-      "country": "PK",
-      "region": "KHI",
-      "city": "test city",
-      "zip": "560067",
-      "latitude": "12.9767936",
-      "longitude": "77.590082",
+      "street": street,
+      "country": country,
+      "region": region,
+      "city": city,
+      "zip": zip,
+      "latitude": "",
+      "longitude": "",
       "mapview": null,
       "mapzoom": "",
-      "phone": "9848622431",
-      "email": "khalid.shaikh82@gmail.com",
-      "website": "",
+      "phone": phone,
+      "email": email,
+      "website": website,
       "featured": false
     });
     request.headers.addAll(headers);
