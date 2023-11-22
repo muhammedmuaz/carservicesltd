@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -348,7 +350,8 @@ class _CreateAnAddState extends State<CreateAnAdd> {
                             postcodecontroller.text,
                             phonecontroller.text,
                             emailcontroller.text,
-                            websitecontroller.text);
+                            websitecontroller.text,
+                            File(imgcontroller.images.first.path!));
                       }
                     },
                     style: ElevatedButton.styleFrom(

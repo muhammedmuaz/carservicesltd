@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -138,6 +139,46 @@ class ServiceController extends GetxController {
     update();
   }
 
+  Future<String?> uploadImageToWordPress(File imageFile) async {
+    try {
+      // Define the WordPress REST API endpoint for media uploads
+      Uri mediaEndpoint =
+          Uri.parse('https://carservicesltd.com/wp-json/wp/v2/media');
+
+      // Prepare headers - add your WordPress credentials or authentication tokens here if needed
+      Map<String, String> headers = {
+        HttpHeaders.authorizationHeader:
+            'Basic bWFhejphU3NsIE5JdTQgVnQ0NiBGWXRZIFUxeFbCoDlRZ0s=',
+        // HttpHeaders.contentTypeHeader: 'application/json',
+      };
+
+      // Create a request body for the image file
+      var request = http.MultipartRequest('POST', mediaEndpoint);
+      request.headers.addAll(headers);
+      request.files
+          .add(await http.MultipartFile.fromPath('file', imageFile.path));
+
+      // Send the POST request with the image file
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 201) {
+        // Image uploaded successfully
+        var responseData = json.decode(response.body);
+        String imageUrl = responseData['guid']['rendered'];
+        print('Image uploaded successfully. URL: $imageUrl');
+        print(responseData);
+        return responseData['id'].toString();
+      } else {
+        // Image upload failed
+        print('Failed to upload image. Status Code: ${response.statusCode}');
+        print('Response: ${response.body}');
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
+
   Future<void> postaplace(
       String title,
       String description,
@@ -149,7 +190,9 @@ class ServiceController extends GetxController {
       String zip,
       String phone,
       String email,
-      String website) async {
+      String website,
+      File img) async {
+    String? id = await uploadImageToWordPress(img);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Basic bWFhejphU3NsIE5JdTQgVnQ0NiBGWXRZIFUxeFbCoDlRZ0s='
@@ -176,7 +219,9 @@ class ServiceController extends GetxController {
       "phone": phone,
       "email": email,
       "website": website,
-      "featured": false
+      "featured": false,
+      "featured_media": id,
+      "images": [id]
     });
     request.headers.addAll(headers);
 
