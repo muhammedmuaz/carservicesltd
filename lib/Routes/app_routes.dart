@@ -8,7 +8,7 @@ abstract class Routes {
   static const postservice = _Paths.postservice;
   static const postservicedetail = _Paths.postservicedetail;
   static const createanAdd = _Paths.createanAdd;
-  static const profilepage = _Paths.profilepage;
+  static const subscriptionpage = _Paths.subscriptionpage;
 }
 
 abstract class _Paths {
@@ -19,4 +19,5 @@ abstract class _Paths {
   static const postservicedetail = '/postservicedetail';
   static const createanAdd = '/createanAdd';
   static const profilepage = '/profilepage';
+  static const subscriptionpage = '/subscriptionpage';
 }

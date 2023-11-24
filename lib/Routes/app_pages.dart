@@ -4,6 +4,7 @@ import 'package:services_app/views/home/homepage.dart';
 import 'package:services_app/views/login/login_page.dart';
 import 'package:services_app/views/profilePage.dart';
 import 'package:services_app/views/services/postservicedetailpage.dart';
+import 'package:services_app/views/subsciptionPage.dart';
 import '../bindings/LoginBindings.dart';
 import '../bindings/servicebindings.dart';
 import '../network/Api.dart';
@@ -13,6 +14,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
   static var initial =
+      // Routes.subscriptionpage;
       Api().sp.read('islogin') != null ? Routes.home : Routes.login;
 
   static final routes = [
@@ -34,11 +36,15 @@ class AppPages {
         binding: ServiceBindings()),
     GetPage(
         name: _Paths.createanAdd,
-        page: () => CreateAnAdd(),
+        page: () => const CreateAnAdd(),
         binding: ServiceBindings()),
     GetPage(
         name: _Paths.profilepage,
         page: () => ProfilePage(),
+        binding: ServiceBindings()),
+    GetPage(
+        name: _Paths.subscriptionpage,
+        page: () => SubscriptionPage(),
         binding: ServiceBindings()),
   ];
 }
