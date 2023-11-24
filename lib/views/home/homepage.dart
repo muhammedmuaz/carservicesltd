@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/Authentication/authenticate.dart';
+import 'package:services_app/main.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/views/login/login_page.dart';
 import 'package:services_app/views/webview/UserProfile.dart';
@@ -151,19 +152,25 @@ class _HomePageState extends State<HomePage> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0))),
-                        icon: Icon(Icons.menu, color: Colors.black),
+                        icon: const Icon(Icons.menu, color: Colors.black),
                         itemBuilder: (BuildContext context) {
                           return [
                             PopupMenuItem(
-                              onTap: () => Get.to(const UserProfile()),
+                              onTap: () => Get.toNamed('/profilepage'),
                               child: const Text("My Account"),
                             ),
                             PopupMenuItem(
-                              onTap: () {},
+                              onTap: () {
+                                launchUrlfunc(Uri.parse(
+                                    'https://carservicesltd.com/index.php/contact-us/'));
+                              },
                               child: const Text("Contact"),
                             ),
                             PopupMenuItem(
-                              onTap: () {},
+                              onTap: () {
+                                launchUrlfunc(Uri.parse(
+                                    'https://carservicesltd.com/index.php/about/'));
+                              },
                               child: const Text("About Us"),
                             ),
                             PopupMenuItem(
@@ -178,10 +185,10 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {},
                               child: const Text("Favourite Post"),
                             ),
-                            PopupMenuItem(
-                              onTap: () {},
-                              child: const Text("Messages"),
-                            ),
+                            // PopupMenuItem(
+                            //   onTap: () {},
+                            //   child: const Text("Messages"),
+                            // ),
                             PopupMenuItem(
                               onTap: () async {
                                 bool auth =
@@ -201,10 +208,9 @@ class _HomePageState extends State<HomePage> {
                               child: const Text("Sign in/sign up"),
                             ),
                             PopupMenuItem(
-                              onTap: () => Get.to(const PostAnAdd()),
+                              onTap: () => Get.toNamed('/createanAdd'),
                               child: const Text("Post Service / Product"),
                             ),
-                            // Add more menu items as needed
                           ];
                         },
                       ),

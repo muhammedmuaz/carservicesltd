@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:services_app/views/createAdd/createanAdd.dart';
 import 'package:services_app/views/home/homepage.dart';
 import 'package:services_app/views/login/login_page.dart';
+import 'package:services_app/views/profilePage.dart';
 import 'package:services_app/views/services/postservicedetailpage.dart';
 import '../bindings/LoginBindings.dart';
 import '../bindings/servicebindings.dart';
@@ -34,6 +35,10 @@ class AppPages {
     GetPage(
         name: _Paths.createanAdd,
         page: () => CreateAnAdd(),
+        binding: ServiceBindings()),
+    GetPage(
+        name: _Paths.profilepage,
+        page: () => ProfilePage(),
         binding: ServiceBindings()),
   ];
 }
