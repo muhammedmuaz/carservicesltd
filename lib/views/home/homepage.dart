@@ -6,8 +6,6 @@ import 'package:services_app/Authentication/authenticate.dart';
 import 'package:services_app/main.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/views/login/login_page.dart';
-import 'package:services_app/views/webview/UserProfile.dart';
-import 'package:services_app/views/webview/postandAdd.dart';
 import 'package:services_app/widgets/home_widget.dart';
 import '../../controllers/service_controller.dart';
 import '../../widgets/drawer.dart';

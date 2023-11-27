@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:services_app/lat_long.dart';
 import 'package:services_app/views/Detail/detailpage.dart';
 import 'package:services_app/widgets/rating_bar.dart';
 import '../../controllers/service_controller.dart';
