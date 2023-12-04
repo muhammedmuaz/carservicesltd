@@ -29,7 +29,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account'),
+        title: const Text(
+          'Account',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xff264653),
       ),
       body: SingleChildScrollView(
@@ -88,18 +91,25 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff264653),
                 ),
-                child: const Text('Update Account'),
+                child: const Text(
+                  'Update Account',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Implement log out functionality
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff264653),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff264653),
+                ),
+                child: const Text(
+                  'Log out',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-              child: const Text('Log out'),
             ),
           ],
         ),
