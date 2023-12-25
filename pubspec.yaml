@@ -58,6 +58,7 @@ dependencies:
   share_plus: ^7.1.0
   flutter_localization: ^0.1.14
   webview_flutter: ^4.4.1
+  flutter_svg: ^2.0.9
   
 
 
