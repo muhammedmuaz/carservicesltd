@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CarServicesTextWidget(text: text, style: style)
+                          CarServicesTextWidget(text: '', style: TextStyle())
                         ],
                       )
                     ],
