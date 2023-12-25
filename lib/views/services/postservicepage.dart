@@ -98,37 +98,38 @@ class CarSaleCard extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12)),
+                // reffer
                 child: CachedNetworkImage(
-                    imageUrl: imgurl!,
-                    fit: BoxFit.fill,
-                    height: 126,
+                  imageUrl: imgurl!,
+                  fit: BoxFit.fill,
+                  height: 126,
+                  width: double.infinity,
+                  errorWidget: (context, url, error) => Container(
+                    height: double.infinity,
                     width: double.infinity,
-                    errorWidget: (context, url, error) => Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: DynamicColor.accentColor,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(12),
-                                  topRight: Radius.circular(12)),
-                              image: const DecorationImage(
-                                  image:
-                                      AssetImage("assets/NoImgPlaceholder.png"),
-                                  fit: BoxFit.fill)),
-                        ),
-                    placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: DynamicColor.accentColor.withOpacity(0.4),
-                        highlightColor:
-                            DynamicColor.orangeColor.withOpacity(0.3),
-                        child: Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12),
-                                  topRight: Radius.circular(12))),
-                        ))),
+                    decoration: BoxDecoration(
+                        color: DynamicColor.accentColor,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            topRight: Radius.circular(12)),
+                        image: const DecorationImage(
+                            image: AssetImage("assets/NoImgPlaceholder.png"),
+                            fit: BoxFit.fill)),
+                  ),
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: DynamicColor.accentColor.withOpacity(0.4),
+                    highlightColor: DynamicColor.orangeColor.withOpacity(0.3),
+                    child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12))),
+                    ),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 12.0, top: 4.0),
