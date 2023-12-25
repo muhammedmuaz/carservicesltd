@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:services_app/views/Detail/detailpage.dart';
 import 'package:services_app/widgets/rating_bar.dart';
+import 'package:shimmer/shimmer.dart';
+import '../../colors/colors.dart';
 import '../../controllers/service_controller.dart';
 import '../../network/Api.dart';
 
@@ -81,13 +84,59 @@ class _ServicePageState extends State<ServicePage> {
                                               ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
-                                                child: Image.network(
-                                                  buildPhotoUrl(
+                                                // wrap in cached and add shimmer
+                                                child: CachedNetworkImage(
+                                                  imageUrl: buildPhotoUrl(
                                                       service.photoReference ??
                                                           ''),
                                                   width: 140,
                                                   height: 120,
                                                   fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Container(
+                                                    height: double.infinity,
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            DynamicColor
+                                                                .accentColor,
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        12),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        12)),
+                                                        image: const DecorationImage(
+                                                            image: AssetImage(
+                                                                "assets/NoImgPlaceholder.png"),
+                                                            fit: BoxFit.fill)),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      Shimmer.fromColors(
+                                                    baseColor: DynamicColor.gray
+                                                        .withOpacity(0.4),
+                                                    highlightColor: DynamicColor
+                                                        .whiteColor
+                                                        .withOpacity(0.4),
+                                                    child: Container(
+                                                      height: double.infinity,
+                                                      width: double.infinity,
+                                                      decoration: const BoxDecoration(
+                                                          color: Colors.black,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          12),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          12))),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                               const Positioned(
