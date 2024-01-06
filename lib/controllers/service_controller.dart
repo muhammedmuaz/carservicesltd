@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
+import 'package:services_app/models/user_model.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:location/location.dart';
 import 'package:share_plus/share_plus.dart';
@@ -16,6 +17,7 @@ class ServiceController extends GetxController {
   bool isfetchingservice = false;
   bool postServiceloading = false;
   bool animationcompleted = false;
+  User? activeUser;
   bool postServiceDetailloading = false;
   List<CarRentalService> carRentalServices = [];
   CarServiceGoogleDetailModel? cardetail;
@@ -164,6 +166,17 @@ class ServiceController extends GetxController {
       print(e);
     }
   }
+
+  // User Fetching
+
+  Future<void> getUserDetails() async {
+    String url = "https://carservicesltd.com/api/user/get_userinfo/?user_id=43";
+    var response = await Api().get(url);
+    activeUser = userFromJson(response);
+    update();
+  }
+
+  // **************
 
   String formatLastUpdatedDate(String dateString) {
     DateTime originalDateTime = DateTime.parse(dateString);
