@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:services_app/const/data_const.dart';
 import 'package:services_app/const/design_const.dart';
+import 'package:services_app/generic_widgets/drawer/home_screen_drawer.dart';
 import 'package:services_app/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:services_app/utils/helper_widgets/global_text_widget.dart';
 import 'package:services_app/widgets/home_widget.dart';
@@ -11,22 +12,18 @@ import '../../generic_widgets/popup_menu.dart';
 import '../../utils/helper_widgets/add_height.dart';
 import 'widgets/post_services_card.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     Get.put(ServiceController());
     return SafeArea(
       child: Scaffold(
+          key: scaffoldKey,
           backgroundColor: Colors.white,
+          drawer: const CarServicesHomeDrawer(),
           body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -41,17 +38,23 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: const BoxDecoration(
-                                color: DesignConstants.kLogoSecondaryColor,
-                                shape: BoxShape.circle),
-                            child: const Center(
-                                child: Image(
-                                    height: 20,
-                                    width: 20,
-                                    image: AssetImage("assets/home-logo.png"))),
+                          GestureDetector(
+                            onTap: () {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                  color: DesignConstants.kLogoSecondaryColor,
+                                  shape: BoxShape.circle),
+                              child: const Center(
+                                  child: Image(
+                                      height: 20,
+                                      width: 20,
+                                      image:
+                                          AssetImage("assets/home-logo.png"))),
+                            ),
                           ),
                           Expanded(
                             child: Container(
@@ -80,7 +83,13 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: 12,
                           ),
-                          const CarServicesPopUpMenu(),
+                          Container(
+                              height: 42,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: DesignConstants.kLogoSecondaryColor,
+                              ),
+                              child: const CarServicesPopUpMenu()),
                         ],
                       ),
                       const AddHeight(0.03),
@@ -187,14 +196,14 @@ class _HomePageState extends State<HomePage> {
                   height: Get.height * 0.25,
                   padding: const EdgeInsets.symmetric(
                       horizontal: DataConstants.kScreenHorizontalPadding),
-                  color: Color(0xff1C244B),
+                  color: const Color(0xff1C244B),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      AddHeight(0.01),
+                      const AddHeight(0.01),
                       ScreenPadding(child: Image.asset('assets/logo.png')),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

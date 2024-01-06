@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import 'package:services_app/views/Add/post_an_add.dart';
 import 'package:services_app/views/home/homepage.dart';
 import 'package:services_app/views/login/login_page.dart';
+import 'package:services_app/views/profile/change_password_page.dart';
+import 'package:services_app/views/profile/edit_profile_page.dart';
 import 'package:services_app/views/services/postservicedetailpage.dart';
+import 'package:services_app/views/subscription/subscription_page.dart';
 import '../bindings/LoginBindings.dart';
 import '../bindings/servicebindings.dart';
 import '../network/Api.dart';
@@ -30,5 +34,21 @@ class AppPages {
         name: _Paths.postservicedetail,
         page: () => PostServiceDetailPage(),
         binding: ServiceBindings()),
+    GetPage(
+      name: _Paths.subscriptionPage,
+      page: () => const SubscriptionPage(),
+    ),
+    GetPage(
+      name: _Paths.editProfilePage,
+      page: () => const EditProfilePage(),
+    ),
+    GetPage(
+      name: _Paths.changePasswordPage,
+      page: () => const ChangePasswordPage(),
+    ),
+    GetPage(
+      name: _Paths.addPostPage,
+      page: () => const AddPostPage(),
+    ),
   ];
 }

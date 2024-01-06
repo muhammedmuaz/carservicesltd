@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
 import 'package:services_app/network/Api.dart';
@@ -17,6 +18,8 @@ class ServiceController extends GetxController {
   bool animationcompleted = false;
   bool postServiceDetailloading = false;
   List<CarRentalService> carRentalServices = [];
+  CarServiceGoogleDetailModel? cardetail;
+
   List<PostServiceModel>? postServiceModel;
   RxInt selectedIndex = 0.obs;
   PostServiceDetailModel? post;
@@ -66,21 +69,67 @@ class ServiceController extends GetxController {
     String url =
         "/place/nearbysearch/json?location=${position!.latitude},${position!.longitude}&radius=$radius&types=$type&key=$apiKey";
     var response = await Api().get(mapUrl + url);
+    print(mapUrl + url);
     // print("This is response");
     // print(mapUrl + url);
     // print(response);
     List<dynamic> results = json.decode(response.body)['results'];
 
     carRentalServices = results.map((result) {
+      final id = result['place_id'] ?? 'hello';
       final name = result['name'] ?? 'hello';
       final vicinity = result['vicinity'] ?? 'hello';
       final rating = result['rating']?.toDouble() ?? 0.0;
       final photoReference = result['photos']?[0]['photo_reference'];
-      return CarRentalService(name, vicinity, rating, photoReference);
+      return CarRentalService(id, name, vicinity, rating, photoReference);
     }).toList();
     isloading = false;
     update();
     // mapPlacesFromJson(response);
+  }
+
+  // Google Detail
+
+  Future<void> fetchServicesDetail(String id) async {
+    isloading = true;
+    String url = "/place/details/json?place_id=$id&key=$apiKey";
+    var response = await Api().get(mapUrl + url);
+    print(mapUrl + url);
+    // Fetching Hours Openning
+    List<dynamic> results = json.decode(response.body)['result']
+        ['current_opening_hours']['weekday_text'];
+    List<String> weekdays = [];
+    for (var i = 0; i < results.length; i++) {
+      weekdays.add(results[i]);
+    }
+    // ******************
+    // Phone and Address
+    String address = json.decode(response.body)['result']['formatted_address'];
+    String phoneNum =
+        json.decode(response.body)['result']['formatted_phone_number'];
+    String website = json.decode(response.body)['result']['website'];
+
+    // Reviews
+    List<dynamic> reviews = json.decode(response.body)['result']['reviews'];
+    List<Review> tempReviews = [];
+    for (var i = 0; i < reviews.length; i++) {
+      tempReviews.add(Review(
+          authorName: reviews[i]['author_name'],
+          description: reviews[i]['text']));
+    }
+
+    cardetail = CarServiceGoogleDetailModel(
+        phoneNum,
+        address,
+        website,
+        weekdays,
+        LatLng(
+            json.decode(response.body)['result']['geometry']['location']['lat'],
+            json.decode(response.body)['result']['geometry']['location']
+                ['lng']),
+        tempReviews);
+    isloading = false;
+    update();
   }
 
   Future<void> fetchPostDetailService(String id) async {
@@ -149,10 +198,30 @@ class ServiceController extends GetxController {
 }
 
 class CarRentalService {
+  final String? id;
   final String? name;
   final String? vicinity;
   final double? rating;
   final String? photoReference;
 
-  CarRentalService(this.name, this.vicinity, this.rating, this.photoReference);
+  CarRentalService(
+      this.id, this.name, this.vicinity, this.rating, this.photoReference);
+}
+
+class CarServiceGoogleDetailModel {
+  String phoneNumber = '';
+  String address = '';
+  String website = '';
+  List<String> weekdays = [];
+  LatLng coordinates = const LatLng(0.0, 0.0);
+  List<Review> reviews = [];
+
+  CarServiceGoogleDetailModel(this.phoneNumber, this.address, this.website,
+      this.weekdays, this.coordinates, this.reviews);
+}
+
+class Review {
+  String authorName = '';
+  String description = '';
+  Review({required this.authorName, required this.description});
 }

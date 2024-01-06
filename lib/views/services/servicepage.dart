@@ -55,7 +55,7 @@ class _ServicePageState extends State<ServicePage> {
                   Expanded(
                     child: controller.carRentalServices.isEmpty
                         ? const Center(
-                            child: Text('No Services Found'),
+                            child: Text('No Services available in your radius'),
                           )
                         : ListView.builder(
                             itemCount: controller.carRentalServices.length,
@@ -68,11 +68,13 @@ class _ServicePageState extends State<ServicePage> {
                                 child: GestureDetector(
                                   onTap: () async {
                                     await Get.to(DetailPage(
-                                        title: service.name.toString(),
-                                        detail: service.vicinity.toString(),
-                                        photoReference:
-                                            service.photoReference.toString(),
-                                        rating: service.rating ?? 0.0));
+                                      title: service.name.toString(),
+                                      detail: service.vicinity.toString(),
+                                      photoReference:
+                                          service.photoReference.toString(),
+                                      rating: service.rating ?? 0.0,
+                                      id: service.id.toString(),
+                                    ));
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +105,7 @@ class _ServicePageState extends State<ServicePage> {
                                                                 .accentColor,
                                                         borderRadius:
                                                             const BorderRadius
-                                                                    .only(
+                                                                .only(
                                                                 topLeft: Radius
                                                                     .circular(
                                                                         12),
@@ -139,19 +141,19 @@ class _ServicePageState extends State<ServicePage> {
                                                   ),
                                                 ),
                                               ),
-                                              const Positioned(
-                                                  top: 5,
-                                                  right: 5,
-                                                  child: CircleAvatar(
-                                                    radius: 15,
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    child: Icon(
-                                                      Icons.search,
-                                                      color: Colors.grey,
-                                                      size: 15,
-                                                    ),
-                                                  ))
+                                              // const Positioned(
+                                              //     top: 5,
+                                              //     right: 5,
+                                              //     child: CircleAvatar(
+                                              //       radius: 15,
+                                              //       backgroundColor:
+                                              //           Colors.white,
+                                              //       child: Icon(
+                                              //         Icons.search,
+                                              //         color: Colors.grey,
+                                              //         size: 15,
+                                              //       ),
+                                              //     ))
                                             ])
                                           : Container(
                                               height: 120,
