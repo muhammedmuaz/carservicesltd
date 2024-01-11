@@ -222,26 +222,26 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                                                         ),
                                                       ],
                                                     ),
-                                                    Container(
-                                                      height: 50,
-                                                      width: 50,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              shape: BoxShape
-                                                                  .circle),
-                                                      child: IconButton(
-                                                        onPressed: () {},
-                                                        icon: const Icon(
-                                                          EvaIcons.heart,
-                                                          color: Colors.red,
-                                                          size: 30,
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    // Container(
+                                                    //   height: 50,
+                                                    //   width: 50,
+                                                    //   alignment:
+                                                    //       Alignment.center,
+                                                    //   decoration:
+                                                    //       const BoxDecoration(
+                                                    //           color:
+                                                    //               Colors.white,
+                                                    //           shape: BoxShape
+                                                    //               .circle),
+                                                    //   child: IconButton(
+                                                    //     onPressed: () {},
+                                                    //     icon: const Icon(
+                                                    //       EvaIcons.heart,
+                                                    //       color: Colors.red,
+                                                    //       size: 30,
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
                                                   ],
                                                 ))),
                                       ),
@@ -389,77 +389,93 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
                                     children: [
                                       // Add the ListView.builder for displaying the reviews
                                       serviceController.selectedIndex.value == 3
-                                          ? ListView.builder(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemCount: reviews.length,
-                                              itemBuilder: (context, index) {
-                                                return Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: Card(
-                                                    elevation: 4,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              16.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            reviews[index]
-                                                                    ['name'] ??
-                                                                '',
-                                                            style: GoogleFonts
-                                                                .nunito(
-                                                              fontSize: 18,
-                                                              color: const Color(
-                                                                  0xff264653),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 5),
-                                                          Text(
-                                                            reviews[index][
-                                                                    'review'] ??
-                                                                '',
-                                                            style: GoogleFonts
-                                                                .nunito(
-                                                                    fontSize:
-                                                                        16),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                          ?
+
+                                          // ListView.builder(
+                                          //     shrinkWrap: true,
+                                          //     physics:
+                                          //         const NeverScrollableScrollPhysics(),
+                                          //     itemCount: reviews.length,
+                                          //     itemBuilder: (context, index) {
+                                          //       return Padding(
+                                          //         padding: const EdgeInsets
+                                          //             .symmetric(vertical: 8.0),
+                                          //         child: Card(
+                                          //           elevation: 4,
+                                          //           shape:
+                                          //               RoundedRectangleBorder(
+                                          //             borderRadius:
+                                          //                 BorderRadius.circular(
+                                          //                     10.0),
+                                          //           ),
+                                          //           child: Padding(
+                                          //             padding:
+                                          //                 const EdgeInsets.all(
+                                          //                     16.0),
+                                          //             child: Column(
+                                          //               crossAxisAlignment:
+                                          //                   CrossAxisAlignment
+                                          //                       .start,
+                                          //               children: [
+                                          //                 Text(
+                                          //                   reviews[index]
+                                          //                           ['name'] ??
+                                          //                       '',
+                                          //                   style: GoogleFonts
+                                          //                       .nunito(
+                                          //                     fontSize: 18,
+                                          //                     color: const Color(
+                                          //                         0xff264653),
+                                          //                     fontWeight:
+                                          //                         FontWeight
+                                          //                             .bold,
+                                          //                   ),
+                                          //                 ),
+                                          //                 const SizedBox(
+                                          //                     height: 5),
+                                          //                 Text(
+                                          //                   reviews[index][
+                                          //                           'review'] ??
+                                          //                       '',
+                                          //                   style: GoogleFonts
+                                          //                       .nunito(
+                                          //                           fontSize:
+                                          //                               16),
+                                          //                 ),
+                                          //               ],
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //       );
+                                          //     },
+                                          //   )
+
+                                          const Center(
+                                              child: Text('No Reviews Yet'),
                                             )
                                           : const SizedBox(),
 
                                       serviceController.selectedIndex.value == 2
-                                          ? locateMap(
-                                              LatLng(
+                                          ? serviceController
+                                                          .post!.latitude ==
+                                                      0.00 ||
                                                   serviceController
-                                                      .post!.latitude,
-                                                  serviceController
-                                                      .post!.longitude),
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.3)
+                                                          .post!.longitude ==
+                                                      0.00
+                                              ? const Center(
+                                                  child: Text(
+                                                      'No Location Available'),
+                                                )
+                                              : locateMap(
+                                                  LatLng(
+                                                      serviceController
+                                                          .post!.latitude,
+                                                      serviceController
+                                                          .post!.longitude),
+                                                  MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.3)
                                           : const SizedBox(),
 
                                       // Images section
@@ -785,20 +801,20 @@ class _PostServiceDetailPageState extends State<PostServiceDetailPage>
             //         ),
             //       )
             //     : Container(),
-            Positioned(
-              bottom: 16.0,
-              right: 16.0,
-              child: FloatingActionButton.extended(
-                backgroundColor: const Color(0xff264653),
-                splashColor: const Color(0xff2a9d8f),
-                onPressed: () {
-                  // Add functionality for the right button here
-                  print('Right button pressed!');
-                },
-                icon: const Icon(Icons.add),
-                label: const Text('Add Review'),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 16.0,
+            //   right: 16.0,
+            //   child: FloatingActionButton.extended(
+            //     backgroundColor: const Color(0xff264653),
+            //     splashColor: const Color(0xff2a9d8f),
+            //     onPressed: () {
+            //       // Add functionality for the right button here
+            //       print('Right button pressed!');
+            //     },
+            //     icon: const Icon(Icons.add),
+            //     label: const Text('Add Review'),
+            //   ),
+            // ),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

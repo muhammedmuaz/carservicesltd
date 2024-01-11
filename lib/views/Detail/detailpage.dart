@@ -1,16 +1,12 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:services_app/views/services/servicepage.dart';
-import 'package:services_app/widgets/rating_bar.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../colors/colors.dart';
 import '../../controllers/service_controller.dart';
 
@@ -370,7 +366,8 @@ class _DetailPageState extends State<DetailPage> {
                             : const SizedBox(),
                         serviceController.selectedIndex.value == 2
                             ? locateMap(
-                                randomLatLng,
+                                LatLng(serviceController.post!.latitude,
+                                    serviceController.post!.longitude),
                                 MediaQuery.of(context).size.height * 0.3,
                                 widget.title)
                             : const SizedBox(),
