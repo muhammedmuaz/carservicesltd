@@ -7,6 +7,7 @@ import 'package:services_app/generic_widgets/drawer/home_screen_drawer.dart';
 import 'package:services_app/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:services_app/utils/helper_widgets/global_text_widget.dart';
 import 'package:services_app/widgets/home_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controllers/service_controller.dart';
 import '../../generic_widgets/popup_menu.dart';
 import '../../utils/helper_widgets/add_height.dart';
@@ -203,13 +204,63 @@ class HomePage extends StatelessWidget {
                     children: [
                       const AddHeight(0.01),
                       ScreenPadding(child: Image.asset('assets/logo.png')),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CarServicesTextWidget(text: '', style: TextStyle())
-                        ],
-                      )
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            buildLink('About',
+                                'https://carservicesltd.com/index.php/about'),
+                            buildLink('Contact',
+                                'https://carservicesltd.com/index.php/contact-us/'),
+                            buildLink('Careers',
+                                'https://carservicesltd.com/index.php/careers'),
+                            buildLink('Affiliate',
+                                'https://carservicesltd.com/index.php/affiliate'),
+                            buildLink('Forum',
+                                'https://carservicesltd.com/index.php/forum'),
+                            buildLink('Blog',
+                                'https://carservicesltd.com/index.php/blog'),
+                          ],
+                        ),
+                      ),
+                      const AddHeight(0.01),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            buildLink('Terms Of Use',
+                                'https://carservicesltd.com/index.php/terms'),
+                            buildLink('Privacy Policy',
+                                'https://carservicesltd.com/index.php/privacy'),
+                            buildLink('Disclaimer',
+                                'https://carservicesltd.com/index.php/disclaimer'),
+                            buildLink('Cookie Policy',
+                                'https://carservicesltd.com/index.php/cookie'),
+                          ],
+                        ),
+                      ),
+                      const AddHeight(0.01),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            buildLink('Data Protection',
+                                'https://carservicesltd.com/index.php/data-protection'),
+                            buildLink('User Guide',
+                                'https://carservicesltd.com/index.php/user-guide'),
+                            buildLink('FAQ',
+                                'https://carservicesltd.com/index.php/faq'),
+                            buildLink('Advertising Policy',
+                                'https://carservicesltd.com/index.php/advertising-policy'),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -218,4 +269,20 @@ class HomePage extends StatelessWidget {
           )),
     );
   }
+}
+
+GestureDetector buildLink(String title, String url) {
+  return GestureDetector(
+    onTap: () {
+      // Open the URL when tapped
+      launchUrl(Uri.parse(url));
+    },
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(color: Colors.white),
+      ),
+    ),
+  );
 }

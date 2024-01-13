@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:geolocator/geolocator.dart';
@@ -46,5 +47,34 @@ class Api {
       BotToast.showText(text: 'No Internet Connection');
     }
     return null;
+  }
+
+  Future<dynamic> postFormData(formData, fullUrl) async {
+    try {
+      // Encode username and password to Base64
+      String basicAuth =
+          'Basic ${base64Encode(utf8.encode('maaz:aSsl NIu4 Vt46 FYtY U1xV 9QgK'))}';
+      // Your headers
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': basicAuth,
+      };
+
+      // Create a new http.Request object
+      final response =
+          await http.post(Uri.parse(fullUrl), body: formData, headers: headers);
+
+      // Encode the request body to JSON
+      print("These are details");
+      print(response.statusCode);
+      print(formData);
+      print(headers);
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } on SocketException {
+      BotToast.showText(text: 'No Internet Connection');
+      return null;
+    }
   }
 }

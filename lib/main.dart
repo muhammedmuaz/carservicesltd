@@ -5,10 +5,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:services_app/localeString.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Routes/app_pages.dart';
 
 // Requesting Permission
@@ -78,29 +79,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // translations: localString(),
-      // localeResolutionCallback: (deviceLocale, supportedLocales) {
-      //   for (var locale in supportedLocales) {
-      //     if (locale.languageCode == deviceLocale!.languageCode &&
-      //         locale.countryCode == deviceLocale.countryCode) {
-      //       return deviceLocale;
-      //     }
-      //   }
-      //   return supportedLocales.first;
-      // },
+      translations: localString(),
+      localeResolutionCallback: (deviceLocale, supportedLocales) {
+        for (var locale in supportedLocales) {
+          if (locale.languageCode == deviceLocale!.languageCode &&
+              locale.countryCode == deviceLocale.countryCode) {
+            return deviceLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       // localizationsDelegates: [
-      //   AppLocalizations.delegate,
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalWidgetsLocalizations.delegate,
-      //   // Additional delegates as needed.
+      //   GlobalCupertinoLocalizations.delegate,
+      // Additional delegates as needed.
       // ],
-      // supportedLocales: [
-      //   Locale('hi', 'IN'),
-      //   Locale('es', 'ES'),
-      //   Locale('de', 'DE'),
-      //   Locale('fr', 'FR'),
-      // ],
-      // locale: const Locale('hi', 'IN'),
+      supportedLocales: const [
+        Locale('hi', 'IN'),
+        Locale('es', 'ES'),
+        Locale('de', 'DE'),
+        Locale('fr', 'FR'),
+      ],
+      locale: const Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
       title: 'CarServicesLtd',
       transitionDuration: const Duration(milliseconds: 200),
       builder: BotToastInit(),

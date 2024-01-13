@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:services_app/controllers/service_controller.dart';
 import '../../controllers/post_an_add_Controller.dart';
 
 class AddPostPage extends StatelessWidget {
@@ -9,6 +10,8 @@ class AddPostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(PostAnAddController());
+    ServiceController serviceController = Get.find();
+
     TextEditingController titleController = TextEditingController();
     TextEditingController descController = TextEditingController();
     TextEditingController tagsController = TextEditingController();
@@ -169,11 +172,12 @@ class AddPostPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Handle form submission
-                    // Access form values and _images list for image paths
-                  }
+                onPressed: () async {
+                  await serviceController.PostAService();
+                  // if (_formKey.currentState!.validate()) {
+                  // Handle form submission
+                  // Access form values and _images list for image paths
+                  // }
                 },
                 child: const Text('Submit'),
               ),

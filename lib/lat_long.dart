@@ -11,11 +11,10 @@ class GetLatLongScreen extends StatefulWidget {
 
 class _GetLatLongScreenState extends State<GetLatLongScreen> {
   @override
-
   double? lat = 0;
   double? long = 0;
   String address = "";
-Future<Position> _determinePosition() async {
+  Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -53,8 +52,6 @@ Future<Position> _determinePosition() async {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-
-
   getLatLong() {
     Future<Position> data = _determinePosition();
     data.then((value) {
@@ -82,9 +79,8 @@ Future<Position> _determinePosition() async {
     }
   }
 
-
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -95,7 +91,7 @@ Future<Position> _determinePosition() async {
             Text("Long : $long"),
             Text("Address : $address "),
             ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 getLatLong();
               },
               child: const Text("Get Location"),
@@ -107,11 +103,5 @@ Future<Position> _determinePosition() async {
         ),
       ),
     );
-
-
-
-
-
-
   }
 }

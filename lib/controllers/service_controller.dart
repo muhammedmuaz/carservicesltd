@@ -167,6 +167,49 @@ class ServiceController extends GetxController {
     }
   }
 
+  // Create Post
+  PostAService() async {
+    postServiceloading = true;
+    update();
+    String url = "https://carservicesltd.com/wp-json/geodir/v2/places";
+    print(url);
+    var formdata = json.encode({
+      "title": "test Title",
+      "slug": "test slug",
+      "status": "publish",
+      "type": "gd_place",
+      "content": "<!-- wp:paragraph --> test content <!-- /wp:paragraph -->",
+      "post_category": [10],
+      "post_tags": "test Tag",
+      "street": "test street",
+      "country": "PK",
+      "region": "KHI",
+      "city": "test city",
+      "zip": "560067",
+      "latitude": "12.9767936",
+      "longitude": "77.590082",
+      "mapview": null,
+      "mapzoom": "",
+      "phone": "9848622431",
+      "email": "khalid.shaikh82@gmail.com",
+      "website": "",
+      "featured": false
+    });
+    var response = await Api().postFormData(formdata, url);
+    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    print(parsed);
+    try {
+      // parsed
+      //     .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
+      //     .toList();
+      postServiceloading = false;
+      update();
+      print("All working fine");
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // User Fetching
 
   Future<void> getUserDetails() async {
