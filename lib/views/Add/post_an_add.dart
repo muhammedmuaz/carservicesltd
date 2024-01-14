@@ -4,17 +4,23 @@ import 'package:get/get.dart';
 import 'package:services_app/controllers/service_controller.dart';
 import '../../controllers/post_an_add_Controller.dart';
 
-class AddPostPage extends StatelessWidget {
+class AddPostPage extends StatefulWidget {
   const AddPostPage({super.key});
 
   @override
+  State<AddPostPage> createState() => _AddPostPageState();
+}
+
+class _AddPostPageState extends State<AddPostPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
     Get.put(PostAnAddController());
-    ServiceController serviceController = Get.find();
-
     TextEditingController titleController = TextEditingController();
     TextEditingController descController = TextEditingController();
     TextEditingController tagsController = TextEditingController();
+    TextEditingController categoryController = TextEditingController();
+    TextEditingController countryController = TextEditingController();
     TextEditingController addressController = TextEditingController();
     TextEditingController regionController = TextEditingController();
     TextEditingController cityController = TextEditingController();
@@ -22,8 +28,8 @@ class AddPostPage extends StatelessWidget {
     TextEditingController phoneController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController websiteController = TextEditingController();
+    ServiceController serviceController = Get.find();
 
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Post'),
@@ -75,12 +81,24 @@ class AddPostPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              _buildDropdownField('Category *', [
-                'Car & Truck Parts',
-                'Car For Hire',
-                'Car For Sale',
-                // Add other categories...
-              ]),
+              _buildDropdownField(
+                  'Category *',
+                  [
+                    'Car For Sale',
+                    'Car For Hire',
+                    'Car Share',
+                    'Chauffeur/Drivers For Hire',
+                    'Tow Services',
+                    'Car/Truck Mechanics',
+                    'Farm Equipment Hire',
+                    'Commercial Vehicles Hire',
+                    'Commercial Vehicle Sale',
+                    'Plant Equipment',
+                    'Other Services'
+                        'Car & Truck Parts',
+                    // Add other categories...
+                  ],
+                  categoryController),
               const SizedBox(height: 20),
               TextFormField(
                 controller: addressController,
@@ -97,8 +115,20 @@ class AddPostPage extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              _buildDropdownField(
-                  'Country *', ['United States', 'Other countries']),
+              TextFormField(
+                controller: countryController,
+                decoration: const InputDecoration(
+                  labelText: 'Country *',
+                  hintText: 'Enter country',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter post country';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: regionController,
@@ -171,16 +201,28 @@ class AddPostPage extends StatelessWidget {
                 keyboardType: TextInputType.url,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  await serviceController.PostAService();
-                  // if (_formKey.currentState!.validate()) {
-                  // Handle form submission
-                  // Access form values and _images list for image paths
-                  // }
-                },
-                child: const Text('Submit'),
-              ),
+              serviceController.isSubmittingForm
+                  ? const Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          serviceController.uploadedImagesPath.clear();
+                          await serviceController.PostAService(
+                              titleController.text,
+                              descController.text,
+                              tagsController.text,
+                              addressController.text,
+                              regionController.text,
+                              cityController.text,
+                              phoneController.text,
+                              emailController.text,
+                              websiteController.text,
+                              countryController.text,
+                              postcodeController.text);
+                        }
+                      },
+                      child: const Text('Submit'),
+                    ),
             ],
           ),
         ),
@@ -188,11 +230,12 @@ class AddPostPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDropdownField(String label, List<String> items) {
+  Widget _buildDropdownField(
+      String label, List<String> items, TextEditingController controller) {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
       items: items.map((String value) {
         return DropdownMenuItem<String>(
@@ -202,6 +245,31 @@ class AddPostPage extends StatelessWidget {
       }).toList(),
       onChanged: (String? value) {
         // Handle dropdown value changes
+        if (value == "Car For Sale") {
+          controller.text = '10';
+        } else if (value == "Car For Hire") {
+          controller.text = '11';
+        } else if (value == "Car Share") {
+          controller.text = '12';
+        } else if (value == "Chauffeur/Drivers For Hire") {
+          controller.text = '13';
+        } else if (value == "Tow Services") {
+          controller.text = '28';
+        } else if (value == "Car/Truck Mechanics") {
+          controller.text = '29';
+        } else if (value == "Car & Truck Parts") {
+          controller.text = '30';
+        } else if (value == "Farm Equipment Hire") {
+          controller.text = '23';
+        } else if (value == "Commercial Vehicles Hire") {
+          controller.text = '25';
+        } else if (value == "Commercial Vehicle Sale") {
+          controller.text = '20';
+        } else if (value == "Plant Equipment") {
+          controller.text = '21';
+        } else {
+          controller.text = '22';
+        }
       },
     );
   }
@@ -216,10 +284,9 @@ class AddPostPage extends StatelessWidget {
             'Images',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ElevatedButton.icon(
             onPressed: () async {
-              print("Hllo");
               await controller.uploadImages();
             },
             icon: const Icon(Icons.file_upload),
@@ -258,7 +325,7 @@ class AddPostPage extends StatelessWidget {
               onTap: () {
                 controller.removeImage(controller.images.indexOf(imagePath));
               },
-              child: Icon(
+              child: const Icon(
                 Icons.close,
                 color: Colors.red,
               ),

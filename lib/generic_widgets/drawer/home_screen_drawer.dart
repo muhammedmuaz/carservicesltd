@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 import 'package:location/location.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../const/design_const.dart';
 
 class CarServicesHomeDrawer extends StatelessWidget {
@@ -106,10 +103,10 @@ class CarServicesHomeDrawer extends StatelessWidget {
               }
             },
           ),
-          ListTile(
-            title: const Text('Favourites'),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: const Text('Favourites'),
+          //   onTap: () {},
+          // ),
         ],
       ),
     );

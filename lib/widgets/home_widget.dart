@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:services_app/views/services/postservicepage.dart';
 import 'package:services_app/views/services/servicepage.dart';
 import '../controllers/service_controller.dart';
 

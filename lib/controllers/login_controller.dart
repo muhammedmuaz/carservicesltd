@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -17,16 +18,17 @@ class loginController extends GetxController {
       "user_login": emailController.text,
       "user_password": passController.text
     }, url, postButton: signUpButtonController);
+    print(emailController.text);
+    print(response);
     if (response != null) {
       try {
         await Api().sp.write("islogin", '1');
-        print(Api().sp.read('islogin').runtimeType);
-        print(Api().sp.read('islogin').runtimeType);
+        await Api().sp.write("user_login", emailController.text);
       } catch (e) {
-        print(e);
+        BotToast.showText(text: 'Error');
       }
       signUpButtonController.success();
-      Get.offAllNamed('/home');
+      Timer(const Duration(seconds: 1), () => Get.offAllNamed('/home'));
     } else {
       signUpButtonController.error();
       Timer(const Duration(seconds: 2), () => signUpButtonController.stop());

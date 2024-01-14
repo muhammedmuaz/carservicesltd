@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:services_app/controllers/service_controller.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../colors/colors.dart';
 
 class PostServiceDetailPage extends StatefulWidget {

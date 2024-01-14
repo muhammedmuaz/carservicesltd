@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +13,7 @@ import 'package:location/location.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models/postserviceModel.dart';
 import '../models/postservicedetailModel.dart';
+import 'post_an_add_Controller.dart';
 
 class ServiceController extends GetxController {
   bool isloading = true;
@@ -167,55 +170,103 @@ class ServiceController extends GetxController {
     }
   }
 
+  bool isSubmittingForm = false;
+
+  List<String> uploadedImagesPath = [];
+  // Upload Image
+  uploadImage(File img) async {
+    final response = await Api()
+        .postMultipart('https://carservicesltd.com/wp-json/wp/v2/media', img);
+    final jsonBody = response;
+    uploadedImagesPath.add(jsonDecode(jsonBody)['guid']['rendered']);
+  }
+
   // Create Post
-  PostAService() async {
-    postServiceloading = true;
+  PostAService(
+    String title,
+    String description,
+    String tags,
+    String address,
+    String region,
+    String city,
+    String phone,
+    String email,
+    String website,
+    String country,
+    String postCode,
+  ) async {
+    isSubmittingForm = true;
     update();
+    PostAnAddController postController = Get.find();
+    for (var i = 0; i < postController.images.length; i++) {
+      await uploadImage(File(postController.images[i]));
+    }
     String url = "https://carservicesltd.com/wp-json/geodir/v2/places";
     print(url);
     var formdata = json.encode({
-      "title": "test Title",
-      "slug": "test slug",
+      "title": title,
+      "slug": "$title slug",
       "status": "publish",
       "type": "gd_place",
-      "content": "<!-- wp:paragraph --> test content <!-- /wp:paragraph -->",
+      "content": "<!-- wp:paragraph --> $description <!-- /wp:paragraph -->",
       "post_category": [10],
-      "post_tags": "test Tag",
-      "street": "test street",
-      "country": "PK",
-      "region": "KHI",
-      "city": "test city",
-      "zip": "560067",
+      "post_tags": tags,
+      "street": address,
+      "country": country,
+      "region": region,
+      "city": city,
+      "zip": postCode,
+      "post_images": uploadedImagesPath,
       "latitude": "12.9767936",
       "longitude": "77.590082",
       "mapview": null,
       "mapzoom": "",
-      "phone": "9848622431",
-      "email": "khalid.shaikh82@gmail.com",
-      "website": "",
-      "featured": false
+      "phone": phone,
+      "email": email,
+      "website": website,
+      "featured": true
     });
-    var response = await Api().postFormData(formdata, url);
-    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    print(parsed);
+
     try {
-      // parsed
-      //     .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
-      //     .toList();
-      postServiceloading = false;
-      update();
-      print("All working fine");
+      var response = await Api().postFormData(formdata, url);
+      if (response == 200 || response == 201) {
+        postController.images.clear();
+        postController.update();
+        isSubmittingForm = false;
+        update();
+        Get.back();
+        BotToast.showText(text: 'Post Created');
+      } else {
+        BotToast.showText(text: 'Error please try again after some time');
+      }
     } catch (e) {
+      isSubmittingForm = false;
+      update();
+      BotToast.showText(text: 'Error please try again after some time');
       print(e);
     }
   }
 
   // User Fetching
 
+  TextEditingController displayNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   Future<void> getUserDetails() async {
-    String url = "https://carservicesltd.com/api/user/get_userinfo/?user_id=43";
-    var response = await Api().get(url);
-    activeUser = userFromJson(response);
+    String url1 = "https://carservicesltd.com/api/users/get_users/";
+    var response1 = await Api().get(url1);
+    Map<String, dynamic> usersData = json.decode(response1.body);
+    for (var key in usersData.keys.where((k) => k != 'status')) {
+      var email = Api().sp.read('user_login');
+      if (usersData[key]['user_login'] == email) {
+        displayNameController.text = usersData[key]['display_name'];
+        emailController.text = usersData[key]['user_email'];
+        update();
+      }
+    }
+    // String url = "https://carservicesltd.com/api/user/get_userinfo/?user_id=43";
+    // var response = await Api().get(url);
+    // activeUser = userFromJson(response);
     update();
   }
 
@@ -249,6 +300,7 @@ class ServiceController extends GetxController {
   @override
   void onInit() {
     // fetchServices();
+    getUserDetails();
     super.onInit();
   }
 }

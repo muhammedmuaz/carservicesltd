@@ -5,7 +5,6 @@ import 'package:services_app/const/data_const.dart';
 import 'package:services_app/const/design_const.dart';
 import 'package:services_app/generic_widgets/drawer/home_screen_drawer.dart';
 import 'package:services_app/generic_widgets/screen_widgets/screen_padding.dart';
-import 'package:services_app/utils/helper_widgets/global_text_widget.dart';
 import 'package:services_app/widgets/home_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../controllers/service_controller.dart';

@@ -8,6 +8,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:services_app/localeString.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:services_app/utils/carservices_fingerprint.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Routes/app_pages.dart';
@@ -69,15 +70,39 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  requestPermission(); // Call this function to request permission when the app opens.
+
+  requestPermission();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
+    authenticate() async {
+      var finger = Api().sp.read('fingerprint');
+      if (finger != null) {
+        print('Hello');
+        bool isAuthenticated =
+            await CarServicesFingerprintLock().authenticate();
+        if (!isAuthenticated) {
+          SystemNavigator.pop();
+        }
+      }
+    }
+
+    @override
+    void initState() {
+      authenticate();
+      super.initState();
+    }
+
     return GetMaterialApp(
       translations: localString(),
       localeResolutionCallback: (deviceLocale, supportedLocales) {

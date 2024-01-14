@@ -4,6 +4,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
 
 import 'package:services_app/views/home/homepage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -187,10 +188,13 @@ class _LoginScreenState extends State<LoginScreen>
                             // ),
                             const SizedBox(height: 10.0),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextButton(
-                                  onPressed: () => Get.to(const HomePage()),
+                                  onPressed: () {
+                                    launchUrl(Uri.parse(
+                                        'https://carservicesltd.com/'));
+                                  },
                                   child: const Text(
                                     'Create an Account',
                                     style: TextStyle(
@@ -199,16 +203,16 @@ class _LoginScreenState extends State<LoginScreen>
                                     ),
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: () => Get.to(const HomePage()),
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      color: Color(0xff00DFA2),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                                // TextButton(
+                                //   onPressed: () => Get.to(const HomePage()),
+                                //   child: const Text(
+                                //     'Forgot Password?',
+                                //     style: TextStyle(
+                                //       color: Color(0xff00DFA2),
+                                //       fontWeight: FontWeight.bold,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ],
