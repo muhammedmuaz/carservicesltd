@@ -8,11 +8,13 @@ abstract class Routes {
   static const postservice = _Paths.postservice;
   static const postservicedetail = _Paths.postservicedetail;
   static const subscriptionPage = _Paths.subscriptionPage;
+  static const forgotPasswordPage = _Paths.forgotPasswordPage;
 }
 
 abstract class _Paths {
   static const splash = '/splash';
   static const login = '/login';
+  static const forgotPasswordPage = '/forgotPasswordPage';
   static const home = '/home';
   static const postservice = '/postservice';
   static const postservicedetail = '/postservicedetail';

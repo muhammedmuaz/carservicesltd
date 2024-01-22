@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
 
-import 'package:services_app/views/home/homepage.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-class LoginScreen extends StatefulWidget {
+class ForgtPasswordScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ForgtPasswordScreenState createState() => _ForgtPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _ForgtPasswordScreenState extends State<ForgtPasswordScreen>
     with SingleTickerProviderStateMixin {
   loginController logic = Get.put(loginController());
   late AnimationController _animationController;
@@ -122,17 +120,22 @@ class _LoginScreenState extends State<LoginScreen>
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // const SizedBox(height: 10.0),
-                            Image.asset('assets/logo.png'),
-                            // const Text(
-                            //   'Car Services Ltd',
-                            //   style: TextStyle(
-                            //     color: Colors.black,
-                            //     fontFamily: 'Quicksand',
-                            //     letterSpacing: 2,
-                            //     fontSize: 32,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
+                            // Image.asset('assets/logo.png'),
+                            Text('Forgot Password',
+                                style: GoogleFonts.actor(
+                                  color: Colors.black,
+                                  letterSpacing: 2,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                )
+                                // TextStyle(
+                                //   color: Colors.black,
+                                //   fontFamily: 'Quicksand',
+                                //   letterSpacing: 2,
+                                //   fontSize: 32,
+                                //   fontWeight: FontWeight.bold,
+                                // ),
+                                ),
                             // const SizedBox(height: 10.0),
                             TextFormField(
                               controller: controller.emailController,
@@ -142,80 +145,46 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                             ),
                             const SizedBox(height: 20.0),
-                            TextFormField(
-                              controller: controller.passController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: 'Password',
-                                prefixIcon: Icon(Icons.lock),
-                              ),
-                            ),
-                            const SizedBox(height: 20.0),
                             RoundedLoadingButton(
                               color: const Color(0xff00DFA2),
                               width: 70,
                               elevation: 4.0,
                               borderRadius: 10.0,
                               controller: controller.signUpButtonController,
-                              onPressed: () => controller.login(),
-                              child: const Text('LOGIN',
+                              onPressed: () {},
+                              child: const Text('SUBMIT',
                                   style: TextStyle(color: Colors.white)),
                             ),
-                            // ElevatedButton(
-                            //   onPressed: () {
-                            //     print('home');
-                            //     // () => Get.to(const HomePage());
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: ((context) =>
-                            //                 const HomePage())));
-                            //   },
-                            //   style: ElevatedButton.styleFrom(
-                            //     primary: const Color(0xff00DFA2),
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(10.0),
-                            //     ),
-                            //     padding: const EdgeInsets.symmetric(
-                            //       vertical: 16.0,
-                            //     ),
-                            //     animationDuration:
-                            //         const Duration(milliseconds: 200),
-                            //     elevation: 4.0,
-                            //     shadowColor: Colors.black.withOpacity(0.2),
-                            //   ),
-                            //   child: const Text('LOGIN'),
-                            // ),
+
                             const SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    launchUrl(Uri.parse(
-                                        'https://carservicesltd.com/'));
-                                  },
-                                  child: const Text(
-                                    'Create an Account',
-                                    style: TextStyle(
-                                      color: Color(0xff00DFA2),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Get.toNamed('/forgotPasswordPage'),
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      color: Color(0xff00DFA2),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     TextButton(
+                            //       onPressed: () {
+                            //         launchUrl(Uri.parse(
+                            //             'https://carservicesltd.com/'));
+                            //       },
+                            //       child: const Text(
+                            //         'Create an Account',
+                            //         style: TextStyle(
+                            //           color: Color(0xff00DFA2),
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     TextButton(
+                            //       onPressed: () => Get.to(const HomePage()),
+                            //       child: const Text(
+                            //         'Forgot Password?',
+                            //         style: TextStyle(
+                            //           color: Color(0xff00DFA2),
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),

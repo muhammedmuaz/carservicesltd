@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:services_app/views/Add/post_an_add.dart';
 import 'package:services_app/views/home/homepage.dart';
+import 'package:services_app/views/login/forgot_Password.dart';
 import 'package:services_app/views/login/login_page.dart';
 import 'package:services_app/views/profile/change_password_page.dart';
 import 'package:services_app/views/profile/edit_profile_page.dart';
@@ -49,6 +50,10 @@ class AppPages {
     GetPage(
       name: _Paths.addPostPage,
       page: () => const AddPostPage(),
+    ),
+    GetPage(
+      name: _Paths.forgotPasswordPage,
+      page: () => ForgtPasswordScreen(),
     ),
   ];
 }

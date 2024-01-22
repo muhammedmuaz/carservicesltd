@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/network/Api.dart';
+import 'package:http/http.dart' as http;
 
 class loginController extends GetxController {
   RxBool isloading = false.obs;
@@ -14,13 +14,15 @@ class loginController extends GetxController {
       RoundedLoadingButtonController();
   login() async {
     String url = 'api/users/login/';
-    final response = await Api().post({
-      "user_login": emailController.text,
-      "user_password": passController.text
-    }, url, postButton: signUpButtonController);
+    final response = await http.post(Uri.parse(
+        "$apiUrl$url?user_login=${emailController.text}&user_password=${passController.text}"));
+    // final response = await Api().post({
+    //   "user_login": emailController.text,
+    //   "user_password": passController.text
+    // }, url, postButton: signUpButtonController);
     print(emailController.text);
     print(response);
-    if (response != null) {
+    if (response.statusCode != 400) {
       try {
         await Api().sp.write("islogin", '1');
         await Api().sp.write("user_login", emailController.text);

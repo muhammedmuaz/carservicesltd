@@ -915,7 +915,6 @@ PhotosSection(String? imgurl, String? imgurl2, double width) {
       ],
     ),
   );
-  ;
 }
 
 // Map Locate
