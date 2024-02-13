@@ -151,7 +151,7 @@ class _ForgtPasswordScreenState extends State<ForgtPasswordScreen>
                               elevation: 4.0,
                               borderRadius: 10.0,
                               controller: controller.signUpButtonController,
-                              onPressed: () {},
+                              onPressed: () async => await controller.forgot(),
                               child: const Text('SUBMIT',
                                   style: TextStyle(color: Colors.white)),
                             ),

@@ -216,6 +216,18 @@ class _LoginScreenState extends State<LoginScreen>
                                 ),
                               ],
                             ),
+                            TextButton(
+                              onPressed: () => Get.offAllNamed('/home'),
+                              child: const Text(
+                                'Continue without signup',
+                                style: TextStyle(
+                                  
+                                  color: Color(0xff00DFA2),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                
+                              ),
+                            ),
                           ],
                         ),
                       ),

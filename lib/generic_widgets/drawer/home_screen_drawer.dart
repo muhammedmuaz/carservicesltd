@@ -103,10 +103,13 @@ class CarServicesHomeDrawer extends StatelessWidget {
               }
             },
           ),
-          // ListTile(
-          //   title: const Text('Favourites'),
-          //   onTap: () {},
-          // ),
+          ListTile(
+            title: const Text('Share app link'),
+            onTap: () {
+              Share.shareUri(Uri.parse(
+                  'https://play.google.com/store/apps/details?id=com.mgnit.carserviceltd1'));
+            },
+          ),
         ],
       ),
     );

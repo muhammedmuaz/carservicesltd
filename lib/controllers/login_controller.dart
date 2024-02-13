@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,25 @@ class loginController extends GetxController {
   TextEditingController passController = TextEditingController();
   final RoundedLoadingButtonController signUpButtonController =
       RoundedLoadingButtonController();
+
+  forgot() async {
+    String url = 'api/user/retrieve_password/';
+    final response = await http.post(Uri.parse(apiUrl + url),
+        body: jsonEncode({"user_login": emailController.text}));
+    final apiResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      BotToast.showText(text: apiResponse['msg']);
+      emailController.clear();
+      signUpButtonController.success();
+      Timer(const Duration(seconds: 2), () => signUpButtonController.stop());
+    } else {
+      emailController.clear();
+      signUpButtonController.error();
+      Timer(const Duration(seconds: 2), () => signUpButtonController.stop());
+      BotToast.showText(text: 'Error please Try Again');
+    }
+  }
+
   login() async {
     String url = 'api/users/login/';
     final response = await http.post(Uri.parse(
