@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/utils/carservices_fingerprint.dart';
 
+import '../views/login/forgot_Password.dart';
+
 class CarServicesPopUpMenu extends StatelessWidget {
   const CarServicesPopUpMenu({super.key});
 
@@ -24,16 +26,6 @@ class CarServicesPopUpMenu extends StatelessWidget {
             onTap: () => Get.toNamed('/editProfilePage'),
             child: const Text("My Account"),
           ),
-          // PopupMenuItem(
-          //   onTap: () {
-          //     // mapController.getLocation();
-          //   },
-          //   child: const Text("Messages"),
-          // ),
-          // PopupMenuItem(
-          //   onTap: () => Get.toNamed('/changePasswordPage'),
-          //   child: const Text("Change Password"),
-          // ),
           PopupMenuItem(
             onTap: () => Get.toNamed('/subscriptionPage'),
             child: const Text("Subscription"),
@@ -65,6 +57,12 @@ class CarServicesPopUpMenu extends StatelessWidget {
           PopupMenuItem(
             onTap: () => Get.toNamed('/addPostPage'),
             child: const Text("Post an Add"),
+          ),
+          PopupMenuItem(
+            onTap: () => Get.to(const ForgtPasswordScreen(
+              isChangePass: true,
+            )),
+            child: const Text("Change Password"),
           ),
           PopupMenuItem(
             onTap: () {

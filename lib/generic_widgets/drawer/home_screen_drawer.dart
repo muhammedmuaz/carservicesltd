@@ -29,10 +29,10 @@ class CarServicesHomeDrawer extends StatelessWidget {
               ),
             ),
           ),
-          // ListTile(
-          //   title: const Text('Notifications'),
-          //   onTap: () {},
-          // ),
+          ListTile(
+            title: const Text('Notifications'),
+            onTap: () {},
+          ),
           ExpansionTile(
             title: const Text('Transtaltion'),
             children: <Widget>[
@@ -101,6 +101,13 @@ class CarServicesHomeDrawer extends StatelessWidget {
                 // Handle the case where location data is not available
                 print('Location data not available');
               }
+            },
+          ),
+          ListTile(
+            title: const Text('Favourites'),
+            onTap: () {
+              Share.shareUri(Uri.parse(
+                  'https://play.google.com/store/apps/details?id=com.mgnit.carserviceltd1'));
             },
           ),
           ListTile(

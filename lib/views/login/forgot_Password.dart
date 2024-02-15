@@ -5,6 +5,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
 
 class ForgtPasswordScreen extends StatefulWidget {
+  final bool isChangePass;
+  const ForgtPasswordScreen({this.isChangePass = false});
   @override
   _ForgtPasswordScreenState createState() => _ForgtPasswordScreenState();
 }
@@ -121,9 +123,12 @@ class _ForgtPasswordScreenState extends State<ForgtPasswordScreen>
                           children: [
                             // const SizedBox(height: 10.0),
                             // Image.asset('assets/logo.png'),
-                            Text('Forgot Password',
+                            Text(
+                                widget.isChangePass
+                                    ? 'Change Password'
+                                    : 'Forgot Password',
                                 style: GoogleFonts.actor(
-                                  color: Colors.black,
+                                  color: const Color.fromARGB(255, 251, 238, 238),
                                   letterSpacing: 2,
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,

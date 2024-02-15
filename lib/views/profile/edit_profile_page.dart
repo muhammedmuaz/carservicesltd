@@ -55,7 +55,7 @@ class EditProfilePage extends StatelessWidget {
               readOnly: true,
               controller: serviceController.displayNameController,
               decoration: const InputDecoration(
-                labelText: 'Display Name',
+                labelText: 'Username',
                 border: OutlineInputBorder(),
               ),
             ),
