@@ -22,6 +22,15 @@ class PostServicePage extends StatelessWidget {
               style:
                   const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Get.toNamed('/addPostPage');
+                },
+                icon: const Icon(Icons.add_box_outlined),
+                color: Colors.black,
+              )
+            ],
           ),
           body: GetBuilder<ServiceController>(builder: (controller) {
             return controller.postServiceloading
