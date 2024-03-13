@@ -18,6 +18,7 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
+  TextEditingController _searchController = TextEditingController();
   double currentValue = 1000.0;
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,25 @@ class _ServicePageState extends State<ServicePage> {
                               radius: currentValue);
                         });
                       }),
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        labelText: 'Search',
+                        hintText: 'Search',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        controller.filterPostGoogleService(value);
+                      },
+                    ),
+                  ),
                   Expanded(
-                    child: controller.carRentalServices.isEmpty
+                    child: controller.filteredcarRentalServices.isEmpty
                         ? const Center(
                             child: Text('No Services available in your radius'),
                           )

@@ -10,6 +10,9 @@ class PostServicePage extends StatelessWidget {
   PostServicePage({super.key});
   // Use Get.arguments to retrieve the arguments passed from the FirstPage
   final String title = Get.arguments as String;
+
+  TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,41 +42,74 @@ class PostServicePage extends StatelessWidget {
                   )
                 : Padding(
                     padding: const EdgeInsets.only(top: 10.0),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Two cards per row
-                        childAspectRatio:
-                            0.75, // Adjust the aspect ratio as needed
-                        mainAxisSpacing: 10.0,
-                      ),
-                      itemCount: controller.postServiceModel!.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            controller.fetchPostDetailService(controller
-                                .postServiceModel![index].id
-                                .toString());
-                            Get.toNamed("/postservicedetail");
-                          },
-                          child: CarSaleCard(
-                            imgurl: controller.postServiceModel![index].image,
-                            title: controller
-                                        .postServiceModel![index].title.length >
-                                    15
-                                ? '${controller.postServiceModel![index].title.substring(0, 15)}...'
-                                : controller.postServiceModel![index].title,
-                            content: controller
-                                        .removeTags(controller
-                                            .postServiceModel![index].content)
-                                        .length >
-                                    30
-                                ? '${controller.removeTags(controller.postServiceModel![index].content).substring(0, 30)}...'
-                                : controller.removeTags(controller
-                                    .postServiceModel![index].content),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: TextField(
+                            controller: _searchController,
+                            decoration: const InputDecoration(
+                              labelText: 'Search',
+                              hintText: 'Search',
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              controller.filterPostService(value);
+                            },
                           ),
-                        );
-                      },
+                        ),
+                        Expanded(
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // Two cards per row
+                              childAspectRatio:
+                                  0.75, // Adjust the aspect ratio as needed
+                              mainAxisSpacing: 10.0,
+                            ),
+                            itemCount:
+                                controller.filteredpostServiceModel!.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  controller.fetchPostDetailService(controller
+                                      .filteredpostServiceModel![index].id
+                                      .toString());
+                                  Get.toNamed("/postservicedetail");
+                                },
+                                child: CarSaleCard(
+                                  imgurl: controller
+                                      .filteredpostServiceModel![index].image,
+                                  title: controller
+                                              .filteredpostServiceModel![index]
+                                              .title
+                                              .length >
+                                          15
+                                      ? '${controller.filteredpostServiceModel![index].title.substring(0, 15)}...'
+                                      : controller
+                                          .filteredpostServiceModel![index]
+                                          .title,
+                                  content: controller
+                                              .removeTags(controller
+                                                  .filteredpostServiceModel![
+                                                      index]
+                                                  .content)
+                                              .length >
+                                          30
+                                      ? '${controller.removeTags(controller.filteredpostServiceModel![index].content).substring(0, 30)}...'
+                                      : controller.removeTags(controller
+                                          .filteredpostServiceModel![index]
+                                          .content),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ));
           })),
     );

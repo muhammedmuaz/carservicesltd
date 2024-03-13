@@ -22,9 +22,11 @@ class ServiceController extends GetxController {
   User? activeUser;
   bool postServiceDetailloading = false;
   List<CarRentalService> carRentalServices = [];
+  List<CarRentalService> filteredcarRentalServices = [];
   CarServiceGoogleDetailModel? cardetail;
 
   List<PostServiceModel>? postServiceModel;
+  List<PostServiceModel>? filteredpostServiceModel;
   RxInt selectedIndex = 0.obs;
   PostServiceDetailModel? post;
 
@@ -78,7 +80,14 @@ class ServiceController extends GetxController {
     // print(mapUrl + url);
     // print(response);
     List<dynamic> results = json.decode(response.body)['results'];
-
+    filteredcarRentalServices = results.map((result) {
+      final id = result['place_id'] ?? 'hello';
+      final name = result['name'] ?? 'hello';
+      final vicinity = result['vicinity'] ?? 'hello';
+      final rating = result['rating']?.toDouble() ?? 0.0;
+      final photoReference = result['photos']?[0]['photo_reference'];
+      return CarRentalService(id, name, vicinity, rating, photoReference);
+    }).toList();
     carRentalServices = results.map((result) {
       final id = result['place_id'] ?? 'hello';
       final name = result['name'] ?? 'hello';
@@ -161,12 +170,40 @@ class ServiceController extends GetxController {
       postServiceModel = parsed
           .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
           .toList();
+      filteredpostServiceModel = parsed
+          .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
+          .toList();
       postServiceloading = false;
       update();
-      print("All working fine");
     } catch (e) {
       print(e);
     }
+  }
+
+  filterPostService(String text) {
+    if (text.isNotEmpty) {
+      filteredpostServiceModel = postServiceModel!
+          .where((element) =>
+              element.title.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+    } else {
+      filteredpostServiceModel!.clear();
+      filteredpostServiceModel!.addAll(postServiceModel!);
+    }
+    update();
+  }
+
+  filterPostGoogleService(String text) {
+    if (text.isNotEmpty) {
+      filteredcarRentalServices = carRentalServices
+          .where((element) =>
+              element.name!.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+    } else {
+      filteredcarRentalServices.clear();
+      filteredcarRentalServices.addAll(carRentalServices);
+    }
+    update();
   }
 
   bool isSubmittingForm = false;

@@ -16,38 +16,38 @@ class SubscriptionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CarServicesSubscriptionCard(
-                title: '3 Months',
-                price: '\$15.00/month',
+                title: 'Silver',
+                price: '\$ 100',
                 features: [
                   'Service Due Date Reminder',
                   'Insurance Reminder',
                   'Fuel Cost Caliculator',
                   'Road Tax Reminder',
-                  'Google Maps'
+                  'Basic Features Without Maps'
                 ],
               ),
               SizedBox(height: 20),
               CarServicesSubscriptionCard(
-                title: '6 Months',
-                price: '\$25.00/month',
+                title: 'Gold',
+                price: '\$200',
                 features: [
                   'Service Due Date Reminder',
                   'Insurance Reminder',
                   'Fuel Cost Caliculator',
                   'Road Tax Reminder',
-                  'Google Maps'
+                  'Maps Chat Support 2 Sponsored Posts'
                 ],
               ),
               SizedBox(height: 20),
               CarServicesSubscriptionCard(
-                title: '12 Months',
-                price: '\$30.00/month',
+                title: 'Platinum',
+                price: '\$300',
                 features: [
                   'Service Due Date Reminder',
                   'Insurance Reminder',
                   'Fuel Cost Caliculator',
                   'Road Tax Reminder',
-                  'Google Maps'
+                  'Maps Chat Support 4 Sponsored Posts'
                 ],
               ),
             ],

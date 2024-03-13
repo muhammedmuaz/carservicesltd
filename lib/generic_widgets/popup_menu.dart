@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/utils/carservices_fingerprint.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../views/login/forgot_Password.dart';
+import '../views/webview/chat_with_us_page.dart';
 
 class CarServicesPopUpMenu extends StatelessWidget {
   const CarServicesPopUpMenu({super.key});
@@ -63,6 +65,12 @@ class CarServicesPopUpMenu extends StatelessWidget {
               isChangePass: true,
             )),
             child: const Text("Change Password"),
+          ),
+          PopupMenuItem(
+            onTap: () {
+              Get.to(const ChatWithUs());
+            },
+            child: const Text("Chat with us"),
           ),
           PopupMenuItem(
             onTap: () {
