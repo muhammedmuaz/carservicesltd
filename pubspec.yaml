@@ -43,7 +43,7 @@ dependencies:
   bot_toast: ^4.0.4
   get_storage: ^2.1.1
   http: ^0.13.6
-  intl: ^0.18.1
+  intl: ^0.18.0
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   permission_handler: ^10.4.1

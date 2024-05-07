@@ -94,10 +94,10 @@ class _GetLatLongScreenState extends State<GetLatLongScreen> {
               onPressed: () {
                 getLatLong();
               },
-              child: const Text("Get Location"),
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xFF0D39F2),
               ),
+              child: const Text("Get Location"),
             ),
           ],
         ),

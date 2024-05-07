@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:services_app/controllers/service_controller.dart';
 import '../../controllers/post_an_add_Controller.dart';
+import '../../utils/carservices_helper_functions.dart';
 
 class AddPostPage extends StatefulWidget {
   const AddPostPage({super.key});
@@ -287,7 +290,44 @@ class _AddPostPageState extends State<AddPostPage> {
           const SizedBox(height: 8),
           ElevatedButton.icon(
             onPressed: () async {
-              await controller.uploadImages();
+              showCupertinoModalPopup(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CupertinoActionSheet(
+                      actions: <Widget>[
+                        CupertinoActionSheetAction(
+                          onPressed: () async {
+                            Navigator.pop(context);
+
+                            final image = await controller
+                                .uploadImages(ImageSource.camera);
+                          },
+                          child: const Text(
+                            'Take a Picture',
+                          ),
+                        ),
+                        CupertinoActionSheetAction(
+                          onPressed: () async {
+                            Navigator.pop(context);
+
+                            await controller.uploadImages(ImageSource.gallery);
+                          },
+                          child: const Text(
+                            'Choose from Gallery',
+                          ),
+                        ),
+                      ],
+                      cancelButton: CupertinoActionSheetAction(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Cancel',
+                        ),
+                      ),
+                    );
+                  });
             },
             icon: const Icon(Icons.file_upload),
             label: const Text('Upload Images'),

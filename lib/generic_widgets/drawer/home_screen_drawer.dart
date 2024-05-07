@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:services_app/controllers/service_controller.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../const/design_const.dart';
 
@@ -29,12 +30,12 @@ class CarServicesHomeDrawer extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            title: const Text('Notifications'),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: const Text('Notifications'),
+          //   onTap: () {},
+          // ),
           ExpansionTile(
-            title: const Text('Transtaltion'),
+            title: const Text('Translation'),
             children: <Widget>[
               ListTile(
                 title: const Text('Hindi'),
@@ -104,10 +105,38 @@ class CarServicesHomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text('Featured Posts'),
+            onTap: () {
+              ServiceController mapController = Get.find();
+              mapController.fetchPostService(id: '11');
+              Get.toNamed(
+                '/postservice',
+                arguments: "Featured Posts",
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Promoted Post'),
+            onTap: () {
+              ServiceController mapController = Get.find();
+              mapController.fetchPostService(id: '13');
+              Get.toNamed(
+                '/postservice',
+                arguments: "Promoted Posts",
+              );
+            },
+          ),
+          ListTile(
             title: const Text('Favourites'),
             onTap: () {
-              Share.shareUri(Uri.parse(
-                  'https://play.google.com/store/apps/details?id=com.mgnit.carserviceltd1'));
+              ServiceController mapController = Get.find();
+              mapController.fetchPostService(id: '10');
+              Get.toNamed(
+                '/postservice',
+                arguments: "Favourites",
+              );
+              // Share.shareUri(Uri.parse(
+              //     'https://play.google.com/store/apps/details?id=com.mgnit.carserviceltd1'));
             },
           ),
           ListTile(

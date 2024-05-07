@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
+import 'package:services_app/generic_widgets/bottomSheets/post_category_bottom_sheet.dart';
 import 'package:services_app/models/user_model.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:location/location.dart';
@@ -24,6 +25,7 @@ class ServiceController extends GetxController {
   List<CarRentalService> carRentalServices = [];
   List<CarRentalService> filteredcarRentalServices = [];
   CarServiceGoogleDetailModel? cardetail;
+  int? selectedPostCategoryIndex;
 
   List<PostServiceModel>? postServiceModel;
   List<PostServiceModel>? filteredpostServiceModel;
@@ -75,10 +77,6 @@ class ServiceController extends GetxController {
     String url =
         "/place/nearbysearch/json?location=${position!.latitude},${position!.longitude}&radius=$radius&types=$type&key=$apiKey";
     var response = await Api().get(mapUrl + url);
-    print(mapUrl + url);
-    // print("This is response");
-    // print(mapUrl + url);
-    // print(response);
     List<dynamic> results = json.decode(response.body)['results'];
     filteredcarRentalServices = results.map((result) {
       final id = result['place_id'] ?? 'hello';
@@ -102,7 +100,6 @@ class ServiceController extends GetxController {
   }
 
   // Google Detail
-
   Future<void> fetchServicesDetail(String id) async {
     isloading = true;
     String url = "/place/details/json?place_id=$id&key=$apiKey";
@@ -158,11 +155,27 @@ class ServiceController extends GetxController {
     update();
   }
 
-  fetchPostService(String id) async {
+  selectPostCategory(int index, String searchedValue) async {
+    selectedPostCategoryIndex = index;
+    await fetchPostService(
+        id: postCategories[index].id, isSearch: true, value: searchedValue);
+  }
+
+  deselectPostCategoryBotomBar(String value) async {
+    selectedPostCategoryIndex = null;
+    await fetchPostService(isSearch: true, value: value);
+  }
+
+  deselectPostCategory() async {
+    selectedPostCategoryIndex = null;
+  }
+
+  fetchPostService({String? id, bool isSearch = false, String? value}) async {
     postServiceloading = true;
     update();
-    String url =
-        "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
+    String url = id == null
+        ? "https://carservicesltd.com/index.php/wp-json/geodir/v2/places"
+        : "https://carservicesltd.com/index.php/wp-json/geodir/v2/places?gd_placecategory=$id";
     print(url);
     var response = await Api().get(url);
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -173,6 +186,9 @@ class ServiceController extends GetxController {
       filteredpostServiceModel = parsed
           .map<PostServiceModel>((item) => PostServiceModel.fromJson(item))
           .toList();
+      if (isSearch == true) {
+        filterPostService(value!);
+      }
       postServiceloading = false;
       update();
     } catch (e) {

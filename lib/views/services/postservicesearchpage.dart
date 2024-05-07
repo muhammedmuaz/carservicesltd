@@ -8,28 +8,39 @@ import 'package:services_app/colors/colors.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../controllers/service_controller.dart';
 import '../../network/Api.dart';
+import '../../utils/carservices_helper_functions.dart';
 
-class PostServicePage extends StatefulWidget {
-  PostServicePage({super.key});
+class PostServiceSearchPage extends StatefulWidget {
+  PostServiceSearchPage({super.key});
 
   @override
-  State<PostServicePage> createState() => _PostServicePageState();
+  State<PostServiceSearchPage> createState() => _PostServiceSearchPageState();
 }
 
-class _PostServicePageState extends State<PostServicePage> {
+class _PostServiceSearchPageState extends State<PostServiceSearchPage> {
   // Use Get.arguments to retrieve the arguments passed from the FirstPage
   final String title = Get.arguments as String;
 
   TextEditingController _searchController = TextEditingController();
+
   bool isUserSignedUp = false;
+
+  ServiceController serciceController = Get.find();
 
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      _searchController.text = title;
       isUserSignedUp = Api().sp.read('islogin') != null ? true : false;
       setState(() {});
     });
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    serciceController.deselectPostCategory();
+    super.deactivate();
   }
 
   @override
@@ -39,10 +50,9 @@ class _PostServicePageState extends State<PostServicePage> {
           appBar: AppBar(
             backgroundColor: const Color(0xff264653),
             centerTitle: true,
-            title: Text(
-              title,
-              style:
-                  const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+            title: const Text(
+              'Search',
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
             ),
             actions: [
               IconButton(
@@ -54,8 +64,18 @@ class _PostServicePageState extends State<PostServicePage> {
                   }
                 },
                 icon: const Icon(Icons.add_box_outlined),
-                color: Colors.black,
+                color: Colors.white,
+              ),
+              IconButton(
+                onPressed: () {
+                  BottomModalsAndDialogs.selectPostCategoryBottomSheet(
+                      context, _searchController.text);
+                },
+                icon: const Icon(Icons.menu),
+                color: Colors.white,
               )
+
+              // selectPostCategoryBottomSheet
             ],
           ),
           body: GetBuilder<ServiceController>(builder: (controller) {
@@ -68,7 +88,7 @@ class _PostServicePageState extends State<PostServicePage> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: TextField(
                             controller: _searchController,
                             decoration: const InputDecoration(

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:services_app/const/design_const.dart';
@@ -5,7 +6,7 @@ import 'package:services_app/const/design_const.dart';
 import '../../controllers/service_controller.dart';
 
 class EditProfilePage extends StatelessWidget {
-  const EditProfilePage({super.key});
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class EditProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: const Color(0xff264653),
         title: const Text('Edit Profile'),
       ),
       body: SingleChildScrollView(
@@ -31,25 +33,6 @@ class EditProfilePage extends StatelessWidget {
                       ),
                       fit: BoxFit.contain)),
             ),
-            // const CircleAvatar(
-            //   radius: 60,
-            //   backgroundImage: AssetImage(
-            //       'assets/home-logo.png',), // Replace with your image
-            // ),
-            // const SizedBox(height: 20),
-            // TextFormField(
-            //   decoration: const InputDecoration(
-            //     labelText: 'First Name',
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
-            // const SizedBox(height: 20),
-            // TextFormField(
-            //   decoration: const InputDecoration(
-            //     labelText: 'Last Name',
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
             const SizedBox(height: 20),
             TextFormField(
               readOnly: true,
@@ -68,25 +51,66 @@ class EditProfilePage extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
-            // const SizedBox(height: 20),
-            // TextFormField(
-            //   maxLines: 4,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Bio',
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
             const SizedBox(height: 20),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // Add your save profile logic here
-            //     serviceController.getUserDetails();
-            //   },
-            //   child: const Text(
-            //     'Save Changes',
-            //     style: TextStyle(color: DesignConstants.kLogoSecondaryColor),
-            //   ),
-            // ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Address',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.streetAddress,
+              // Add validation and logic as needed
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Card Number',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              // Add validation and logic as needed
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Expiration Date',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.datetime,
+                    // Add validation and logic as needed
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'CVV',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    // Add validation and logic as needed
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                Color(0xff264653),
+              )),
+              onPressed: () {
+                // Add your save profile logic here
+                BotToast.showText(text: 'Profile updated');
+                serviceController.getUserDetails();
+              },
+              child: const Text(
+                'Save Changes',
+                style: TextStyle(color: DesignConstants.kLogoSecondaryColor),
+              ),
+            ),
           ],
         ),
       ),

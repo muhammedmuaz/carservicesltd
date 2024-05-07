@@ -128,7 +128,7 @@ class _ForgtPasswordScreenState extends State<ForgtPasswordScreen>
                                     ? 'Change Password'
                                     : 'Forgot Password',
                                 style: GoogleFonts.actor(
-                                  color: const Color.fromARGB(255, 251, 238, 238),
+                                  color: Colors.black,
                                   letterSpacing: 2,
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,

@@ -6,6 +6,7 @@ import 'package:services_app/views/login/login_page.dart';
 import 'package:services_app/views/profile/change_password_page.dart';
 import 'package:services_app/views/profile/edit_profile_page.dart';
 import 'package:services_app/views/services/postservicedetailpage.dart';
+import 'package:services_app/views/services/postservicesearchpage.dart';
 import 'package:services_app/views/subscription/subscription_page.dart';
 import '../bindings/LoginBindings.dart';
 import '../bindings/servicebindings.dart';
@@ -54,6 +55,10 @@ class AppPages {
     GetPage(
       name: _Paths.forgotPasswordPage,
       page: () => ForgtPasswordScreen(),
+    ),
+    GetPage(
+      name: _Paths.postserviceSearch,
+      page: () => PostServiceSearchPage(),
     ),
   ];
 }

@@ -1,20 +1,18 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
-import 'package:services_app/views/login/sign_up.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:services_app/views/login/login_page.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class CreateAnAccount extends StatefulWidget {
+  const CreateAnAccount({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CreateAnAccountState createState() => _CreateAnAccountState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _CreateAnAccountState extends State<CreateAnAccount>
     with SingleTickerProviderStateMixin {
   loginController logic = Get.put(loginController());
   late AnimationController _animationController;
@@ -25,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void initState() {
     super.initState();
+    print(base64Encode(utf8.encode('maaz:aSsl NIu4 Vt46 FYtY U1xV 9QgK')));
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -119,19 +118,7 @@ class _LoginScreenState extends State<LoginScreen>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            // const SizedBox(height: 10.0),
                             Image.asset('assets/logo.png'),
-                            // const Text(
-                            //   'Car Services Ltd',
-                            //   style: TextStyle(
-                            //     color: Colors.black,
-                            //     fontFamily: 'Quicksand',
-                            //     letterSpacing: 2,
-                            //     fontSize: 32,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
-                            // const SizedBox(height: 10.0),
                             TextFormField(
                               controller: controller.emailController,
                               decoration: const InputDecoration(
@@ -155,8 +142,8 @@ class _LoginScreenState extends State<LoginScreen>
                               elevation: 4.0,
                               borderRadius: 10.0,
                               controller: controller.signUpButtonController,
-                              onPressed: () => controller.login(),
-                              child: const Text('LOGIN',
+                              onPressed: () => controller.signup(),
+                              child: const Text('Sign Up',
                                   style: TextStyle(color: Colors.white)),
                             ),
                             // ElevatedButton(
@@ -190,10 +177,10 @@ class _LoginScreenState extends State<LoginScreen>
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Get.off(const CreateAnAccount());
+                                    Get.off(const LoginScreen());
                                   },
                                   child: const Text(
-                                    'Create an Account',
+                                    'Already have an Account',
                                     style: TextStyle(
                                       color: Color(0xff00DFA2),
                                       fontWeight: FontWeight.bold,
@@ -201,36 +188,6 @@ class _LoginScreenState extends State<LoginScreen>
                                   ),
                                 ),
                               ],
-                            ),
-                            const SizedBox(height: 15.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () =>
-                                      Get.toNamed('/forgotPasswordPage'),
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      color: Color(0xff00DFA2),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.offAllNamed('/home'),
-                              child: const Text(
-                                'Continue without signup',
-                                style: TextStyle(
-                                  color: Color(0xff00DFA2),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                             ),
                           ],
                         ),

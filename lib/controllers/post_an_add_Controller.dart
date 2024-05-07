@@ -13,12 +13,21 @@ class PostAnAddController extends GetxController {
     images.removeAt(index);
   }
 
-  Future<void> uploadImages() async {
-    List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
-    if (pickedImages != null) {
-      for (var pickedImage in pickedImages) {
-        addImage(pickedImage.path);
+  Future<void> uploadImages(ImageSource source) async {
+    if (source == ImageSource.gallery) {
+      List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
+      if (pickedImages != null) {
+        for (var pickedImage in pickedImages) {
+          addImage(pickedImage.path);
+        }
       }
+    } else {
+      XFile? pickedImages = await ImagePicker().pickImage(source: source);
+      addImage(pickedImages!.path);
     }
+    // if (pickedImages != null) {
+    //   for (var pickedImage in pickedImages) {
+    //   }
+    // }
   }
 }

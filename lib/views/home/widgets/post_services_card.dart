@@ -115,7 +115,7 @@ class CarServicesPostServicesCard extends StatelessWidget {
             ),
           ),
           homepageItems(
-              "Farm Equipment Hire",
+              "Farm Equipment Sale",
               "https://cdn.iconscout.com/icon/premium/png-256-thumb/tractor-1977875-1667690.png?f=webp",
               const Color(0xffE4DCCF),
               "24",

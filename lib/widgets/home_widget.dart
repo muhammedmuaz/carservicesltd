@@ -13,7 +13,7 @@ Widget homepageItems(final String label, final String imageName, Color bgcoloor,
         if (mapController.postServiceModel != null) {
           mapController.postServiceModel!.clear();
         }
-        mapController.fetchPostService(service);
+        mapController.fetchPostService(id: service);
         Get.toNamed(
           '/postservice',
           arguments: label,

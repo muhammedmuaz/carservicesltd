@@ -465,17 +465,19 @@ class _DetailPageState extends State<DetailPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Address: ",
-                  style: GoogleFonts.nunito(
-                      color: Colors.black, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  serviceController.cardetail!.address,
-                  style: GoogleFonts.nunito(color: Colors.black38),
-                ),
-              ],
+              children: serviceController.cardetail != null
+                  ? []
+                  : [
+                      Text(
+                        "Address: ",
+                        style: GoogleFonts.nunito(
+                            color: Colors.black, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        serviceController.cardetail!.address,
+                        style: GoogleFonts.nunito(color: Colors.black38),
+                      ),
+                    ],
             ),
           ),
           Padding(

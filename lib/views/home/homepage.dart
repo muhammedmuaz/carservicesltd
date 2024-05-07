@@ -57,27 +57,37 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
+                            child: SizedBox(
                               height: 42,
-                              width: MediaQuery.of(context).size.width * 0.68,
-                              child: TextField(
+                              // width: MediaQuery.of(context).size.width * 0.68,
+                              child: TextFormField(
+                                  // keyboardType: TextInputType.none,
+                                  onFieldSubmitted: ((value) {
+                                    ServiceController mapController =
+                                        Get.find();
+                                    mapController.fetchPostService(
+                                        isSearch: true, value: value);
+                                    Get.toNamed(
+                                      '/postserviceSearch',
+                                      arguments: value,
+                                    );
+                                  }),
                                   decoration: InputDecoration(
-                                hintText: "NEARBY CAR SOLUTIONS",
-                                hintStyle: GoogleFonts.nunito(
-                                    textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                filled: true,
-                                contentPadding:
-                                    const EdgeInsets.only(top: 0, left: 12),
-                                fillColor: const Color(0xffF2F2F2),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                              )),
+                                    hintText: "NEARBY CAR SOLUTIONS",
+                                    hintStyle: GoogleFonts.nunito(
+                                        textStyle: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold)),
+                                    filled: true,
+                                    contentPadding:
+                                        const EdgeInsets.only(top: 0, left: 12),
+                                    fillColor: const Color(0xffF2F2F2),
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                  )),
                             ),
                           ),
                           const SizedBox(
@@ -193,7 +203,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: Get.height * 0.25,
+                  height: Get.height * 0.32,
                   padding: const EdgeInsets.symmetric(
                       horizontal: DataConstants.kScreenHorizontalPadding),
                   color: const Color(0xff1C244B),
@@ -209,54 +219,53 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            buildLink('About',
-                                'https://carservicesltd.com/index.php/about'),
-                            buildLink('Contact',
-                                'https://carservicesltd.com/index.php/contact-us/'),
-                            buildLink('Careers',
-                                'https://carservicesltd.com/index.php/careers'),
-                            buildLink('Affiliate',
-                                'https://carservicesltd.com/index.php/affiliate'),
-                            buildLink('Forum',
-                                'https://carservicesltd.com/index.php/forum'),
-                            buildLink('Blog',
-                                'https://carservicesltd.com/index.php/blog'),
-                          ],
-                        ),
-                      ),
-                      const AddHeight(0.01),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            buildLink('Terms Of Use',
-                                'https://carservicesltd.com/index.php/terms'),
-                            buildLink('Privacy Policy',
-                                'https://carservicesltd.com/index.php/privacy'),
-                            buildLink('Disclaimer',
-                                'https://carservicesltd.com/index.php/disclaimer'),
-                            buildLink('Cookie Policy',
-                                'https://carservicesltd.com/index.php/cookie'),
-                          ],
-                        ),
-                      ),
-                      const AddHeight(0.01),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            buildLink('Data Protection',
-                                'https://carservicesltd.com/index.php/data-protection'),
-                            buildLink('User Guide',
-                                'https://carservicesltd.com/index.php/user-guide'),
-                            buildLink('FAQ',
-                                'https://carservicesltd.com/index.php/faq'),
-                            buildLink('Advertising Policy',
-                                'https://carservicesltd.com/index.php/advertising-policy'),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                buildLink('About',
+                                    'https://carservicesltd.com/index.php/about'),
+                                buildLink('Affiliate',
+                                    'https://carservicesltd.com/index.php/affiliate'),
+                                buildLink('Terms Of Use',
+                                    'https://carservicesltd.com/index.php/terms'),
+                                buildLink('Cookie Policy',
+                                    'https://carservicesltd.com/index.php/cookie'),
+                                buildLink('FAQ',
+                                    'https://carservicesltd.com/index.php/faq'),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                buildLink('Contact',
+                                    'https://carservicesltd.com/index.php/contact-us/'),
+                                buildLink('Forum',
+                                    'https://carservicesltd.com/index.php/forum'),
+                                buildLink('Privacy Policy',
+                                    'https://carservicesltd.com/index.php/privacy'),
+                                buildLink('Data Protection',
+                                    'https://carservicesltd.com/index.php/data-protection'),
+                                buildLink('Advertising Policy',
+                                    'https://carservicesltd.com/index.php/advertising-policy'),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                buildLink('Careers',
+                                    'https://carservicesltd.com/index.php/careers'),
+                                buildLink('Blog',
+                                    'https://carservicesltd.com/index.php/blog'),
+                                buildLink('Disclaimer',
+                                    'https://carservicesltd.com/index.php/disclaimer'),
+                                buildLink('User Guide',
+                                    'https://carservicesltd.com/index.php/user-guide'),
+                                buildLink('', ''),
+                              ],
+                            ),
                           ],
                         ),
                       ),
