@@ -95,7 +95,7 @@ class _GetLatLongScreenState extends State<GetLatLongScreen> {
                 getLatLong();
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF0D39F2),
+                // primary: const Color(0xFF0D39F2),
               ),
               child: const Text("Get Location"),
             ),

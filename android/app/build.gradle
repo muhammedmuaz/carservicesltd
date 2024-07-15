@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '13'
+    flutterVersionCode = '14'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '13.0'
+    flutterVersionName = '14.0'
 }
 
 apply plugin: 'com.android.application'
@@ -33,6 +33,11 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 34
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true // Enabling flag to compress JNI Libs to reduce APK size Ref: https://developer.android.com/studio/releases/gradle-plugin#compress-native-libs-dsl
+        }
+    }
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -53,8 +58,8 @@ android {
         applicationId "com.mgnit.carserviceltd1"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 25
+        targetSdkVersion 34
         versionCode 10
         versionName flutterVersionName
     }

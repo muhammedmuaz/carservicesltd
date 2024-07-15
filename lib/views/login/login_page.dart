@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:services_app/controllers/login_controller.dart';
 import 'package:services_app/views/login/sign_up.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,12 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:services_app/network/Api.dart';
 import 'package:services_app/utils/carservices_fingerprint.dart';
 import 'package:services_app/views/Add/post_an_add.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../views/login/forgot_Password.dart';
 import '../views/login/login_page.dart';
 import '../views/webview/chat_with_us_page.dart';
@@ -59,7 +56,7 @@ class CarServicesPopUpMenu extends StatelessWidget {
           Get.to(const ChatWithUs());
         } else if (value == 'logOut') {
           await Api().sp.erase();
-          await Future.delayed(Duration(seconds: 1), () {
+          await Future.delayed(const Duration(seconds: 1), () {
             Get.offAll(const LoginScreen());
           });
         }
@@ -71,42 +68,42 @@ class CarServicesPopUpMenu extends StatelessWidget {
             onTap: null,
             child: Text("My Account"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "subscription",
             onTap: null,
-            child: const Text("Subscription"),
+            child: Text("Subscription"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "secureApp",
             onTap: null,
-            child: const Text("Secure my App"),
+            child: Text("Secure my App"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "login",
             onTap: null,
-            child: const Text("Sign in/Sign up"),
+            child: Text("Sign in/Sign up"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "postAnAdd",
             onTap: null,
-            child: const Text("Post an Add"),
+            child: Text("Post an Add"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "changePassword",
             onTap: null,
-            child: const Text(
+            child: Text(
               "Change Password",
             ),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "chatWithUs",
             onTap: null,
-            child: const Text("Chat with us"),
+            child: Text("Chat with us"),
           ),
-          PopupMenuItem(
+          const PopupMenuItem(
             value: "logOut",
             onTap: null,
-            child: const Text("Log Out"),
+            child: Text("Log Out"),
           )
         ];
       },
